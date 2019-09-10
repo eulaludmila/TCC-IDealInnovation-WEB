@@ -1,26 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import React, { Component } from 'react';
+import { Rota } from './Rota';
+import 'jquery-mask-plugin/dist/jquery.mask';
+import './css/bootstrap.min.css';
+import './css/pure-min.css';
+import './componentes/Conteudo/EntrarCadastrar/css/entrarCadastrar.css'
+class App extends Component {
+  render(){
+    return (
+      <div>
+        {/* <LoginCliente></LoginCliente> */}
+        {/* <LoginProfissional></LoginProfissional> */}
+        {/* <Home></Home> */}
+        {/* {this.props.children} */}
+        {/* <div className="entrar"></div> */}
+        <Rota></Rota>
+      </div>
+    );
+  }
 }
 
 export default App;

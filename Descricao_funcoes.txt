@@ -1,0 +1,10 @@
+1- Cadastro de Cliente
+
+2- Cadastro de Confeiteiros
+
+3- Uso do sessionStorage para o cadastro do profissiona(Confeiteiro)
+
+4- Cadastro da foto, consumindo a API
+
+5- Uso da Modal para cadastro finalizado
+
