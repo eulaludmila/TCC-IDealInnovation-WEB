@@ -165,7 +165,7 @@ export class BoxTelaSenha extends Component{
     render(){
         return(
             <div>
-                <Header titulo="Editar E-mail"></Header>
+                <Header titulo="Configurações de Senha"></Header>
                 <TelaSenha></TelaSenha>
             </div>
         );

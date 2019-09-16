@@ -101,7 +101,7 @@ export class BoxTelaEmail extends Component{
     render(){
         return(
             <div>
-                <Header titulo="Editar E-mail"></Header>
+                <Header titulo="Configurações do E-mail"></Header>
                 <TelaEmail></TelaEmail>
             </div>
         );

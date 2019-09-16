@@ -13,7 +13,7 @@
 /* height: 200px;; */
 cursor: pointer;
 display: block;
-padding: 15px 15px 15px 42px;
+padding: 12px 15px 15px 42px;
 color: #FFF;
 font-size: 20px;
 font-weight: 700;
@@ -59,6 +59,15 @@ text-align: justify;
 	-ms-transform: rotate(180deg);
 	-o-transform: rotate(180deg);
 	transform: rotate(180deg);
+}
+
+.imagem_confeiteiro{
+	width: 150px;
+	height: 150px;
+	border-radius: 100%;
+	background-color: #fff;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #hs_cms{
