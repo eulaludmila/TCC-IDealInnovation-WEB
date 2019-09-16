@@ -3,6 +3,7 @@ import '../../componentes/AreaAdmProfissional/HomeProfissional/cms_home_confeite
 import '../../componentes/AreaAdmProfissional/Email/cms_editar_email.css'
 import '../../componentes/AreaAdmProfissional/Header/header_adm_profissional.css'
 import '../../componentes/AreaAdmProfissional/Menu/menu_adm_profissional.css'
+import '../../componentes/AreaAdmProfissional/DadosPessoais/cms_editar_dados.css'
 
 import '../../css/font/css/all.css'
 import '../../js/accordian'
