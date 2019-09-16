@@ -28,8 +28,8 @@ class Menu extends Component{
                     <ul className="submenu" id="subDados">
                         <li>Dados pessoais</li>
                         <li>Endereço</li>
-                        <li>E-mail</li>
-                        <li>Senha</li>
+                        <Link to="/adm/profissional/email"><li>E-mail</li></Link>
+                        <Link to="/adm/profissional/senha"><li>Senha</li></Link>
                     </ul>
                 </li>
                 <li>

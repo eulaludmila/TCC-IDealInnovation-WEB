@@ -2,16 +2,17 @@ import React, {Component} from 'react';
 import img from '../../../img/bolo.jpg'
 import lupa from '../../../img/lupa.png'
 import Header from '../Header'
+import {ContainerAdm} from '../../../styles'
 
-export class CadastroProdutos extends Component{
+export class ProdutosCadastrados extends Component{
   render(){
     return (
        
-        <div className="container conteudo-adm">
+        <ContainerAdm className="container conteudo-adm">
             <div class="card mb-3 mr-3 float-left" style={{maxWidth: '540px'}}>
                 <div class="row no-gutters">
                     <div class="col-md-5">
-                    <img src={img} style={{width: '100%',height:'210px'}} class="card-img" alt="..."/>
+                    <img src={img} title=""  style={{width: '100%',height:'210px'}} class="card-img" alt="gfg"/>
                     </div>
                     <div class="col-md-7">
                         <div class="card-body">
@@ -20,15 +21,14 @@ export class CadastroProdutos extends Component{
                             <div className="botao-centro">
                                 <button className="btn btn-warning mr-2">Editar</button>
                                 <button className="btn btn-secondary mr-2">Desativar</button>
-                                <button className="btn btn-dark"><img src={lupa}></img></button>
+                                <button className="btn btn-dark"><img src={lupa} alt="..."></img></button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            
-        </div>
+        </ContainerAdm>
 			
     );
   }
@@ -39,7 +39,7 @@ export class BoxCadastroProdutos extends Component{
       return (
          <div>
              <Header titulo="Seus Produtos"></Header>
-            <CadastroProdutos></CadastroProdutos>
+            <ProdutosCadastrados></ProdutosCadastrados>
          </div>
           
               
