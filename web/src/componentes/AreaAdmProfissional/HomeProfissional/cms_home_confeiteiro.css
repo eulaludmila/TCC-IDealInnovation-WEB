@@ -78,15 +78,13 @@ h1{
 	 
 	}
 	
-.conteudo-adm{
+/* .conteudo-adm{
 	min-height: 500px;
 	height: auto;
-	/* background-color: #fff; */
-	margin-left: auto;
-	margin-right: auto;
+	background-color: #fff;
 	overflow: hidden;
 	padding-top: 20px;
-}
+} */
 
 .imagens-bolos{
 	width: 100%;

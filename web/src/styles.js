@@ -46,3 +46,16 @@ export const BotaoLoginCSS = styled.button`
 
 `
 ;
+
+export const ContainerAdm = styled.div`
+
+	min-height: 500px;
+	height: auto;
+	/* background-color: antiquewhite; */
+	overflow: hidden;
+    padding-top: 20px;
+    
+`
+;
+
+

@@ -27,10 +27,10 @@ class Entrar extends Component{
                                     <div className="col-xl-3 col-lg-2 col-md-2 col-sm-2 col-12 icone_entrar_cliente"></div>
                                 
                                     {/* // <!-- LINKS PARA ENTRAR PARA ÁREA DO CLIENTE--> */}
-                                    <div className="col-xl-7 col-lg-8 col-md-8 col-sm-8 col-10 titulo_entrar"><Link to="entrarCliente" style={{color:'black' }}><h3>Entre como Cliente</h3></Link></div>
+                                    <div className="col-xl-7 col-lg-8 col-md-8 col-sm-8 col-10 titulo_entrar"><Link to="/login/cliente" style={{color:'black' }}><h3>Entre como Cliente</h3></Link></div>
                                 
                                     {/* // <!-- SETA --> */}
-                                    <div className="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 img_entrar"><Link to="entrarCliente"><div className="imagem_seta"></div></Link></div>
+                                    <div className="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 img_entrar"><Link to="/login/cliente"><div className="imagem_seta"></div></Link></div>
                                 
                                     {/* // <!-- INFO SOBRE A ÁREA DO CLIENTE --> */}
                                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 info_entrar"> 
@@ -56,10 +56,10 @@ class Entrar extends Component{
                                     <div className="col-xl-3 col-lg-2 col-md-2 col-sm-2 col-12 icone_entrar_profissional"></div>
                                 
                                     {/* // <!-- LINKS PARA ENTRAR PARA ÁREA DO PROFISSIONAL --> */}
-                                    <div className="col-xl-7 col-lg-8 col-md-8 col-sm-8 col-10 titulo_entrar"><Link to="entrarProfissional" style={{color:'black' }}><h3>Entre como Profissional</h3></Link></div>
+                                    <div className="col-xl-7 col-lg-8 col-md-8 col-sm-8 col-10 titulo_entrar"><Link to="/login/profissional" style={{color:'black' }}><h3>Entre como Profissional</h3></Link></div>
                                     
                                     {/* // <!-- SETA --> */}
-                                    <div className="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 img_entrar"><Link to="entrarProfissional"><div className="imagem_seta"></div></Link></div>
+                                    <div className="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 img_entrar"><Link to="/login/profissional"><div className="imagem_seta"></div></Link></div>
                                 
                                     {/* // <!-- INFO SOBRE A ÁREA DO PROFISSIONAL --> */}
                                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 info_entrar"> 
