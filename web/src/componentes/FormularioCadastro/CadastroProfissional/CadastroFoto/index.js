@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import '../../css/cadastro.css';
+import img from '../../../../img/user3.png'
 import ImgCadastro from '../../ImgCadastro'
 import BotaoCadastro from '../../BotaoCadastro'
 // import '../../../css/bootstrap.min.css'
@@ -13,7 +14,7 @@ class CadastroEndereco extends Component{
     //CONSTRUTOR QUE DECLARA OS ESTADOS
     constructor(props){
         super(props);
-        this.state={logradouro:'',complemento:'',numero:'',bairro:'',cep:'',estado:'',foto:'',cidade:'', classMessage:'', message:''};
+        this.state={logradouro:'',complemento:'',numero:'',bairro:'',cep:'',estado:'',foto:'',cidade:'', imgFoto:`${img}`, classMessage:'', message:''};
         
         this.enviaFormEnderecoProfissional = this.enviaFormEnderecoProfissional.bind(this);
     }
@@ -21,21 +22,52 @@ class CadastroEndereco extends Component{
     //PEGAR O ONCHANGE DA FOTO
     setFoto = (evento) => {
 
+        this.onFocusInput("#img");
+
+        //PEGANDO O ARQUIVO DA FOTO
         let file = evento.target.files[0];
-        this.setState({foto:file});
-        
-        let reader = new FileReader();
-
-
-        //PREVIEW DA FOTO
-        reader.onloadend = function(){
-            $('#img').attr('src', reader.result);
+        if(evento.target.files[0].size !== null){
+            var tamanho = evento.target.files[0].size
         }
 
-        reader.readAsDataURL(file);
+        if(tamanho < 1048576){
+
+            //SETANDO O ESTADO DA FOTO COM O ARQUIVO
+            this.setState({foto:file});
+            let reader = new FileReader();
+
+            //PREVIEW DA FOTO
+            reader.onloadend = function(){
+                $('#img').attr('src', reader.result)
+            }
+            reader.readAsDataURL(file);
+
+        }else{
+            $('#img').attr('src',this.state.imgFoto);
+            $("#img").css("border", "solid 2px #880e4f");
+            var mensagem = "Tamanho máximo para a foto é de 1MB";
+            this.erroCaixaVazia(mensagem);
+        }
+        
 
     }
 
+    //ERROS NOS INPUTS
+    erroCaixaVazia(mensagem, id){
+
+        $(id).css('border', '1px solid red');
+        this.setState({classMessage: "alert alert-danger"});
+        this.setState({message: mensagem});
+
+    }
+
+    //TIRAR OS ERROS AO DIGITAR NOS INPUTS
+    onFocusInput(id){
+        this.setState({message:""});
+        this.setState({classMessage:""});
+        $(id).css('border', '1px solid #ced4da');
+
+    }
 
     //MÉTODO RESPONSÁVEL POR SALVAR O ENDEREÇO RELACIONADO AO PROFISSIONAL
     enviaFormEnderecoProfissional(evento){
@@ -102,14 +134,14 @@ class CadastroEndereco extends Component{
                 <div className="container pt-5">
                     <div className="card">
                         <div className="card-header">
-                            <h2 className="mb-4 text-center card-title">Cadastro de endereço</h2>            
+                            <h2 className="mb-4 text-center card-title">Cadastre a sua foto</h2>            
                         </div>
                         <div className="card-body">
                             <div className={this.state.classMessage} role="alert">
                                 <h6 className="text-center color-danger">{this.state.message}</h6>
                             </div>
                             <form>
-                                <div className="row">
+                                <div className="row mb-5">
                                     <ImgCadastro name="file" id="img" onChange={this.setFoto} src={this.state.imgFoto}></ImgCadastro>
                                 </div>
                                 <div className="row justify-content-center">

@@ -17,27 +17,42 @@ class CadastroCliente extends Component{
     //construtor para a realização do post
     constructor(props){
         super(props);
-        this.state={nome:'',sobrenome:'',dtNasc:'',celular:'',cpf:'',sexo:'',email:'',senha:'',confirmSenha:'',foto:'', imgFoto:`${img}`,message:"", classMessage:""};
+        this.state={nome:'',sobrenome:'',dtNasc:'',celular:'',cpf:'',sexo:'',email:'',senha:'',confirmSenha:'',foto:'',tamanhoFoto:'', imgFoto:`${img}`,message:"", classMessage:""};
         
         this.enviaFormCliente = this.enviaFormCliente.bind(this);
        
     }
 
     setFoto = (evento) => {
+        this.onFocusInput("#img");
 
         //PEGANDO O ARQUIVO DA FOTO
         let file = evento.target.files[0];
-
-        //SETANDO O ESTADO DA FOTO COM O ARQUIVO
-        this.setState({foto:file});
-        let reader = new FileReader();
-
-        //PREVIEW DA FOTO
-        reader.onloadend = function(){
-            $('#img').attr('src', reader.result)
+        if(evento.target.files[0].size !== null){
+            var tamanho = evento.target.files[0].size
         }
 
-        reader.readAsDataURL(file);
+        //VALIDA O TAMANHO DA FOTO
+        if(tamanho < 1048576){
+
+            //SETANDO O ESTADO DA FOTO COM O ARQUIVO
+            this.setState({foto:file});
+            let reader = new FileReader();
+
+            //PREVIEW DA FOTO
+            reader.onloadend = function(){
+                $('#img').attr('src', reader.result)
+            }
+
+            reader.readAsDataURL(file);
+        }else{
+            $('#img').attr('src',this.state.imgFoto);
+            $("#img").css("border", "solid 2px #880e4f");
+            var mensagem = "Tamanho máximo para a foto é de 1MB";
+            this.erroCaixaVazia(mensagem);
+        }
+
+        
 
     }
 
@@ -123,8 +138,6 @@ class CadastroCliente extends Component{
             this.setState({cpfValido:""})
             this.erroCaixaVazia(mensagem, id);
         
-        // }else if(this.state.cpfValido.length === 0){
-        //     this.verificaCpf();
         
         }else if(this.state.email.length === "" || this.state.email.length < 13 ){
             mensagem = "O campo e-mail deve conter no mínimo 13 caracteres";
@@ -132,8 +145,6 @@ class CadastroCliente extends Component{
             this.setState({emailValido:""})
             this.erroCaixaVazia(mensagem, id);
             
-        // }else if(this.state.emailValido.length === 0){
-        //     this.verificaEmail();
         
         }else if(this.state.senha.length < 8){
             mensagem = "A senha deve conter no mínimo 8 caracteres";
@@ -148,14 +159,16 @@ class CadastroCliente extends Component{
             this.erroCaixaVazia(mensagem, id);
             
         }else{
-            console.log()
+            
             this.verificaCpf();
+
         }
 
     }
 
+
     // MÉTODO PARA VERIFICAR SE JÁ EXISTE O CPF
-    verificaCpf(){
+    verificaCpf=()=>{
         $.ajax({
             url: `http://localhost:8080/cliente/cpf/${this.state.cpf}`,
             dataType:"json",
@@ -173,10 +186,6 @@ class CadastroCliente extends Component{
 
                 //SENÃO IREI SETAR O ESTADO cpfValido E VERIFICAR NOVAMENTE
                 }else{
-                    // this.setState({cpfValido:'validado'})
-                    // this.verificaCampos();
-                    console.log("dfkjdgfd");
-                    console.log(this.state.cpfValido)
                     this.verificaEmail();
                 }
                 console.log(resposta);
@@ -186,7 +195,7 @@ class CadastroCliente extends Component{
     }
     
     //MÉTODO PARA VERIFICAR SE JÁ EXISTE O EMAIL
-    verificaEmail(){
+    verificaEmail=()=>{
         $.ajax({
             url: `http://localhost:8080/cliente/email/${this.state.email}`,
             dataType:"json",
@@ -200,11 +209,8 @@ class CadastroCliente extends Component{
                     this.erroCaixaVazia(mensagem, id);
 
                 }else{
-                    // this.setState({emailValido:"validado"})
-                    // this.verificaCampos();
                     this.enviaFormCliente()
                 }
-                // console.log("email:"+resposta);
 
             }.bind(this)
         });
@@ -232,6 +238,8 @@ class CadastroCliente extends Component{
     //Método que vai salvar os dados do cliente juntamento com o código do seu celular
     enviaFormCliente(){
 
+        console.log(this.state.foto);
+        // this.enviarFormFoto();
         $.ajax({
             url:"http://localhost:8080/cliente",
             contentType:"application/json",
@@ -261,6 +269,7 @@ class CadastroCliente extends Component{
                     this.cadastroRealizado();
 
                 }else{
+                    console.log(resposta.codCliente)
                     this.enviarFormFoto(resposta.codCliente);
                 }
                 
@@ -273,9 +282,13 @@ class CadastroCliente extends Component{
     enviarFormFoto=(codigo)=>{
 
         //PEGA O ARQUIVO DA FOTO E SALVA JUNTO COM O CODIGO DO CLIENTE
+        console.log(codigo);
+        console.log(this.state.foto);
         var formDados= new FormData();
         formDados.append('foto', this.state.foto);
         formDados.append('codCliente', codigo);
+
+        console.log(formDados);
 
 
         $.ajax({
@@ -315,7 +328,7 @@ class CadastroCliente extends Component{
                             <div className={this.state.classMessage} role="alert">
                                 <h5 className="text-center">{this.state.message}</h5>
                             </div>
-                            <form enctype="multipart/form-data">
+                            <form>
                                 <div className="row">
                                     <ImgCadastro name="file" id="img" onChange={this.setFoto} src={this.state.imgFoto} ></ImgCadastro>
                                 </div>
