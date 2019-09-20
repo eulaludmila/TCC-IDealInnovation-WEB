@@ -20,6 +20,7 @@ import AdmProfissional from './componentes/Rota/AdmProfissional'
 import { BoxHomeProfissional } from './componentes/AreaAdmProfissional/HomeProfissional'
 import { BoxCadastroProdutos } from './componentes/AreaAdmProfissional/ProdutosCadastrados'
 import { BoxEditarDadosPessoais } from './componentes/AreaAdmProfissional/DadosPessoais'
+import { BoxEditarEndereco } from './componentes/AreaAdmProfissional/EditarEndereco'
 import { BoxTelaEmail } from './componentes/AreaAdmProfissional/Email'
 import { BoxTelaSenha } from './componentes/AreaAdmProfissional/Senha'
 
@@ -55,6 +56,7 @@ export const Rota = () =>(
             
             <Route path="/adm/profissional/produtos_cadastrados" component={BoxCadastroProdutos}></Route>
             <Route path="/adm/profissional/editar_dados_pessoais" component={BoxEditarDadosPessoais}></Route>
+            <Route path="/adm/profissional/editar_endereco" exact component={BoxEditarEndereco}></Route>
             <Route path="/adm/profissional/email" component={BoxTelaEmail}></Route>
             <Route path="/adm/profissional/senha" component={BoxTelaSenha}></Route>
             {/* <Route path="/login/profissional" component={LoginProfissional}></Route> */}
