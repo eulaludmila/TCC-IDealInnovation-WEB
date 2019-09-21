@@ -27,7 +27,7 @@ class Menu extends Component{
                     <div className="link"><i className="fas fa-user-edit"></i>Seus dados<i className="fa fa-chevron-down"></i></div>
                     <ul className="submenu" id="subDados">
                         <Link to="/adm/profissional/editar_dados_pessoais"><li>Dados pessoais</li></Link>
-                        <li>Endereço</li>
+                        <Link to="/adm/profissional/editar_endereco"><li>Endereço</li></Link>
                         <Link to="/adm/profissional/email"><li>E-mail</li></Link>
                         <Link to="/adm/profissional/senha"><li>Senha</li></Link>
                     </ul>
