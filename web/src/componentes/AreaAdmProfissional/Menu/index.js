@@ -41,8 +41,8 @@ class Menu extends Component{
                 </li>
                 <li><div className="link"><i className="fas fa-shopping-basket"></i>Pedidos<i className="fa fa-chevron-down"></i></div>
                     <ul className="submenu" id="subDados">
-                        <Link to="/adm/profissional/editar_dados_pessoais"><li>Solicitação de Pedidos</li></Link>
-                        <Link to="/adm/profissional/email"><li>Pedidos Aprovados</li></Link>
+                        <Link to="/adm/profissional/solicitacoes_pedidos"><li>Solicitação de Pedidos</li></Link>
+                        <Link to="/adm/profissional/pedidos_aprovados"><li>Pedidos Aprovados</li></Link>
                     </ul>
                 </li>
                 <li id="hs_cms"><Link to="/adm/profissional"><div className="link"><i className="fas fa-home"></i>Home</div></Link>
