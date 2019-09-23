@@ -2,23 +2,19 @@ import React, {Component} from 'react';
 import Header from '../Header';
 import {ContainerAdm} from '../../../styles'
 import {InputEditarEndereco} from '../global/inputEditarEndereco'
+import {BotaoEditarEndereco} from '../global/BotaoEditarEndereco'
+import {SelectUfEditarEndereco} from './SelectUfEditarEndereco'
 
 export class AreaEditarCadastro extends Component{
     render(){
         return(
+
+            
             <ContainerAdm className="container conteudo">
                 <form>
                     <div className="form-row mt-5 mr-5 ml-5">
                         <InputEditarEndereco label="CEP:" grupo="form-group col-md-4" tipo="text" classeInput="form-control" id="txt_cep" placeholder="Digite o seu CEP"></InputEditarEndereco>
-                        <div className="form-group col-md-1">
-                            <label className="lbl_uf">UF:</label>
-                            <select id="sl_uf" class="form-control">
-                                <option selected>UF</option>
-                                <option></option>
-                                <option></option>
-                                <option></option>
-                            </select>
-                        </div>
+                        <SelectUfEditarEndereco id="sl_uf"></SelectUfEditarEndereco>
                         <InputEditarEndereco label="Número" grupo="form-group col-md-3" tipo="number" classeInput="form-control" id="txt_numero"  placeholder="Digite seu número"></InputEditarEndereco>
                         <InputEditarEndereco label="Complemento:" grupo="form-group col-md-4" tipo="text" classeInput="form-control" id="txt_complemento"  placeholder="Ex: Casa"></InputEditarEndereco>
                     </div>
@@ -31,8 +27,8 @@ export class AreaEditarCadastro extends Component{
                     </div>
                     <div className="form-row">
                         <div className="form-group mt-5 centralizar">
-                            <button type="button" className="btn btn-success btn_salvar">Salvar</button>
-                            <button type="button" className="btn btn-danger">Cancelar</button>
+                            <BotaoEditarEndereco id="Salvar" tipo="button" classe="btn btn-success btn_salvar"></BotaoEditarEndereco>
+                            <BotaoEditarEndereco id="Cancelar" tipo="button" classe="btn btn-danger"></BotaoEditarEndereco>
                         </div>
                     </div>
                 </form>
