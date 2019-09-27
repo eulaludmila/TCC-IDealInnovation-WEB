@@ -112,7 +112,7 @@ class CadastroEndereco extends Component{
             success: function(data) 
             {
                 this.cadastroRealizado();
-                sessionStorage.setItem("dados", data.confeiteiro.codConfeiteiro)
+                sessionStorage.setItem("dados", codigo)
             }.bind(this)
         });
     }
@@ -131,7 +131,7 @@ class CadastroEndereco extends Component{
     render(){
         return(
             <div className="container-fluid cadastro-cliente">
-                <ModalCadastro alt="Finalizado" title="Finalizado"></ModalCadastro>
+                <ModalCadastro nome="Cadastro efetuado com sucesso!!" alt="Finalizado" title="Finalizado"></ModalCadastro>
                 <div className="container pt-5">
                     <div className="card">
                         <div className="card-header">

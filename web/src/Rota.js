@@ -25,6 +25,7 @@ import { BoxTelaEmail } from './componentes/AreaAdmProfissional/Email'
 import { BoxTelaSenha } from './componentes/AreaAdmProfissional/Senha'
 import { BoxSolicitacoes } from './componentes/AreaAdmProfissional/SolicitacoesPedidos'
 import { BoxPedidos } from './componentes/AreaAdmProfissional/PedidosAprovados'
+import { BoxCadastrarProdutos } from './componentes/AreaAdmProfissional/CadastroProduto'
 
 export const Rota = () =>(
     <Router history={browserHistory} >
@@ -63,7 +64,7 @@ export const Rota = () =>(
             <Route path="/adm/profissional/senha" component={BoxTelaSenha}></Route>
             <Route path="/adm/profissional/solicitacoes_pedidos" component={BoxSolicitacoes}></Route>
             <Route path="/adm/profissional/pedidos_aprovados" component={BoxPedidos}></Route>
-    <Route path="/adm/profissional/cadastro_produtos" component={BoxCadastrarProdutos}></Route>
+            <Route path="/adm/profissional/cadastro_produtos" component={BoxCadastrarProdutos}></Route>
             {/* <Route path="/login/profissional" component={LoginProfissional}></Route> */}
 
         </Route>

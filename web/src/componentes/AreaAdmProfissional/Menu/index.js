@@ -36,7 +36,7 @@ class Menu extends Component{
                     <div className="link"><i className="fas fa-shopping-cart"></i>Produtos<i className="fa fa-chevron-down"></i></div>
                     <ul className="submenu">
                         <Link to="/adm/profissional/produtos_cadastrados"><li>Seus produtos</li></Link>
-                        <li>Cadastrar produtos</li>
+                        <Link to="/adm/profissional/cadastro_produtos"><li>Cadastrar produtos</li></Link>
                     </ul>
                 </li>
                 <li><div className="link"><i className="fas fa-shopping-basket"></i>Pedidos<i className="fa fa-chevron-down"></i></div>

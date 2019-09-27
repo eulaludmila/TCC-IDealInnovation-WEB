@@ -318,7 +318,7 @@ class CadastroCliente extends Component{
         return(
             <div className="container-fluid cadastro-cliente">
               
-                <ModalCadastro></ModalCadastro>
+                <ModalCadastro nome="Cadastro efetuado com sucesso!!"></ModalCadastro>
                 <div className="container pt-5">
                     <div className="card">
                         <div className="card-header">
