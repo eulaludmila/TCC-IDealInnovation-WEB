@@ -112,6 +112,7 @@ class CadastroEndereco extends Component{
             success: function(data) 
             {
                 this.cadastroRealizado();
+                sessionStorage.setItem("dados", data.confeiteiro.codConfeiteiro)
             }.bind(this)
         });
     }
@@ -123,7 +124,7 @@ class CadastroEndereco extends Component{
                     
         //AO APERTAR EM "OK" IRÁ REDIRECIONAR PARA A TELA INCIAL DO SITE
         $(".btn-modal").on("click", function(){
-            browserHistory.push("/")
+            browserHistory.push("/adm/profissional")
         });
     }
 
