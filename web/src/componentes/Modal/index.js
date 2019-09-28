@@ -12,7 +12,7 @@ export class ModalCadastro extends Component{
                     <div className="modal-dialog modal-dialog-centered" role="document">
                         <div className="modal-content bg-light">
                             <div className="modal-header">
-                                <h5 className="modal-title">Cadastro Realizado</h5><img src={imgCadastroRealizado} alt={this.props.alt} title={this.props.title}></img>
+                                <h5 className="modal-title">{this.props.nome}</h5><img src={imgCadastroRealizado} alt={this.props.alt} title={this.props.title}></img>
                                 {/* <button type="button" className="close" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button> */}

@@ -7,6 +7,7 @@ import '../../componentes/AreaAdmProfissional/DadosPessoais/cms_editar_dados.css
 import '../../componentes/AreaAdmProfissional/EditarEndereco/cms_editar_endereco.css'
 import '../../componentes/AreaAdmProfissional/SolicitacoesPedidos/cms_solicitacoes.css'
 import '../../componentes/AreaAdmProfissional/PedidosAprovados/cms_aprovados.css'
+import '../../componentes/AreaAdmProfissional/CadastroProduto/cms_cadastro_produtos.css'
 
 import '../../css/font/css/all.css'
 import '../../js/accordian'

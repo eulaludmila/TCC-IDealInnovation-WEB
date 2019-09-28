@@ -3,6 +3,8 @@ import Header from '../Header';
 import {ContainerAdm} from '../../../styles'
 import {InputEditarEndereco} from '../global/inputEditarEndereco'
 import {BotaoEditarEndereco} from '../global/BotaoEditarEndereco'
+import { browserHistory} from 'react-router';
+import {ModalCadastro} from '../../Modal';
 import $ from 'jquery';
 
 
@@ -60,26 +62,29 @@ export class AreaEditarCadastro extends Component{
     }
 
 
-    enviarForm(evento){
-        evento.preventDefault();
+    enviarForm(json){
+        // evento.preventDefault();
+
+        console.log(json)
         $.ajax({
-            url: 'http://localhost:8080/endereco/8',
+            url: 'http://localhost:8080/endereco/' + sessionStorage.getItem("dados"),
             contentType: 'application/json',
             dataType: 'json',
-            type: 'post',
-            data: JSON.stringify({
-            cep:this.state.cep,
-            endereco:this.state.endereco,
-            bairro:this.state.bairro,
-            complemento:this.state.complemento,
-            numero:this.state.numero,
-            uf:this.state.uf,
-            cidade:this.state.cidade}),
+            type: 'put',
+            data: JSON.stringify(json),
             success:function(resposta){
-                console.log(resposta);
-                this.props.atualizarEndereco(resposta)
+                this.atualizacaoRealizada();
             }.bind(this),
             
+        });
+    }
+
+    atualizacaoRealizada = () =>{
+        //ABRIR A MODAL DE CADASTRO REALIZADO
+        $('#my-modal').modal('show');
+                    
+        $(".btn-modal").on("click", function(){
+            browserHistory.push("/adm/profissional/editar_endereco")
         });
     }
 
@@ -166,15 +171,21 @@ export class AreaEditarCadastro extends Component{
             numero: this.state.numero,
             complemento: this.state.complemento,
             bairro: this.state.bairro,
-            cidade:{cidade:this.state.cidade,uf:{uf:this.state.estado},},
+            cidade:{cidade:this.state.cidade,estado:{uf:this.state.uf},},
             cep: this.state.cep};
 
             sessionStorage.setItem('endereco', JSON.stringify(json));
+
+            this.enviarForm(json);
+
     }
 
     render(){
         return(
             <ContainerAdm className="container conteudo">
+
+                <ModalCadastro nome="Atualização efetuada com sucesso!!"></ModalCadastro>
+
                 <form>
                     <div className="form-row mt-5 mr-5 ml-5">
                         <InputEditarEndereco label="CEP:" grupo="form-group col-md-4" tipo="text" classeInput="form-control" id="cep" onChange={this.setCep} value={this.state.cep} placeholder=". . ."></InputEditarEndereco>

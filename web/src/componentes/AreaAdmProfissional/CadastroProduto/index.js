@@ -133,7 +133,7 @@ export class CadastrarProdutos extends Component{
 
             this.erroCaixaVazia(mensagem, id);
         
-        }else if(this.state.precoProduto.length < 5){
+        }else if(this.state.precoProduto.length < 2){
             mensagem = "O preço é obrigatório";
             id = "#descricao";
 
@@ -235,7 +235,7 @@ export class CadastrarProdutos extends Component{
         return(
             <ContainerAdm className="container conteudo">
 
-                <ModalCadastro></ModalCadastro>
+                <ModalCadastro nome="Cadastro efetuado com sucesso!!"></ModalCadastro>
 
                 <div className={this.state.classMessage} role="alert">
                     <h6 className="text-center">{this.state.message}</h6>

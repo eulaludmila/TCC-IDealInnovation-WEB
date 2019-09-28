@@ -98,6 +98,19 @@ export class TelaEmail extends Component{
 }
 
 export class BoxTelaEmail extends Component{
+
+    constructor(props){
+        super(props);
+
+        this.state = {emailAtual: []};
+    }
+
+    componentDidMount(){
+        $.ajax({
+            url:"http://localhost:8080/pagar "
+        })
+    }
+
     render(){
         return(
             <div>
