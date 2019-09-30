@@ -4,31 +4,218 @@ import {ContainerAdm} from '../../../styles'
 import {InputEditarDados} from '../global/InputEditarDados'
 import {BotaoEditarDados} from '../global/BotaoEditarDados'
 import {SelectDadosPessoais} from './SelectSexoDadosPessoais'
+import {ImgAtualizar} from './ImgAtualizar'
+import $ from 'jquery';
+import {ModalCadastro} from '../../Modal';
 
 export class AreaEditarDadosPessoais extends Component{
+
+    constructor(props){
+        super(props);
+        this.state={nome:'',sobrenome:'',celular:'',dtNasc:'',cpf:'',sexo:'',foto:'',tamanhoFoto:'',message:"", classMessage:""};
+        
+        this.enviaFormAtualizarDadosConfeiteiro = this.enviaFormAtualizarDadosConfeiteiro.bind(this);
+    
+    }
+
+
+    setFoto = (evento) => { 
+        this.onFocusInput("#img");
+
+        //PEGANDO O ARQUIVO DA FOTO
+        let file = evento.target.files[0];
+        if(evento.target.files[0].size !== null){
+            var tamanho = evento.target.files[0].size
+        }
+
+        //VALIDA O TAMANHO DA FOTO
+        if(tamanho < 1048576){
+
+            //SETANDO O ESTADO DA FOTO COM O ARQUIVO
+            this.setState({foto:file});
+            let reader = new FileReader();
+
+            //PREVIEW DA FOTO
+            reader.onloadend = function(){
+                $('#img').attr('src', reader.result)
+            }
+
+            reader.readAsDataURL(file);
+        }else{
+            $('#img').attr('src',this.state.imgFoto);
+            $("#img").css("border", "solid 2px #880e4f");
+            var mensagem = "Tamanho máximo para a foto é de 1MB";
+            this.erroCaixaVazia(mensagem);
+        }
+    }
+
+
+    /*eventos do input do formulario*/
+    setNome = (evento) => {
+        console.log(evento.target.value);
+        this.setState({nome:evento.target.value});
+        this.onFocusInput("#nome");
+    }
+
+    setSobrenome = (evento) => {
+        this.setState({sobrenome:evento.target.value});
+        this.onFocusInput("#sobrenome");
+    }
+
+    setCelular = (evento) => {
+        this.setState({celular:evento.target.value});
+        this.onFocusInput("#celular");
+        $("#celular").mask("(00) 00000-0000");
+    }
+
+    setDtNasc = (evento) => {
+        this.setState({dtNasc:evento.target.value});
+        this.onFocusInput("#dt-nasc");
+        $("#dtNasc").mask("00/00/0000");
+    }
+
+    setSexo = (evento) => {
+        this.setState({sexo:evento.target.value});
+    }
+
+    //VALIDAÇÃO DOS CAMPOS DOS INPUTS
+    verificaCampos = (evento) => {
+        evento.preventDefault();
+        var mensagem = "";
+        var id = "";
+
+        
+        if(this.state.nome.length < 3){
+            mensagem = "O nome deve conter no mínimo 3 caracteres";
+            id = "#nome";
+            this.erroCaixaVazia(mensagem, id);
+        
+        }else if(this.state.sobrenome.length < 3){
+            mensagem = "O sobrenome deve conter no mínimo 3 caracteres";
+            id = "#sobrenome";
+            this.erroCaixaVazia(mensagem, id);
+        
+        }else if(this.state.dtNasc.length !== 10){
+            mensagem = "A data de nascimento deve estar no formato correto (00/00/0000)";
+            id = "#dt-nasc";
+            this.erroCaixaVazia(mensagem, id);
+        
+        }else if(this.state.celular.length !== 15){
+            mensagem = "O celular deve estar no formato correto (00) 00000-0000";
+            id = "#celular";
+            this.erroCaixaVazia(mensagem, id);
+        
+        }else{
+
+        }
+
+    }
+
+    //ERROS NOS INPUTS
+    erroCaixaVazia(mensagem, id){
+
+        $(id).css('border', '1px solid red');
+        this.setState({classMessage: "alert alert-danger"});
+        this.setState({message: mensagem});
+
+    }
+
+    //TIRAR OS ERROS AO DIGITAR NOS INPUTS
+    onFocusInput(id){
+        this.setState({message:""});
+        this.setState({classMessage:""});
+        $(id).css('border', '1px solid #ced4da');
+
+    }
+
+    //Método que vai atualizar os dados do confeiteiro
+    enviarForm(json){
+        // evento.preventDefault();
+
+        console.log(json)
+        $.ajax({
+            url: 'http://localhost:8080/confeiteiro/codConfeiteiro' + sessionStorage.getItem("dados"),
+            contentType: 'application/json',
+            dataType: 'json',
+            type: 'put',
+            data: JSON.stringify(json),
+            success:function(resposta){
+                this.atualizacaoRealizada();
+
+                if(this.state.foto === ""){
+
+                    this.atualizacaoRealizada();
+
+                }else{
+                    console.log(resposta.codConfeiteiro)
+                    this.enviarFormFoto(resposta.codConfeiteiro);
+                }
+
+            }.bind(this),
+            
+        });
+    }
+
+    enviaFormAtualizarDadosConfeiteiro(){
+        let json = {nome: this.state.nome,
+            sobrenome: this.state.sobrenome,
+            celular: {celular:this.state.celular},
+            sexo: this.state.sexo,
+            cpf: this.state.cpf,
+            dtNasc: this.state.dtNasc};
+
+            sessionStorage.setItem('dados_confeiteiro', JSON.stringify(json));
+
+            this.enviarForm(json);
+
+    }
+
+    enviarFormFoto=(codigo)=>{
+
+        //PEGA O ARQUIVO DA FOTO E SALVA JUNTO COM O CODIGO DO CONFEITEIRO
+        console.log(codigo);
+        console.log(this.state.foto);
+        var formDados= new FormData();
+        formDados.append('foto', this.state.foto);
+        formDados.append('codConfeiteiro', codigo);
+
+        console.log(formDados);
+
+
+        $.ajax({
+            url: 'http://localhost:8080/foto/confeiteiro',
+            data: formDados,
+            processData: false,
+            contentType: false,
+            type: 'put',
+            success: function(data) 
+            {
+                this.atualizacaoRealizada();
+            }.bind(this)
+        });
+    }
+
     render(){
         return(
             <ContainerAdm className="container conteudo">
                 <form>
                     <div id="caixa_imagem" className="centralizar">
-                        <div className="imagem_confeiteiro">
-
-                        </div>
-                        <InputEditarDados classe="input_imagem" tipo="file" classeInput="form-control-file" id="exampleFormControlFile1"></InputEditarDados>
+                        <ImgAtualizar name="file" id="img" onChange={this.setFoto} src={this.state.imgFoto} ></ImgAtualizar>
+                        <InputEditarDados classe="input_imagem" tipo="file"  onChange={this.setFoto} src={this.state.imgFoto} classeInput="form-control-file" id="img"></InputEditarDados>
                     </div>
                     <div className="form-row mt-5">
-                        <InputEditarDados classe="form-group col-md-4" label="Nome:" tipo="text" classeInput="form-control" id="txt_nome" placeholder="Digite o seu nome"></InputEditarDados>
-                        <InputEditarDados classe="form-group col-md-4" label="Sobrenome:" tipo="text" classeInput="form-control" id="txt_sobrenome" placeholder="Digite o seu sobrenome"></InputEditarDados>
-                        <InputEditarDados classe="form-group col-md-4" label="Celular:" tipo="text" classeInput="form-control" id="txt_celular" placeholder="(00) 00000-0000"></InputEditarDados>
+                        <InputEditarDados classe="form-group col-md-4" label="Nome:" tipo="text" classeInput="form-control" id="nome" onChange={this.setNome} value={this.state.nome} placeholder="Digite o seu nome"></InputEditarDados>
+                        <InputEditarDados classe="form-group col-md-4" label="Sobrenome:" tipo="text" classeInput="form-control" id="sobrenome" onChange={this.setSobrenome} value={this.state.sobrenome} placeholder="Digite o seu sobrenome"></InputEditarDados>
+                        <InputEditarDados classe="form-group col-md-4" label="Celular:" tipo="text" classeInput="form-control" id="celular" onChange={this.setCelular} value={this.state.celular} placeholder="(00) 00000-0000"></InputEditarDados>
                     </div>
                     <div className="form-row">
-                        <SelectDadosPessoais id="sl_sexo"></SelectDadosPessoais>
+                        <SelectDadosPessoais id="sexo"></SelectDadosPessoais>
                         
-                        <InputEditarDados classe="form-group col-md-4" disable="disable" label="CPF:" tipo="text" classeInput="form-control" id="txt_cpf" desabilitado="disabled"></InputEditarDados>
-                        <InputEditarDados classe="form-group col-md-4" label="Data de Nascimento::" tipo="text" classeInput="form-control" id="txt_dt_nasc" placeholder="00/00/0000"></InputEditarDados>
+                        <InputEditarDados classe="form-group col-md-4" disable="disable" label="CPF:" tipo="text" classeInput="form-control" id="cpf" onChange={this.setCpf} value={this.state.cpf} desabilitado="disabled"></InputEditarDados>
+                        <InputEditarDados classe="form-group col-md-4" label="Data de Nascimento::" tipo="text" classeInput="form-control" id="dtNasc" onChange={this.setDtNasc} value={this.state.dtNasc} placeholder="00/00/0000"></InputEditarDados>
                         
                         <div className="form-group mt-5 centralizar">
-                        <BotaoEditarDados id="Salvar" tipo="button" classe="btn btn-success btn_salvar"></BotaoEditarDados>
+                        <BotaoEditarDados onClick={this.verificaCampos} id="Salvar" tipo="button" classe="btn btn-success btn_salvar"></BotaoEditarDados>
                         <BotaoEditarDados  id="Salvar" tipo="button" classe="btn btn-danger"></BotaoEditarDados>
                         </div>
                     </div>
@@ -39,11 +226,35 @@ export class AreaEditarDadosPessoais extends Component{
 }
 
 export class BoxEditarDadosPessoais extends Component{
+
+    constructor(){
+        super();
+        this.state = {dadosConfeiteiro: []};
+        this.atualizarConfeiteiroAtual = this.atualizarConfeiteiroAtual.bind(this);
+    }
+
+    componentDidMount(){
+        $.ajax({
+            url: 'http://localhost:8080/confeiteiro/codConfeiteiro',
+            dataType: 'json',
+            success:function(resposta){
+                this.setState({endereco:resposta});
+            }.bind(this),
+            error:function(resposta){
+                console.log(resposta);
+            }
+        });
+    }
+
+    atualizarConfeiteiroAtual(novoDadosConfeiteiro){
+        this.setState({dadosConfeiteiro:novoDadosConfeiteiro});
+    }
+
     render(){
         return(
             <div>
                 <Header titulo="Configurações dados pessoais"></Header>
-                <AreaEditarDadosPessoais></AreaEditarDadosPessoais>
+                <AreaEditarDadosPessoais atualizarConfeiteiro={this.atualizarConfeiteiroAtual}></AreaEditarDadosPessoais>
             </div>
         );
     }
