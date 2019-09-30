@@ -7,9 +7,14 @@ import BotaoCadastro from '../../BotaoCadastro'
 import $ from 'jquery';
 import {ModalCadastro} from '../../../Modal';
 import { browserHistory} from 'react-router';
+import imgVoltar from '../../../../img/voltar.png';
 
 //Classe da áre de Cadastro do Cliente
 class CadastroEndereco extends Component{
+
+    voltar = () => {
+        browserHistory.push("/cadastro/profissional/endereco");
+    }
 
     //CONSTRUTOR QUE DECLARA OS ESTADOS
     constructor(props){
@@ -78,9 +83,9 @@ class CadastroEndereco extends Component{
             contentType:"application/json",
             dataType:"json",
             type:"post",
-            data:JSON.stringify({
-                                endereco:JSON.parse(sessionStorage.getItem("endereco")),
+            data:JSON.stringify({endereco:JSON.parse(sessionStorage.getItem("endereco")),
                                 confeiteiro:JSON.parse(sessionStorage.getItem("dados"))}),
+
             success: function(resposta){
                 console.log(resposta);
                
@@ -111,13 +116,13 @@ class CadastroEndereco extends Component{
             type: 'post',
             success: function(data) 
             {
+                sessionStorage.removeItem("endereco")
                 this.cadastroRealizado();
                 sessionStorage.setItem("dados", codigo)
             }.bind(this)
         });
     }
 
-    
     cadastroRealizado=()=>{
         //ABRIR A MODAL DE CADASTRO REALIZADO
         $('#my-modal').modal('show');
@@ -130,12 +135,15 @@ class CadastroEndereco extends Component{
 
     render(){
         return(
-            <div className="container-fluid cadastro-cliente">
+            <div className="container-fluid pt-5 cadastro-cliente">
                 <ModalCadastro nome="Cadastro efetuado com sucesso!!" alt="Finalizado" title="Finalizado"></ModalCadastro>
                 <div className="container pt-5">
                     <div className="card">
                         <div className="card-header">
-                            <h2 className="mb-4 text-center card-title">Cadastre a sua foto</h2>            
+                            <img src={imgVoltar} onClick={this.voltar} alt="Voltar" title="Voltar" style={{'width':'50px','height':'45px','float':'left'}}></img><h2 className="mb-4 text-center card-title">Cadastre a sua foto</h2>            
+                        </div>
+                        <div className="progress">
+                            <div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style={{"width": "90%","backgroundColor":"#880e4f"}}></div>
                         </div>
                         <div className="card-body">
                             <div className={this.state.classMessage} role="alert">
@@ -147,10 +155,10 @@ class CadastroEndereco extends Component{
                                 </div>
                                 <div className="row justify-content-center">
                                         
-                                    <div className="col-xl-4 col-lg-4 col-md-6 col-sm-10 col-8">
+                                    <div className="col-xl-2 col-lg-2 col-md-6 col-sm-10 col-8">
                                         <div className="row">
-                                            <BotaoCadastro onClick={this.enviaFormEnderecoProfissional} id="Entrar"></BotaoCadastro>
-                                            <BotaoCadastro id="Cancelar"></BotaoCadastro>
+                                            <BotaoCadastro onClick={this.enviaFormEnderecoProfissional} id="Cadastrar"></BotaoCadastro>
+                                            
                                         </div>
                                     </div>
                                 </div>

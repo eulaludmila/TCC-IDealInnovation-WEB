@@ -5,7 +5,7 @@ import { BotaoPrimeiroCadastroCSS } from '../../../styles';
 class BotaoCadastro extends Component{
     render(){
         return(
-            <BotaoPrimeiroCadastroCSS to={this.props.to} type={this.props.type} onClick={this.props.onClick} className="btn btn-outline-entrar col-xl-5 col-lg-5 col-md-5 col-sm-5 col-12 mr-auto mb-3"> {this.props.id} </BotaoPrimeiroCadastroCSS>
+            <BotaoPrimeiroCadastroCSS to={this.props.to} type={this.props.type} onClick={this.props.onClick} className="btn btn-outline-entrar col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mr-auto mb-3"> {this.props.id} </BotaoPrimeiroCadastroCSS>
         )
     }
 }

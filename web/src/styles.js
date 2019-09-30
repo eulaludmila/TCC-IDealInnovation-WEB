@@ -24,6 +24,10 @@ export const BotaoPrimeiroCadastroCSS = styled.button`
     color:#880E4F;
     border-color:#880E4F;
 
+    &:hover {
+        color:#ffffff;
+    }
+
 `
 ;
 

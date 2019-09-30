@@ -10,10 +10,15 @@ import $ from 'jquery';
 import {ModalCadastro} from '../../Modal';
 import 'bootstrap/js/dist/modal';
 import { browserHistory} from 'react-router';
+import imgClose from '../../../img/close_form.png';
 
 //Classe da áre de Cadastro do Cliente
 class CadastroCliente extends Component{
 
+    cancelar = () => {
+       
+        browserHistory.push("/cadastrar");
+    }
     //construtor para a realização do post
     constructor(props){
         super(props);
@@ -322,7 +327,7 @@ class CadastroCliente extends Component{
                 <div className="container pt-5">
                     <div className="card">
                         <div className="card-header">
-                            <h2 className="mb-4 text-center card-title">Realize seu cadastro aqui</h2>            
+                        <img src={imgClose} onClick={this.cancelar} alt="Cancelar" title="Cancelar" style={{'width':'50px','height':'45px','float':'left'}}></img><h2 className="mb-4 text-center card-title">Realize seu cadastro aqui</h2>            
                         </div>
                         <div className="card-body">
                             <div className={this.state.classMessage} role="alert">
@@ -355,10 +360,9 @@ class CadastroCliente extends Component{
 
                                 <div className="row justify-content-center">
                                         
-                                    <div className="col-xl-4 col-lg-4 col-md-6 col-sm-10 col-8">
+                                    <div className="col-xl-2 col-lg-2 col-md-6 col-sm-10 col-8">
                                         <div className="row">
-                                            <BotaoCadastro id="Entrar" onClick={this.verificaCampos}></BotaoCadastro>
-                                            <BotaoCadastro type="submit" id="Cancelar"></BotaoCadastro>
+                                             <BotaoCadastro id="Cadastrar" onClick={this.verificaCampos}></BotaoCadastro>
                                         </div>
                                     </div>
                                 </div>
