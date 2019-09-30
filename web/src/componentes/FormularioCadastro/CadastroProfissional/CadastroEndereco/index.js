@@ -5,21 +5,40 @@ import BotaoCadastro from '../../BotaoCadastro'
 // import '../../../css/bootstrap.min.css'
 import $ from 'jquery';
 import { browserHistory} from 'react-router';
+import imgVoltar from '../../../../img/voltar.png';
 
 //Classe da áre de Cadastro do Cliente
 class CadastroEndereco extends Component{
+
+    voltar = () => {
+        browserHistory.push("/cadastro/profissional");
+    }
 
     //CONSTRUTOR QUE DECLARA OS ESTADOS
     constructor(props){
         super(props);
         this.state={logradouro:'',complemento:'',numero:'',bairro:'',cep:'',estado:'',cidade:'', classMessage:'', message:''};
         
-        this.enviarFormEndereco = this.enviarFormEndereco.bind(this);
+    }
+
+    componentDidMount(){
+        if(sessionStorage.getItem('endereco') != null){
+
+            var dados = JSON.parse(sessionStorage.getItem('endereco'));
+            this.setState({logradouro:dados.endereco,
+                complemento:dados.complemento,
+                numero:dados.numero,
+                bairro:dados.bairro,
+                cep:dados.cep,
+                estado:dados.cidade.estado.uf,
+                cidade:dados.cidade.cidade});
+        }
+
+        sessionStorage.removeItem('endereco')
     }
 
     //EVENTOS DOS INPUTS
     setCep = (evento) => {
-        console.log(evento.target.value);
         this.setState({cep:evento.target.value});
         this.onFocusInput("#cep");
 
@@ -29,7 +48,6 @@ class CadastroEndereco extends Component{
     }
 
     setLogradouro = (evento) => {
-        console.log(evento.target.value);
         this.setState({logradouro:evento.target.value});
         this.onFocusInput("#logradouro");
     }
@@ -65,15 +83,12 @@ class CadastroEndereco extends Component{
         evento.preventDefault();
         var mensagem = "";
         var id= "";
-
-        console.log("campo: " + this.state.numero.length)
         
         if(this.state.cep.length < 9){
             mensagem = "O CEP inválido";
             id = '#cep';
             this.erroCaixaVazia(mensagem,id);
             
-        
         }else if(this.state.numero.length === 0){
             mensagem = "Prencha o campo numero";
             id = "#numero";
@@ -89,8 +104,7 @@ class CadastroEndereco extends Component{
     //ERROS NOS INPUTS
     erroCaixaVazia(mensagem,id){
 
-        $(id).css('border', '1px solid red');
-        // $(id).focus();
+        $(id).css('border', '1px solid #880e4f');
         this.setState({classMessage: "alert alert-danger"});
         this.setState({message: mensagem});
         
@@ -108,50 +122,43 @@ class CadastroEndereco extends Component{
 
     verificaCep = () => {
         
-                //VÁRIAVEL PARA PEGAR O VALOR DO CEP
-                var cep = $("#cep").val();
+        //VÁRIAVEL PARA PEGAR O VALOR DO CEP
+        var cep = $("#cep").val();
 
-                console.log(cep.length);
-        
-                //VERIFICANDO SE O CEP É VÁLIDO, SENDO COM 9 NÚMEROS
-                if(cep.length === 9){
+        console.log(cep.length);
 
-                    //REQUISIÇÃO
-                    $.ajax({
-                    
-                        url:`http://viacep.com.br/ws/${cep}/json/?callback=?`,
-                        dataType:"json",
-                        
-                        success: function(resposta){
-                            console.log(resposta.uf);
+        //VERIFICANDO SE O CEP É VÁLIDO, SENDO COM 9 NÚMEROS
+        if(cep.length === 9){
 
-                            //SE NÃO DE ERROR IRÁ MUDAR O ESTADO DOS COMPONENTES
-                            if(!resposta.erro){
-
-                                this.setState({logradouro: resposta.logradouro})
-                                this.setState({bairro:resposta.bairro})
-                                this.setState({cidade:resposta.localidade})
-                                this.setState({estado:resposta.uf})
-
-                            }else{
-                                alert("CEP não encontrado");
-                            }
-                            
-
-                            
-                        }.bind(this)
-        
-        
-                    });
-                }
+            //REQUISIÇÃO
+            $.ajax({
+            
+                url:`http://viacep.com.br/ws/${cep}/json/?callback=?`,
+                dataType:"json",
                 
-        
+                success: function(resposta){
+                    console.log(resposta.uf);
+
+                    //SE NÃO DE ERROR IRÁ MUDAR O ESTADO DOS COMPONENTES
+                    if(!resposta.erro){
+
+                        this.setState({logradouro: resposta.logradouro})
+                        this.setState({bairro:resposta.bairro})
+                        this.setState({cidade:resposta.localidade})
+                        this.setState({estado:resposta.uf})
+
+                    }else{
+                        alert("CEP não encontrado");
+                    }
+                    
+                }.bind(this)
+            });
         }
+    }
 
 
     //MÉTODO PARA SALVAR O ENDERECO
-    enviarFormEndereco(){
-        // evento.preventDefault();
+    enviarFormEndereco = ()=>{
 
         //JSON COMPLETO COM O ENDEREÇO, CIDADE E ESTADO, JSON MONTADO
         let json = {endereco: this.state.logradouro,
@@ -161,26 +168,26 @@ class CadastroEndereco extends Component{
             cidade:{ cidade:this.state.cidade,estado: {uf:this.state.estado},},
             cep: this.state.cep};
         
-            
         sessionStorage.setItem('endereco', JSON.stringify(json));
-        
-        // this.enviaFormEnderecoProfissional();
 
         //FAZENDO UM LINK PARA A ROTA
         browserHistory.push("/cadastro/profissional/foto");
 
     }
 
-    
     render(){
         return(
-            <div className="container-fluid cadastro-cliente">
+            <div className="container-fluid pt-5 cadastro-cliente">
                 <div className="container pt-5">
                     <div className="card">
                         <div className="card-header">
-                            <h2 className="mb-4 text-center card-title">Cadastro de endereço</h2>            
+                            <img src={imgVoltar} onClick={this.voltar} alt="Voltar" title="Voltar" style={{'width':'50px','height':'45px','float':'left'}}></img><h2  className="mb-4 text-center card-title">Cadastro de endereço</h2>            
+                        </div>
+                        <div className="progress">
+                            <div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style={{"width": "60%","backgroundColor":"#880e4f"}}></div>
                         </div>
                         <div className="card-body">
+                        
                             <div className={this.state.classMessage} role="alert">
                                 <h6 className="text-center color-danger">{this.state.message}</h6>
                             </div>
@@ -188,9 +195,9 @@ class CadastroEndereco extends Component{
                                 <div className="row mt-5 justify-content-md-center">
                                     <InputCadastro id="cep" className="form-group col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12" type="text" onChange={this.setCep} value={this.state.cep} placeholder=". . ." label="CEP" ></InputCadastro>
                                     
-                                    <InputCadastro id="logradouro" disabled="disabled" className="form-group col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12" type="text" onChange={this.setLogradouro} value={this.state.logradouro} placeholder=". . ." label="Logradouro" ></InputCadastro>
+                                    <InputCadastro id="logradouro" disabled="disabled" className="form-group col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12" type="text" onChange={this.setLogradouro} value={this.state.logradouro} label="Logradouro" ></InputCadastro>
 
-                                    <InputCadastro id="bairro" className="form-group col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12" type="celular" onChange={this.setBairro} value={this.state.bairro} placeholder=". . ." label="Bairro" ></InputCadastro>
+                                    <InputCadastro id="bairro" disabled="disabled" className="form-group col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12" type="celular" onChange={this.setBairro} value={this.state.bairro} label="Bairro" ></InputCadastro>
 
                                 </div>
                                 <div className="row mt-4 justify-content-md-center mb-4">
@@ -199,18 +206,18 @@ class CadastroEndereco extends Component{
                                     <InputCadastro id="complemento" className="form-group col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12" type="text" onChange={this.setComplemento} value={this.state.complemento} placeholder=". . ." label="Complemento" ></InputCadastro>
 
                                     
-                                    <InputCadastro id="estado" className="form-group col-xl-1 col-lg-3 col-md-4 col-sm-12 col-12" type="text" onChange={this.setEstado} value={this.state.estado} placeholder=". . ." label="UF" ></InputCadastro>
+                                    <InputCadastro id="estado" disabled="disabled" className="form-group col-xl-1 col-lg-3 col-md-4 col-sm-12 col-12" type="text" onChange={this.setEstado} value={this.state.estado}  label="UF" ></InputCadastro>
                                     
-                                    <InputCadastro id="cidade" className="form-group col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12" type="email" onChange={this.setCidade} value={this.state.cidade} placeholder=". . ." label="Cidade" ></InputCadastro>
+                                    <InputCadastro id="cidade" disabled="disabled" className="form-group col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12" type="email" onChange={this.setCidade} value={this.state.cidade}  label="Cidade" ></InputCadastro>
 
                                     </div>
 
                                 <div className="row justify-content-center">
                                         
-                                    <div className="col-xl-4 col-lg-4 col-md-6 col-sm-10 col-8">
+                                    <div className="col-xl-2 col-lg-2 col-md-6 col-sm-10 col-8">
                                         <div className="row">
-                                            <BotaoCadastro onClick={this.verificaCampos} id="Entrar"></BotaoCadastro>
-                                            <BotaoCadastro id="Cancelar"></BotaoCadastro>
+                                            <BotaoCadastro onClick={this.verificaCampos} id="Próximo"></BotaoCadastro>
+                                            
                                         </div>
                                     </div>
                                 </div>

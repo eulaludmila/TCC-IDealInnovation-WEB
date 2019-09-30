@@ -47,7 +47,7 @@ export class TelaEmail extends Component{
             this.erroCaixaVazia(mensagem, id);
             
         }else{
-            
+            this.editarEmail();
         }
 
 
@@ -71,6 +71,25 @@ export class TelaEmail extends Component{
     }
 
 
+    editarEmail = () => {
+        $.ajax({
+            url:"http://localhost:8080/confeiteiro/email/4",
+            contentType:"application/json",
+            type:"put",
+            data:this.state.emailNovo,
+            success:function(resposta){
+                this.setState({emailNovo:''});
+                this.setState({confirmEmail:''});
+                console.log(resposta);
+                /* setando o state com a reposta, que no caso é o json da api*/
+                this.props.atualizarLista(resposta.email);
+
+                /*o bind(this) quer dizer que o this do ajax é da classe mãe */
+            }.bind(this)
+
+        });
+    }
+
     render(){
         return(
             <ContainerAdm className="container conteudo-adm">
@@ -79,8 +98,10 @@ export class TelaEmail extends Component{
                         <div className={this.state.classMessage} role="alert">
                             <h6 className="text-center">{this.state.message}</h6>
                         </div>
+                        
                     <form>
-                        <InputEmailSenha grupo="form-group" tipo="email" label="E-mail Atual:" desabilitado="disabled" classeInput="form-control" id="txt_email"></InputEmailSenha>
+                    
+                        <InputEmailSenha grupo="form-group" tipo="email" label="E-mail Atual:" desabilitado="disabled" value={this.props.emailAtual} classeInput="form-control" id="txt_email"></InputEmailSenha>
                         <InputEmailSenha grupo="form-group" onChange={this.setEmailNovo} value={this.state.emailNovo} tipo="email" label="Novo E-mail:" classeInput="form-control" aria-describedby="emailHelp" id="txt_novo_email" placeholder="Digite o seu novo e-mail"></InputEmailSenha>
                         <InputEmailSenha grupo="form-group" onChange={this.setConfirmEmail} value={this.state.confirmEmail} tipo="email" label="Confirme E-mail:" aria-describedby="emailHelp" classeInput="form-control" id="txt_confirmar_email" placeholder="Confirme o seu novo e-mail"></InputEmailSenha>
                         
@@ -103,19 +124,34 @@ export class BoxTelaEmail extends Component{
         super(props);
 
         this.state = {emailAtual: []};
+        this.atualizarListagem = this.atualizarListagem.bind(this);
     }
 
     componentDidMount(){
         $.ajax({
-            url:"http://localhost:8080/pagar "
+            url:`http://localhost:8080/confeiteiro/${sessionStorage.getItem("dados")}`,
+            dataType: 'json',
+            success:function(resposta){
+                console.log(resposta);
+                /* setando o state com a reposta, que no caso é o json da api*/
+                this.setState({emailAtual:resposta.email});
+
+                /*o bind(this) quer dizer que o this do ajax é da classe mãe */
+            }.bind(this)
         })
     }
+
+     //aqui o novaLista vai receber a resposta e a lista vair receber a resposta
+     atualizarListagem(novaLista){
+        this.setState({emailAtual:novaLista});
+    }
+ 
 
     render(){
         return(
             <div>
                 <Header titulo="Configurações do E-mail"></Header>
-                <TelaEmail></TelaEmail>
+                <TelaEmail emailAtual={this.state.emailAtual} atualizarLista={this.atualizarListagem}></TelaEmail>
             </div>
         );
     }

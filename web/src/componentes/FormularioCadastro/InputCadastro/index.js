@@ -8,7 +8,7 @@ class InputCadastro extends Component{
         return(
             <div className={this.props.className}>
                 <label htmlFor={this.props.id}>{this.props.label}</label>
-                <input type={this.props.type} className="form-control" id={this.props.id} onChange={this.props.onChange} value={this.props.value} placeholder={this.props.placeholder}/>
+                <input type={this.props.type} disabled={this.props.disabled} className="form-control" id={this.props.id} onChange={this.props.onChange} value={this.props.value} placeholder={this.props.placeholder}/>
             </div>
         )
     }

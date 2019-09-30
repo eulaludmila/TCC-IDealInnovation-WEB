@@ -4,6 +4,7 @@ import img from '../../../img/user3.png'
 import InputCadastro from '../InputCadastro'
 import SelectSexoCadastro from '../SelectSexoCadastro'
 import BotaoCadastro from '../BotaoCadastro'
+import imgClose from '../../../img/close_form.png';
 
 import '../../../css/bootstrap.min.css'
 import $ from 'jquery';
@@ -13,20 +14,37 @@ import { browserHistory} from 'react-router';
 //CLASSE RESPONSÁVEL PELO CADASTRO DO CLIENTE
 class CadastroProfissional extends Component{
 
+    cancelar = () => {
+        sessionStorage.removeItem('dados');
+        sessionStorage.removeItem('endereco');
+        browserHistory.push("/cadastrar");
+    }
+
     //CONSTRUTOR DECLARANDO OS ESTADOS
     constructor(props){
         super(props);
-        this.state={ nome:'',sobrenome:'',dtNasc:'',celular:'',cpf:'',sexo:'',email:'',senha:'',confirmSenha:'',foto:"", imgFoto:`${img}`,message:"", classMessage:""};
+        this.state={ nome:'',sobrenome:'',dtNasc:'',celular:'',cpf:'',sexo:'',email:'',senha:'',confirmSenha:'',message:"", classMessage:""};
         
-        this.enviaFormConfeiteiro = this.enviaFormConfeiteiro.bind(this);
-        this.erroCaixaVazia = this.erroCaixaVazia.bind(this);
-        this.onFocusInput = this.onFocusInput.bind(this);
     }
 
-    
+    componentDidMount(){
+        if(sessionStorage.getItem('dados') != null){
+
+            var dados = JSON.parse(sessionStorage.getItem('dados'));
+            this.setState({nome:dados.nome,
+                sobrenome:dados.sobrenome,
+                dtNasc:dados.dtNasc,
+                celular:dados.celular.celular,
+                cpf:dados.cpf,
+                email:dados.email,
+                sexo:dados.sexo});
+
+                sessionStorage.removeItem('dados')
+        }
+    }
+
     /*EVENTOS DOS INPUTS*/
     setNome = (evento) => {
-        console.log(evento.target.value);
         this.setState({nome:evento.target.value});
         this.onFocusInput("#nome");
     }
@@ -40,7 +58,6 @@ class CadastroProfissional extends Component{
         this.setState({dtNasc:evento.target.value});
         this.onFocusInput("#dt-nasc");
         $("#dt-nasc").mask("00/00/0000");
-        
     }
 
     setCelular = (evento) => {
@@ -53,7 +70,6 @@ class CadastroProfissional extends Component{
         this.setState({cpf:evento.target.value});
         this.onFocusInput("#cpf");
         $("#cpf").mask("000.000.000-00");
-        
     }
 
     setSexo = (evento) => {
@@ -80,8 +96,6 @@ class CadastroProfissional extends Component{
         evento.preventDefault();
         var mensagem = "";
         var id = "";
-
-        console.log(this.state.senha);
         
         if(this.state.nome.length < 3){
             mensagem = "O campo nome deve conter no mínimo 3 caracteres";
@@ -126,8 +140,6 @@ class CadastroProfissional extends Component{
             this.erroCaixaVazia(mensagem, id);
         
         }else if(this.state.senha !== this.state.confirmSenha){
-            console.log("senha: " + this.state.senha)
-            console.log("confirsenha: " + this.state.confirmSenha)
             mensagem = "O campo confirmação da senha está errada";
             id = "#confirmar-senha";
 
@@ -147,7 +159,6 @@ class CadastroProfissional extends Component{
             dataType:"json",
             success: function(resposta)
             {
-                console.log('repostas:' +resposta);
                 var mensagem = "";
                 var id = "";
 
@@ -162,7 +173,6 @@ class CadastroProfissional extends Component{
 
                     this.verificaEmail();
                 }
-                console.log(resposta);
 
             }.bind(this)
         });
@@ -186,7 +196,6 @@ class CadastroProfissional extends Component{
 
                     this.enviaFormConfeiteiro();
                 }
-                console.log("email:"+resposta);
 
             }.bind(this)
         });
@@ -194,16 +203,16 @@ class CadastroProfissional extends Component{
     }
 
     //ERROS NOS INPUTS
-    erroCaixaVazia(mensagem, id){
+    erroCaixaVazia= (mensagem, id) =>{
 
-        $(id).css('border', '1px solid red');
+        $(id).css('border', '1px solid #880e4f');
         this.setState({classMessage: "alert alert-danger"});
         this.setState({message: mensagem});
 
     }
 
     //TIRAR OS ERROS AO DIGITAR NOS INPUTS
-    onFocusInput(id){
+    onFocusInput = (id) =>{
         this.setState({message:""});
         this.setState({classMessage:""});
         $(id).css('border', '1px solid #ced4da');
@@ -211,9 +220,7 @@ class CadastroProfissional extends Component{
     }
 
     //MÉTODO QUE IRÁ SALVAR OS DADOS DO PROFISSIONAL JUNTO AO CELULAR
-    enviaFormConfeiteiro(){
-        console.log(this.state.foto);
-        console.log("entrouuu");
+    enviaFormConfeiteiro = () =>{
 
         let json = {nome:this.state.nome,
                     sobrenome:this.state.sobrenome,
@@ -227,23 +234,6 @@ class CadastroProfissional extends Component{
         //SETANDO O JSON COMPLETO NO SESSIONSTORAGE
         sessionStorage.setItem('dados', JSON.stringify(json));
 
-
-        if(this.state.foto !== "" ){
-            console.log("entrou");
-
-            var file = this.state.foto;
-            var reader = new FileReader()
-            reader.onload = function(base64) {
-                sessionStorage.setItem('foto', base64);
-            }
-            reader.readAsDataURL(file);
-
-            // var jsonAux = JSON.stringify(this.state.foto);
-            
-            // sessionStorage.setItem('foto', jsonAux);
-
-        }
-
         //FAZENDO UM LINK PARA A ROTA
         browserHistory.push("/cadastro/profissional/endereco");
 
@@ -251,19 +241,22 @@ class CadastroProfissional extends Component{
 
     render(){
         return(
-            <div className="container-fluid cadastro-cliente">
+            <div className="container-fluid pt-5 cadastro-cliente">
                 
                 <div className="container pt-5">
                     <div className="card">
                         <div className="card-header">
-                            <h2 className="mb-4 text-center card-title">Realize seu cadastro aqui</h2>            
+                        <img src={imgClose} onClick={this.cancelar} alt="Cancelar" title="Cancelar" style={{'width':'50px','height':'45px','float':'left'}}></img><h2 className="mb-4 text-center card-title">Realize seu cadastro aqui</h2>            
+                        </div>
+                        <div className="progress">
+                            <div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style={{"width": "10%","backgroundColor":"#880e4f"}}></div>
                         </div>
                         <div className="card-body">
                             <div className={this.state.classMessage} role="alert">
                                 <h6 className="text-center">{this.state.message}</h6>
                             </div>
                             
-                            <form>
+                            <form onSubmit={this.verificaCampos}>
                                 
                                 <div className="row mt-5 justify-content-md-center">
                                     <InputCadastro id="nome" className="form-group col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12" type="text" onChange={this.setNome} value={this.state.nome} placeholder=". . ." label="Nome" ></InputCadastro>
@@ -276,7 +269,7 @@ class CadastroProfissional extends Component{
                                     <InputCadastro id="celular" type="celular" className="form-group col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12" onChange={this.setCelular} value={this.state.celular} placeholder=". . ." label="Celular" ></InputCadastro>
 
                                     <InputCadastro id="cpf" type="cpf" className="form-group col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12" onChange={this.setCpf} value={this.state.cpf} placeholder=". . ." label="CPF" ></InputCadastro>
-                                    <SelectSexoCadastro id="sexo" onChange={this.setSexo}></SelectSexoCadastro>
+                                    <SelectSexoCadastro id="sexo" onChange={this.setSexo} value={this.state.sexo}></SelectSexoCadastro>
                                 </div>
                                 <div className="row mt-4 mb-4 justify-content-md-center" >
                                     <InputCadastro id="email" type="email" className="form-group col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12" onChange={this.setEmail} value={this.state.email} placeholder=". . ." label="E-mail" ></InputCadastro>
@@ -288,10 +281,9 @@ class CadastroProfissional extends Component{
 
                                 <div className="row justify-content-center">
                                         
-                                    <div className="col-xl-4 col-lg-4 col-md-6 col-sm-10 col-8">
+                                    <div className="col-xl-2 col-lg-2 col-md-6 col-sm-10 col-8">
                                         <div className="row">
-                                            <BotaoCadastro id="Próximo" onClick={this.verificaCampos} to="/cadastroProfissionalEndereco"></BotaoCadastro>
-                                            <BotaoCadastro id="Cancelar"></BotaoCadastro>
+                                            <BotaoCadastro id="Próximo" type='submit'></BotaoCadastro>
                                         </div>
                                     </div>
                                 </div>
