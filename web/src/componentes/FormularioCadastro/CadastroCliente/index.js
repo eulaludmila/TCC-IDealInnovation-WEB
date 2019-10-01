@@ -175,7 +175,7 @@ class CadastroCliente extends Component{
     // MÉTODO PARA VERIFICAR SE JÁ EXISTE O CPF
     verificaCpf=()=>{
         $.ajax({
-            url: `http://localhost:8080/cliente/cpf/${this.state.cpf}`,
+            url: `http://54.242.6.253:8080/cliente/cpf/${this.state.cpf}`,
             dataType:"json",
             success: function(resposta)
             {
@@ -202,7 +202,7 @@ class CadastroCliente extends Component{
     //MÉTODO PARA VERIFICAR SE JÁ EXISTE O EMAIL
     verificaEmail=()=>{
         $.ajax({
-            url: `http://localhost:8080/cliente/email/${this.state.email}`,
+            url: `http://54.242.6.253:8080/cliente/email/${this.state.email}`,
             dataType:"json",
             success: function(resposta)
             {

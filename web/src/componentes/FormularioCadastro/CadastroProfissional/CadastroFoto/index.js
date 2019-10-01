@@ -79,7 +79,7 @@ class CadastroEndereco extends Component{
         evento.preventDefault();
 
         $.ajax({
-            url:"http://localhost:8080/enderecoconfeiteiro",
+            url:"http://54.242.6.253:8080/enderecoconfeiteiro",
             contentType:"application/json",
             dataType:"json",
             type:"post",
@@ -109,7 +109,7 @@ class CadastroEndereco extends Component{
         formDados.append('codConfeiteiro', codigo);
 
         $.ajax({
-            url: 'http://localhost:8080/foto/confeiteiro',
+            url: 'http://54.242.6.253:8080/foto/confeiteiro',
             data: formDados,
             processData: false,
             contentType: false,
@@ -118,7 +118,7 @@ class CadastroEndereco extends Component{
             {
                 sessionStorage.removeItem("endereco")
                 this.cadastroRealizado();
-                sessionStorage.setItem("dados", codigo)
+                sessionStorage.setItem("key", codigo)
             }.bind(this)
         });
     }

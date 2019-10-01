@@ -23,7 +23,7 @@
     margin-right: auto;
 }
 
-#nome, #qtde-min, #qtde-max, #preco, #descricao, #categoria, #foto{
+#nome-produto, #qtde-min, #qtde-max, #preco, #descricao, #categoria, #foto{
     border: 1px solid #880E4F;
 }
 

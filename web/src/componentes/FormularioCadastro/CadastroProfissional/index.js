@@ -154,8 +154,9 @@ class CadastroProfissional extends Component{
 
     // MÉTODO PARA VERIFICAR SE JÁ EXISTE O CPF
     verificaCpf(){
+        console.log("verifica")
         $.ajax({
-            url: `http://localhost:8080/confeiteiro/cpf/${this.state.cpf}`,
+            url: `http://54.242.6.253:8080/confeiteiro/cpf/${this.state.cpf}`,
             dataType:"json",
             success: function(resposta)
             {
@@ -180,8 +181,9 @@ class CadastroProfissional extends Component{
     
     //MÉTODO PARA VERIFICAR SE JÁ EXISTE O EMAIL
     verificaEmail(){
+        console.log("verifica")
         $.ajax({
-            url: `http://localhost:8080/confeiteiro/email/${this.state.email}`,
+            url: `http://54.242.6.253:8080/confeiteiro/email/${this.state.email}`,
             dataType:"json",
             success: function(resposta)
             {
