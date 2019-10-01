@@ -9,6 +9,7 @@ import $ from 'jquery';
 import BotaoCadastro from '../../FormularioCadastro/BotaoCadastro';
 import { browserHistory} from 'react-router';
 import {ModalCadastro} from '../../Modal';
+import {ipAPI} from '../../../link_config';
 
 
 export class CadastrarProdutos extends Component{
@@ -159,7 +160,7 @@ export class CadastrarProdutos extends Component{
             nomeProduto: this.state.nomeProduto,
             descricao: this.state.descricaoProduto,
             foto: "teste",
-            confeiteiro: {codConfeiteiro: JSON.parse(sessionStorage.getItem("dados"))},
+            confeiteiro: {codConfeiteiro: JSON.parse(sessionStorage.getItem("key"))},
             categoria: {codCategoria: this.state.categoriaProduto},
             quantidade: {multiplo: parseInt(this.state.qtdeMin), maximo: parseInt(this.state.qtdeMax)},
             preco: parseFloat(this.state.precoProduto),
@@ -169,7 +170,7 @@ export class CadastrarProdutos extends Component{
         this.setState({json: json});
 
         $.ajax({
-            url: "http://localhost:8080/produto",
+            url: "http://54.242.6.253:8080/produto",
             contentType: "application/json",
             dataType: "json",
             type: "post",
@@ -199,7 +200,7 @@ export class CadastrarProdutos extends Component{
         formDados.append('codProduto', codProduto);
 
         $.ajax({
-            url: 'http://localhost:8080/foto/produto',
+            url: ipAPI + 'foto/produto',
             data: formDados,
             processData: false,
             contentType: false,
@@ -244,7 +245,7 @@ export class CadastrarProdutos extends Component{
                 <form className="col-md-12 cadastro-produto centralizar">
                     <div className="row">
                         <div className="col-5">
-                            <InputCadastro className="form-group" id="nome" type="text" placeholder="Digite o nome do produto..." label="Nome" onChange={this.setNome}></InputCadastro>
+                            <InputCadastro className="form-group" id="nome-produto" type="text" placeholder="Digite o nome do produto..." label="Nome" onChange={this.setNome}></InputCadastro>
                             <SelectCategorias id="categoria" onChange={this.setCategoria}></SelectCategorias>
 
                             <div className="form-row">

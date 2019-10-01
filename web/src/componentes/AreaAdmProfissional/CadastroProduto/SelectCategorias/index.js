@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import $ from 'jquery';
+import { ipAPI } from '../../../../link_config';
 
 //CLASSE SELECT FEMININO OU MASCULINO
 class SelectCategorias extends Component{
@@ -13,7 +14,7 @@ class SelectCategorias extends Component{
 
     componentDidMount(){
         $.ajax({
-            url: "http://localhost:8080/categoria",
+            url: ipAPI + "categoria",
             dataType: "json",
             success: function(resposta){
                 

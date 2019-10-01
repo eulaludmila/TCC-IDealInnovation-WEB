@@ -1,0 +1,206 @@
+
+/**************MAIOR QUE 1200 (PC)*/
+@media only screen and (min-width: 1200px) {
+    .espaco_menu{
+  width: 100%;
+  height: 60px;
+}
+
+.menu{
+  height: 60px;
+  background-color: #b41167;
+  position: fixed;
+  padding: 0!important;
+  z-index: 999;
+}
+
+/*LOGO*/
+.logo_header{
+  height: 180px;
+  width: 180px;
+  background-image: url(../../../img/logo.png);
+  background-size: 180px, 180px;
+  float: left;
+}
+
+/*ITENS DE NAVEGAÇÂO DO MENU */
+.item_menu{
+  height: 100%;
+  float: left;
+  color: #f3f3f3;
+  text-align: center;
+  padding: 15px;
+  margin-left: 20px;
+  font-size: 19px;
+  font-weight: 500;
+}
+
+.item_menu:hover{
+  color: #fff;
+  cursor: pointer;
+}
+
+
+/*SEGUNDA PARTE DO HEADER QUE FICA ALINHADA A DIREITA*/
+
+.container-autenticacao-header{
+  width: 350px;
+  height: 100%; 
+  margin-left: auto;
+  padding-top: 10px;
+  box-sizing: border-box;
+  padding-right: 15px;
+}
+
+.btn_header{
+  height: 40px;
+  margin-left: 10px;
+  float: left;
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.entrar_header{ 
+  background-color: #fff;
+  margin-left: 40px;
+}
+
+.cadastro_header{
+  background-color: #880e4f;
+  color: #fff;
+}
+
+.baixar_header{
+  color: #fff;
+  cursor: pointer;
+  background-color: #880e4f;
+}
+
+.baixar_header:hover{
+  color: #fff;
+  cursor: pointer;
+}
+  
+  /**************** COISAS QUE NÂO EXISTEM NO PC*****************/
+  
+  .texto_header{
+    display: none;
+  }
+  
+  .menu_mobile{
+    display: none;
+  }
+  
+}
+
+
+
+/***********Menor que 1100 Celular*/
+@media only screen and (max-width: 1100px) {
+.menu{
+  height: 60px;
+  background-color: #b41167;
+  position: fixed;
+  padding: 0!important;
+  z-index: 999;
+}
+
+  
+/*TEXTO RESPONSIVO*/
+  .texto_header{
+    font-size: 25px;
+    text-align: center;
+    font-family: fonte;
+    color: #fff;
+    margin-top: 10px;
+    width: 100%;
+    position: absolute;
+    float: left;
+    z-index: 8;
+  }
+  
+  .demo-1{
+    float: left;
+    margin-top: 8px;
+    z-index: 988;
+    position: absolute;
+  }
+
+/*ITENS DE NAVEGAÇÂO DO MENU */
+.item_menu{
+  height: 100%;
+  float: left;
+  color: #fff;
+  text-align: center;
+  padding: 15px;
+  margin-left: 20px;
+  font-size: 19px;
+  font-weight: 500;
+}
+
+.item_menu:hover{
+  color: #f3f3f3;
+  cursor: pointer;
+}
+
+
+/*SEGUNDA PARTE DO HEADER QUE FICA ALINHADA A DIREITA*/
+
+.container-autenticacao-header{
+  width: 350px;
+  height: 100%; 
+  margin-left: auto;
+  padding-top: 10px;
+  box-sizing: border-box;
+  padding-right: 15px;
+}
+
+.btn_header{
+  height: 40px;
+  margin-left: 10px;
+  float: left;
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.entrar_header{ 
+  background-color: #fff;
+  margin-left: 40px;
+}
+
+.cadastro_header{
+  background-color: #880e4f;
+  color: #fff;
+}
+
+.baixar_header{
+  color: #fff;
+  cursor: pointer;
+  background-color: #880e4f;
+}
+
+.baixar_header:hover{
+  color: #fff;
+  cursor: pointer;
+}
+  
+  /****** coisas que não existem no mobile**************/
+  
+  .espaco_menu{
+  display: none;
+}
+  
+  .menu_pc{
+    display: none;
+  }
+  
+  .logo_header{
+  display: none;
+  
+}
+}
+

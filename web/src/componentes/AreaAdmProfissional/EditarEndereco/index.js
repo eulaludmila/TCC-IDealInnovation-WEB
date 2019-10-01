@@ -67,7 +67,7 @@ export class AreaEditarCadastro extends Component{
 
         console.log(json)
         $.ajax({
-            url: 'http://localhost:8080/endereco/' + sessionStorage.getItem("dados"),
+            url: 'http://54.242.6.253:8080/endereco/' + sessionStorage.getItem("dados"),
             contentType: 'application/json',
             dataType: 'json',
             type: 'put',
