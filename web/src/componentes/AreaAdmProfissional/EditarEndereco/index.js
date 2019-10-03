@@ -6,6 +6,7 @@ import {BotaoEditarEndereco} from '../global/BotaoEditarEndereco'
 import { browserHistory} from 'react-router';
 import {ModalCadastro} from '../../Modal';
 import $ from 'jquery';
+import {ButtonToolbar} from 'react-bootstrap'; 
 
 
 //Classe da áre de Editar endereço do confeiteiro
@@ -14,7 +15,7 @@ export class AreaEditarCadastro extends Component{
     //CONSTRUTOR QUE DECLARA OS ESTADOS
     constructor(props){
         super(props);
-        this.state={cep:'',uf:'',numero:'',complemento:'',endereco:'',bairro:'',cidade:'', classMessage:'', message:''};
+        this.state={cep:'',uf:'',numero:'',complemento:'',endereco:'',bairro:'',cidade:'', classMessage:'', message:'', showConfirm:false, codConfeiteiro:sessionStorage.getItem("key")};
 
         this.enviarFormEditarEndereco = this.enviarFormEditarEndereco.bind(this);
     }
@@ -67,26 +68,27 @@ export class AreaEditarCadastro extends Component{
 
         console.log(json)
         $.ajax({
-            url: 'http://54.242.6.253:8080/endereco/' + sessionStorage.getItem("dados"),
+            url: `http://localhost:8080/endereco/${this.state.codConfeiteiro}`,
             contentType: 'application/json',
             dataType: 'json',
             type: 'put',
             data: JSON.stringify(json),
             success:function(resposta){
-                this.atualizacaoRealizada();
+                this.setState({showConfirm:true})
+                this.props.atualizarEndereco(resposta);
             }.bind(this),
             
         });
     }
 
-    atualizacaoRealizada = () =>{
-        //ABRIR A MODAL DE CADASTRO REALIZADO
-        $('#my-modal').modal('show');
+    // atualizacaoRealizada = () =>{
+    //     //ABRIR A MODAL DE CADASTRO REALIZADO
+    //     $('#my-modal').modal('show');
                     
-        $(".btn-modal").on("click", function(){
-            browserHistory.push("/adm/profissional/editar_endereco")
-        });
-    }
+    //     $(".btn-modal").on("click", function(){
+    //         browserHistory.push("/adm/profissional/editar_endereco")
+    //     });
+    // }
 
 
     //VALIDAÇÃO DOS CAMPOS DOS INPUTS
@@ -180,25 +182,38 @@ export class AreaEditarCadastro extends Component{
 
     }
 
+    close=()=>{
+        this.setState({showConfirm:false});
+    }
+
     render(){
         return(
             <ContainerAdm className="container conteudo">
 
-                <ModalCadastro nome="Atualização efetuada com sucesso!!"></ModalCadastro>
+                {/* <ModalCadastro nome="Atualização efetuada com sucesso!!"></ModalCadastro> */}
+                <ButtonToolbar>
+                    <ModalCadastro titulo="Atualização Realizada com sucesso"
+                        show={this.state.showConfirm}
+                        onHide={this.close}
+                    />
+                </ButtonToolbar>
+                <div className={this.state.classMessage} role="alert">
+                    <h6 className="text-center">{this.state.message}</h6>
+                </div>
 
                 <form>
                     <div className="form-row mt-5 mr-5 ml-5">
-                        <InputEditarEndereco label="CEP:" grupo="form-group col-md-4" tipo="text" classeInput="form-control" id="cep" onChange={this.setCep} value={this.state.cep} placeholder=". . ."></InputEditarEndereco>
-                        <InputEditarEndereco label="UF:" disabled="disabled" grupo="form-group col-md-1" tipo="text" classeInput="form-control" id="uf" onChange={this.setUf} value={this.state.uf} ></InputEditarEndereco>
-                        <InputEditarEndereco label="Número" grupo="form-group col-md-3" tipo="number" classeInput="form-control" id="numero" onChange={this.setNumero} value={this.state.numero} placeholder=". . ."></InputEditarEndereco>
-                        <InputEditarEndereco label="Complemento:" grupo="form-group col-md-4" tipo="text" classeInput="form-control" id="complemento" onChange={this.setComplemento} value={this.state.complemento} placeholder="Ex: Casa"></InputEditarEndereco>
+                        <InputEditarEndereco label="CEP:" grupo="form-group col-md-4" tipo="text" classeInput="form-control" id="cep" onChange={this.setCep} value={this.state.cep} placeholder={this.props.cep}></InputEditarEndereco>
+                        <InputEditarEndereco label="UF:" disabled="disabled" grupo="form-group col-md-1" tipo="text" classeInput="form-control" id="uf" onChange={this.setUf} value={this.state.uf}  placeholder={this.props.uf} ></InputEditarEndereco>
+                        <InputEditarEndereco label="Número" grupo="form-group col-md-3" tipo="number" classeInput="form-control" id="numero" onChange={this.setNumero} value={this.state.numero} placeholder={this.props.numero}></InputEditarEndereco>
+                        <InputEditarEndereco label="Complemento:" grupo="form-group col-md-4" tipo="text" classeInput="form-control" id="complemento" onChange={this.setComplemento} value={this.state.complemento} placeholder={this.props.complemento}></InputEditarEndereco>
                     </div>
                     <div className="form-row mr-5 ml-5">
-                        <InputEditarEndereco label="Endereço:" disabled="disabled" grupo="form-group col-md-12" tipo="text" classeInput="form-control" id="endereco" onChange={this.setEndereco} value={this.state.endereco} placeholder=". . ."></InputEditarEndereco>
+                        <InputEditarEndereco label="Endereço:" disabled="disabled" grupo="form-group col-md-12" tipo="text" classeInput="form-control" id="endereco" onChange={this.setEndereco} value={this.state.endereco} placeholder={this.props.logradouro}></InputEditarEndereco>
                     </div>
                     <div className="form-row mr-5 ml-5">
-                        <InputEditarEndereco label="Bairro:" disabled="disabled" grupo="form-group col-md-6" tipo="text" classeInput="form-control" id="bairro" onChange={this.setBairro} value={this.state.bairro} placeholder=". . ."></InputEditarEndereco>
-                        <InputEditarEndereco label="Cidade:" disabled="disabled" grupo="form-group col-md-6" tipo="text" classeInput="form-control" id="cidade" onChange={this.setCidade} value={this.state.cidade} placeholder=". . ."></InputEditarEndereco>
+                        <InputEditarEndereco label="Bairro:" disabled="disabled" grupo="form-group col-md-6" tipo="text" classeInput="form-control" id="bairro" onChange={this.setBairro} value={this.state.bairro} placeholder={this.props.bairro}></InputEditarEndereco>
+                        <InputEditarEndereco label="Cidade:" disabled="disabled" grupo="form-group col-md-6" tipo="text" classeInput="form-control" id="cidade" onChange={this.setCidade} value={this.state.cidade} placeholder={this.props.cidade}></InputEditarEndereco>
                     </div>
                     <div className="form-row">
                         <div className="form-group mt-5 centralizar">
@@ -216,16 +231,24 @@ export class BoxEditarEndereco extends Component{
 
     constructor(){
         super();
-        this.state = {endereco: []};
+        this.state = {cep: '',numero:'',complemento:'',logradouro:'',bairro:'',cidade:'', uf:'',codConfeiteiro:sessionStorage.getItem("key")};
         this.atualizarEnderecoAtual = this.atualizarEnderecoAtual.bind(this);
     }
-
+    
     componentDidMount(){
+        
         $.ajax({
-            url: 'http://localhost:8080/enderecoconfeiteiro',
+            url: `http://localhost:8080/endereco/confeiteiro/${this.state.codConfeiteiro}`,
             dataType: 'json',
             success:function(resposta){
-                this.setState({endereco:resposta});
+                console.log(resposta)
+                this.setState({cep:resposta.cep});
+                this.setState({uf:resposta.cidade.estado.uf});
+                this.setState({cidade:resposta.cidade.cidade});
+                this.setState({numero:resposta.numero});
+                this.setState({logradouro:resposta.endereco});
+                this.setState({complemento:resposta.complemento});
+                this.setState({bairro:resposta.bairro});
             }.bind(this),
             error:function(resposta){
                 console.log(resposta);
@@ -234,14 +257,29 @@ export class BoxEditarEndereco extends Component{
     }
 
     atualizarEnderecoAtual(novoEndereco){
-        this.setState({endereco:novoEndereco});
+        console.log(novoEndereco)
+        this.setState({cep:novoEndereco.cep});
+        this.setState({cidade:novoEndereco.cidade.cidade});
+        this.setState({uf:novoEndereco.cidade.estado.uf});
+        this.setState({numero:novoEndereco.numero});
+        this.setState({logradouro:novoEndereco.endereco});
+        this.setState({bairro:novoEndereco.bairro});
+        this.setState({complemento:novoEndereco.complemento});
     }
 
     render(){
         return(
             <div>
                 <Header titulo="Configurações de Endereço"></Header>
-                <AreaEditarCadastro atualizarEndereco={ this.atualizarEnderecoAtual }></AreaEditarCadastro>
+                <AreaEditarCadastro 
+                cep={this.state.cep} 
+                cidade={this.state.cidade}
+                uf={this.state.uf}
+                bairro={this.state.bairro}
+                logradouro={this.state.logradouro}
+                numero={this.state.numero}
+                complemento={this.state.complemento}
+                atualizarEndereco={this.atualizarEnderecoAtual}></AreaEditarCadastro>
             </div>
         );
     }

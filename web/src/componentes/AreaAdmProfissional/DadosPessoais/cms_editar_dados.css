@@ -16,6 +16,7 @@ body,html {
 ul {
 	list-style-type: none;
 	height: inherit;
+	background-color: #b63b4d;
 }
 
 a {
@@ -41,6 +42,12 @@ a {
 	background-color: #CCC;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.imagem_confeiteiro img{
+	width: inherit;
+	height: inherit;
+	border-radius: inherit;
 }
 
 /* Header */

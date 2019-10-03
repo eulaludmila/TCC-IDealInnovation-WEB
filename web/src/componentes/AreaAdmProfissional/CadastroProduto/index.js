@@ -23,8 +23,11 @@ export class CadastrarProdutos extends Component{
         this.onFocusInput = this.onFocusInput.bind(this);
 
         this.enviaFormProduto = this.enviaFormProduto.bind(this);
+        // this.props.match.codProduto
         
     }
+
+  
 
     
     /* EVENTOS DOS INPUTS */
@@ -231,6 +234,12 @@ export class CadastrarProdutos extends Component{
         $(id).css('border', '1px solid #ced4da');
 
     }
+
+    // componentWillMount(){
+    //     this.props.location.query.codProduto
+
+
+    // }
 
     render(){
         return(
