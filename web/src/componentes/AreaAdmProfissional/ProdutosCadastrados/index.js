@@ -4,7 +4,8 @@ import lupa from '../../../img/lupa.png'
 import Header from '../Header'
 import {ContainerAdm} from '../../../styles'
 import $ from 'jquery'
-import {ipAPI, ipFotos} from '../../../link_config'
+import {ipAPI, ipFotos} from '../../../link_config';
+import {Link} from 'react-router';
 
 export class ProdutosCadastrados extends Component{
 
@@ -13,19 +14,27 @@ export class ProdutosCadastrados extends Component{
     constructor(props){
         super(props);
 
-        this.state = {listaProdutos: []};
+        this.state = {listaProdutos: [], ativoDesativo: "", classAtivoDesativo:""};
 
-        this.ativarDesativarProduto = this.ativarDesativarProduto.bind(this)
     }
 
     componentDidMount(){
+
+        const { codProduto } = this.props.match.params
         $.ajax({
             url: ipAPI + "produto/confeiteiro/" + sessionStorage.getItem("key"),
             dataType: "json",
             type: "get",
             success: function(resposta){
                 this.setState({listaProdutos: resposta});
-                console.log(resposta)
+
+                if(this.state.listaProdutos.status === false){
+                    this.setState({ativoDesativo: "Ativar"});
+                    this.setState({classAtivoDesativo: "btn-success"});
+                } else {
+                    this.setState({ativoDesativo: "Desativar"});
+                    this.setState({classAtivoDesativo: "btn-danger"});
+                }
             }.bind(this)
         })
     }
@@ -34,18 +43,21 @@ export class ProdutosCadastrados extends Component{
         this.setState({listaProdutos: novalista});
     }
 
-    ativarDesativarProduto = () => {
-        console.log("entrou")
-
-        console.log(this.state.listaProdutos)
+    ativarDesativarProduto(codProduto){
 
         $.ajax({
-            url: ipAPI + "produto/status/" + this.state.listaProdutos.codProduto,
+            url: ipAPI + "produto/status/" + codProduto,
             dataType: "json",
             type: "put",
             success: function(resposta){
-                this.setState({listaProdutos: resposta});
-                console.log(resposta)
+
+                if(resposta.status === false){
+                    this.setState({ativoDesativo: "Ativar"});
+                    this.setState({classAtivoDesativo: "btn-success"});
+                } else {
+                    this.setState({ativoDesativo: "Desativar"});
+                    this.setState({classAtivoDesativo: "btn-danger"});
+                }
             }.bind(this)
         })
     }
@@ -67,9 +79,9 @@ export class ProdutosCadastrados extends Component{
                                 <h5 className="card-title titulo-produto-adm" >{produtos.nomeProduto}</h5>
                                 <p className="card-text mb-5">{produtos.descricao}</p>
                                 <div className="botao-centro">
-                                    <button className="btn btn-warning mr-2">Editar</button>
-                                    <input type="submit" className="btn btn-secondary mr-2" onClick={this.ativarDesativarProduto} value="Desativar"/>
-                                    <button className="btn btn-dark"><img src={lupa} alt="..."></img></button>
+                                    <Link to={"/adm/profissional/cadastro_produtos/" + produtos.codProduto}><button className="btn btn-warning mr-2">Editar</button></Link>
+                                    <button className="btn btn-dark  mr-2 "><img src={lupa} alt="..."></img></button>
+                                    <input type="button" className={"btn " + this.state.classAtivoDesativo} onClick={() => this.ativarDesativarProduto(produtos.codProduto)} value={this.state.ativoDesativo}/>
                                 </div>
                             </div>
                         </div>

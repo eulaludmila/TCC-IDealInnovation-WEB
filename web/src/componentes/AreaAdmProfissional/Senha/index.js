@@ -3,15 +3,19 @@ import Header from '../Header';
 import {ContainerAdm} from '../../../styles'
 import {InputEmailSenha} from '../global/InputEmailSenha';
 import $ from 'jquery';
+import {ButtonToolbar} from 'react-bootstrap';
+import {ModalCadastro} from '../../Modal'
 
 export class TelaSenha extends Component{
 
     //CONSTRUTOR DECLARANDO OS ESTADOS
     constructor(props){
         super(props);
-        this.state={ senhaAtual:'',senhaNova:'',confirmSenha:'',message:"", classMessage:""};
+        this.state={ senhaAtual:'',senhaNova:'',confirmSenha:'',message:"", classMessage:"", codConfeiteiro:sessionStorage.getItem("key"), showConfirm:false};
         
     }
+
+    
 
     setSenhaAtual=(evento)=>{
         console.log(evento.target.value)
@@ -62,7 +66,7 @@ export class TelaSenha extends Component{
             
         }else{
             //VERIFICAR A SENHA ATUAL NO BANCO PARA VER SE BATE
-            // this.verificaCpf();
+            this.verificaSenhaAtual();
         }
 
 
@@ -87,20 +91,20 @@ export class TelaSenha extends Component{
 
     verificaSenhaAtual=()=>{
         $.ajax({
-            url: `http://localhost:8080/confeiteiro/senha/${this.state.senhaAtual}`,
+            url: `http://localhost:8080/confeiteiro/senha/${this.state.codConfeiteiro}/${this.state.senhaAtual}`,
             dataType:"json",
             success: function(resposta)
             {
                 var mensagem = "";
                 var id = "";
                 if(resposta === 0){
-                    mensagem = "A senha atual está errada";
+                    mensagem = "A senha atual está incorreta";
                     id = "#txt_senha";
                     this.erroCaixaVazia(mensagem, id);
 
                 }else{
 
-                    // this.atualizaSenha();
+                    this.atualizaSenha();
                 }
                 console.log("email:"+resposta);
 
@@ -110,29 +114,26 @@ export class TelaSenha extends Component{
 
     atualizaSenha=()=>{
         $.ajax({
-            url: `http://localhost:8080/confeiteiro/senha/${this.state.senhaAtual}`,
+            url: `http://localhost:8080/confeiteiro/senha/${this.state.codConfeiteiro}`,
             contentType:"application/json",
             dataType:"json",
             type:"put",
-            data:JSON.stringify({codConfeiteiro:this.codigo,
-                senha:this.state.senhaNova}),
+            data:this.state.senhaNova,
             success: function(resposta)
             {
-                var mensagem = "";
-                var id = "";
-                if(resposta === 0){
-                    mensagem = "A senha atual está errada";
-                    id = "#txt_senha";
-                    this.erroCaixaVazia(mensagem, id);
-
-                }else{
-
-                    // this.atualizaSenha();
-                }
-                console.log("email:"+resposta);
+                console.log(resposta);
+                this.setState({showConfirm:true});
+                this.setState({senhaAtual:""});
+                this.setState({senhaNova:""});
+                this.setState({confirmSenha:""});
 
             }.bind(this)
         })
+    }
+
+
+    close=()=>{
+        this.setState({showConfirm:false});
     }
 
 
@@ -155,6 +156,13 @@ export class TelaSenha extends Component{
                     </form>
 
                 </div>
+
+                <ButtonToolbar>
+                    <ModalCadastro titulo="Atualização Realizada com sucesso"
+                        show={this.state.showConfirm}
+                        onHide={this.close}
+                    />
+                </ButtonToolbar>
 
 		    </ContainerAdm>
         );

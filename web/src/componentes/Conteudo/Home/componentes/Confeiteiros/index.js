@@ -20,7 +20,7 @@ export class Confeiteiro extends Component{
         
         $.ajax({
            
-            url: "http://54.242.6.253:8080/confeiteiro",
+            url: "http://54.242.6.253:8080/confeiteiroDTO/avaliacao",
             dataType: "json",
             success: function(resposta){
                 this.setState({listaConfeiteiros: resposta});
