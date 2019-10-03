@@ -9,10 +9,12 @@ import $ from 'jquery';
 import {ModalCadastro} from '../../Modal';
 import { browserHistory} from 'react-router';
 
+
 export class AreaEditarDadosPessoais extends Component{
 
     constructor(props){
         super(props);
+
         this.state={nome:'',sobrenome:'',celular:'',dtNasc:'',cpf:'',sexo:'',foto:'',tamanhoFoto:'',message:"",imgFoto:"", classMessage:""};
         // this.setNome = this.setNome.bind(this);
     
@@ -40,6 +42,14 @@ export class AreaEditarDadosPessoais extends Component{
             }
         });
     }
+
+        this.state={nome:'',sobrenome:'',celular:'',dtNasc:'',cpf:'',sexo:'',foto:'',tamanhoFoto:'',message:"", classMessage:""};
+        
+        this.enviaFormAtualizarDadosConfeiteiro = this.enviaFormAtualizarDadosConfeiteiro.bind(this);
+    
+    }
+
+
 
     setFoto = (evento) => { 
         this.onFocusInput("#img");
@@ -77,10 +87,6 @@ export class AreaEditarDadosPessoais extends Component{
         console.log(evento.target.value);
         this.setState({nome:evento.target.value});
         this.onFocusInput("#nome");
-
-        // this.setState({
-        //     [evento.nome]: evento.target.value
-        // })
     }
 
     setSobrenome = (evento) => {
@@ -132,7 +138,11 @@ export class AreaEditarDadosPessoais extends Component{
             this.erroCaixaVazia(mensagem, id);
         
         }else{
+
             this.enviarForm();
+
+
+
         }
 
     }
@@ -155,6 +165,7 @@ export class AreaEditarDadosPessoais extends Component{
     }
 
     //Método que vai atualizar os dados do confeiteiro
+
     enviarForm(){
         // evento.preventDefault();
 
@@ -185,11 +196,29 @@ export class AreaEditarDadosPessoais extends Component{
                     this.enviarFormFoto(resposta.codConfeiteiro);
                 }
 
+
             }.bind(this),error:function(resposta){
                 console.log(resposta.responseText);
             }
+
+
             
         });
+    }
+
+
+    enviaFormAtualizarDadosConfeiteiro(){
+        let json = {nome: this.state.nome,
+            sobrenome: this.state.sobrenome,
+            celular: {celular:this.state.celular},
+            sexo: this.state.sexo,
+            cpf: this.state.cpf,
+            dtNasc: this.state.dtNasc};
+
+            sessionStorage.setItem('dados_confeiteiro', JSON.stringify(json));
+
+            this.enviarForm(json);
+
     }
 
 
@@ -206,17 +235,21 @@ export class AreaEditarDadosPessoais extends Component{
 
 
         $.ajax({
+
             url: 'http://54.242.6.253:8080/foto/confeiteiro',
             data: formDados,
             processData: false,
             contentType: false,
             type: 'put',
-            success: function(data){
-                
+
+            success: function(data) 
+            {
+
                 this.atualizacaoRealizada();
             }.bind(this)
         });
     }
+
 
     atualizacaoRealizada=()=>{
         //ABRIR A MODAL DE ATUALIZAÇÃO REALIZADA
@@ -228,22 +261,35 @@ export class AreaEditarDadosPessoais extends Component{
         });
     }
 
+
     render(){
         return(
             <ContainerAdm className="container conteudo">
                 <ModalCadastro nome="Atualização dos dados pessoais efetuado com sucesso!!" alt="Atualizado" title="Atualizado"></ModalCadastro>
                 <form>
                     <div id="caixa_imagem" className="centralizar">
+
                         <ImgAtualizar classe="imagem_confeiteiro" name="file" id="img" onChange={this.setFoto} src={"http://54.242.6.253" + this.state.imgFoto} ></ImgAtualizar>
                         <InputEditarDados classe="input_imagem" tipo="file"  onChange={this.setFoto}  classeInput="form-control-file"></InputEditarDados>
                     </div>
                     <div className="form-row mt-5">
                         <InputEditarDados classe="form-group col-md-4" label="Nome:" tipo="text" classeInput="form-control" id="nome" onChange={this.setNome} value={this.state.nome} placeholder=""></InputEditarDados>
+
+                        <ImgAtualizar name="file" id="img" onChange={this.setFoto} src={this.state.imgFoto} ></ImgAtualizar>
+                        <InputEditarDados classe="input_imagem" tipo="file"  onChange={this.setFoto} src={this.state.imgFoto} classeInput="form-control-file" id="img"></InputEditarDados>
+                    </div>
+                    <div className="form-row mt-5">
+                        <InputEditarDados classe="form-group col-md-4" label="Nome:" tipo="text" classeInput="form-control" id="nome" onChange={this.setNome} value={this.state.nome} placeholder="Digite o seu nome"></InputEditarDados>
+
                         <InputEditarDados classe="form-group col-md-4" label="Sobrenome:" tipo="text" classeInput="form-control" id="sobrenome" onChange={this.setSobrenome} value={this.state.sobrenome} placeholder="Digite o seu sobrenome"></InputEditarDados>
                         <InputEditarDados classe="form-group col-md-4" label="Celular:" tipo="text" classeInput="form-control" id="celular" onChange={this.setCelular} value={this.state.celular} placeholder="(00) 00000-0000"></InputEditarDados>
                     </div>
                     <div className="form-row">
+
                         <SelectDadosPessoais id="sexo" onChange={this.setSexo} value={this.state.sexo}></SelectDadosPessoais>
+
+                        <SelectDadosPessoais id="sexo"></SelectDadosPessoais>
+
                         
                         <InputEditarDados classe="form-group col-md-4" disable="disable" label="CPF:" tipo="text" classeInput="form-control" id="cpf" onChange={this.setCpf} value={this.state.cpf} desabilitado="disabled"></InputEditarDados>
                         <InputEditarDados classe="form-group col-md-4" label="Data de Nascimento::" tipo="text" classeInput="form-control" id="dtNasc" onChange={this.setDtNasc} value={this.state.dtNasc} placeholder="00/00/0000"></InputEditarDados>
@@ -251,6 +297,9 @@ export class AreaEditarDadosPessoais extends Component{
                         <div className="form-group mt-5 centralizar">
                         <BotaoEditarDados onClick={this.verificaCampos} id="Salvar" tipo="button" classe="btn btn-success btn_salvar"></BotaoEditarDados>
                         <BotaoEditarDados  id="Cancelar" tipo="button" classe="btn btn-danger"></BotaoEditarDados>
+
+                        <BotaoEditarDados  id="Salvar" tipo="button" classe="btn btn-danger"></BotaoEditarDados>
+
                         </div>
                     </div>
                 </form>
@@ -259,32 +308,3 @@ export class AreaEditarDadosPessoais extends Component{
     }
 }
 
-export class BoxEditarDadosPessoais extends Component{
-
-    constructor(props){
-        super(props);
-        this.state = {nome:'',sobrenome:'',celular:'',dtNasc:'',cpf:'',sexo:'',foto:'',dadosConfeiteiroAtual: []};
-        this.atualizarConfeiteiroAtual = this.atualizarConfeiteiroAtual.bind(this);
-    }
-
-  
-    atualizarConfeiteiroAtual(novoDadosConfeiteiro){
-        this.setState(novoDadosConfeiteiro.nome);
-        this.setState({sobrenome:novoDadosConfeiteiro.sobrenome});
-        this.setState({celular:novoDadosConfeiteiro.celular.celular});
-        this.setState({dtNasc:novoDadosConfeiteiro.dtNasc});
-        this.setState({sexo:novoDadosConfeiteiro.sexo});
-        this.setState({foto:novoDadosConfeiteiro.foto});
-    }
-
-    render(){
-        return(
-            <div>
-                <Header titulo="Configurações dados pessoais"></Header>
-                <AreaEditarDadosPessoais 
-                dadosConfeiteiroAtual={this.state.dadosConfeiteiroAtual} 
-                atualizarConfeiteiro={this.atualizarConfeiteiroAtual}></AreaEditarDadosPessoais>
-            </div>
-        );
-    }
-}
