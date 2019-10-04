@@ -17,11 +17,11 @@ export class Header extends Component{
             <div>
                 <div className="container-fluid menu">
                     <div className="container menu_pc">
-                    <AnchorLink href='#header_home'><Link to='/'><div className="logo_header"></div></Link></AnchorLink>
-                    <AnchorLink href='#bolo_simples_home'><div className="item_menu">Bolos simples</div></AnchorLink>
-                    <AnchorLink href='#bolo_recheado_home'><div className="item_menu">Bolos recheados</div></AnchorLink>
-                    <AnchorLink href='#doce_home'><div className="item_menu">Doces</div></AnchorLink>
-                    <AnchorLink href='#profissional_home'><div className="item_menu">Profissionais</div></AnchorLink>
+                   <Link to='/'><div className="logo_header"></div></Link>
+                    <div className="item_menu">Bolos simples</div>
+                    <div className="item_menu">Bolos recheados</div>
+                    <div className="item_menu">Doces</div>
+                    <div className="item_menu">Profissionais</div>
                     {/* <AnchorLink href='#variado_home'><div className="item_menu">Variados</div></AnchorLink> */}
                         <Link to='/entrar'><button className=" btn_header entrar_header" type="submit">Entrar</button></Link>
                         <Link to='/cadastrar'><button className=" btn_header cadastro_header" type="submit">Cadastre-se</button></Link>   

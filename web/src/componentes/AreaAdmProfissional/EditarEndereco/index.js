@@ -5,6 +5,7 @@ import {InputEditarEndereco} from '../global/inputEditarEndereco'
 import {BotaoEditarEndereco} from '../global/BotaoEditarEndereco'
 import { browserHistory} from 'react-router';
 import {ModalCadastro} from '../../Modal';
+import {ipAPI} from '../../../link_config';
 import $ from 'jquery';
 import {ButtonToolbar} from 'react-bootstrap'; 
 
@@ -68,7 +69,7 @@ export class AreaEditarCadastro extends Component{
 
         console.log(json)
         $.ajax({
-            url: `http://localhost:8080/endereco/${this.state.codConfeiteiro}`,
+            url: `${ipAPI}endereco/${this.state.codConfeiteiro}`,
             contentType: 'application/json',
             dataType: 'json',
             type: 'put',
@@ -238,7 +239,7 @@ export class BoxEditarEndereco extends Component{
     componentDidMount(){
         
         $.ajax({
-            url: `http://localhost:8080/endereco/confeiteiro/${this.state.codConfeiteiro}`,
+            url: `http://54.242.6.253:8080/endereco/confeiteiro/${this.state.codConfeiteiro}`,
             dataType: 'json',
             success:function(resposta){
                 console.log(resposta)

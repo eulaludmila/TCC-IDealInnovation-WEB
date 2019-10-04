@@ -11,6 +11,7 @@ import {ModalCadastro} from '../../Modal';
 import 'bootstrap/js/dist/modal';
 import { browserHistory} from 'react-router';
 import imgClose from '../../../img/close_form.png';
+import {ipAPI} from '../../../link_config';
 
 //Classe da áre de Cadastro do Cliente
 class CadastroCliente extends Component{
@@ -202,7 +203,7 @@ class CadastroCliente extends Component{
     //MÉTODO PARA VERIFICAR SE JÁ EXISTE O EMAIL
     verificaEmail=()=>{
         $.ajax({
-            url: `http://54.242.6.253:8080/cliente/email/${this.state.email}`,
+            url: `${ipAPI}/cliente/email/${this.state.email}`,
             dataType:"json",
             success: function(resposta)
             {
@@ -246,7 +247,7 @@ class CadastroCliente extends Component{
         console.log(this.state.foto);
         // this.enviarFormFoto();
         $.ajax({
-            url:"http://localhost:8080/cliente",
+            url:`${ipAPI}/cliente`,
             contentType:"application/json",
             dataType:"json",
             type:"post",
@@ -297,7 +298,7 @@ class CadastroCliente extends Component{
 
 
         $.ajax({
-            url: 'http://localhost:8080/foto/cliente',
+            url: `${ipAPI}/foto/cliente`,
             data: formDados,
             processData: false,
             contentType: false,

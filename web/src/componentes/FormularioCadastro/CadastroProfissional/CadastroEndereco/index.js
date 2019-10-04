@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import '../../css/cadastro.css';
 import InputCadastro from '../../InputCadastro'
 import BotaoCadastro from '../../BotaoCadastro'
-// import '../../../css/bootstrap.min.css'
+import {ipAPI} from '../../../../link_config';
 import $ from 'jquery';
 import { browserHistory} from 'react-router';
 import imgVoltar from '../../../../img/voltar.png';
