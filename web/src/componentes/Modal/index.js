@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import imgCadastroRealizado from '../../img/correct.png';
+import {Modal} from 'react-bootstrap'
 
-export class ModalCadastro extends Component{
+export class ModalCadastro2 extends Component{
 
     render(){
         return(
@@ -29,5 +30,29 @@ export class ModalCadastro extends Component{
         )
     }
 
+
+}
+
+export function ModalCadastro(props){
+
+    return(
+        <Modal {...props}
+        aria-labelledby="contained-modal-title-vcenter"
+        centered >
+        <Modal.Header closeButton>
+        <Modal.Title>{props.titulo}</Modal.Title>
+
+        </Modal.Header>
+     
+            <Modal.Body>
+                <p className="text-center">ParabĂ©ns!! Foi Realizado com sucesso</p>
+              
+            </Modal.Body>
+            <Modal.Footer>
+                <button type="button" onClick={props.onHide} className="btn btn-success">OK</button>
+            </Modal.Footer>
+          
+    </Modal>
+    )
 
 }

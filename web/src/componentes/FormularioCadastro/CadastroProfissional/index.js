@@ -5,7 +5,7 @@ import InputCadastro from '../InputCadastro'
 import SelectSexoCadastro from '../SelectSexoCadastro'
 import BotaoCadastro from '../BotaoCadastro'
 import imgClose from '../../../img/close_form.png';
-
+import {ipAPI} from '../../../link_config';
 import '../../../css/bootstrap.min.css'
 import $ from 'jquery';
 import { browserHistory} from 'react-router';
@@ -156,7 +156,7 @@ class CadastroProfissional extends Component{
     verificaCpf(){
         console.log("verifica")
         $.ajax({
-            url: `http://54.242.6.253:8080/confeiteiro/cpf/${this.state.cpf}`,
+            url: `${ipAPI}confeiteiro/cpf/${this.state.cpf}`,
             dataType:"json",
             success: function(resposta)
             {
@@ -183,7 +183,7 @@ class CadastroProfissional extends Component{
     verificaEmail(){
         console.log("verifica")
         $.ajax({
-            url: `http://54.242.6.253:8080/confeiteiro/email/${this.state.email}`,
+            url: `${ipAPI}confeiteiro/email/${this.state.email}`,
             dataType:"json",
             success: function(resposta)
             {

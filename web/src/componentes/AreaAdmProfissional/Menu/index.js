@@ -4,6 +4,7 @@ import img from '../../../img/bolo.jpg'
 import {Link} from 'react-router';
 import { ipAPI } from '../../../link_config';
 import $ from 'jquery';
+import {Accordion, Card, Button} from 'react-bootstrap'
 
 class Menu extends Component{
 
@@ -78,6 +79,7 @@ class Menu extends Component{
             
         </div>
       </div>
+
     );
   }
 }

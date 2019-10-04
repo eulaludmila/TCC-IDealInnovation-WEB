@@ -91,7 +91,7 @@ export class TelaSenha extends Component{
 
     verificaSenhaAtual=()=>{
         $.ajax({
-            url: `http://localhost:8080/confeiteiro/senha/${this.state.codConfeiteiro}/${this.state.senhaAtual}`,
+            url: `http://54.242.6.253:8080/confeiteiro/senha/${this.state.codConfeiteiro}/${this.state.senhaAtual}`,
             dataType:"json",
             success: function(resposta)
             {

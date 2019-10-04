@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Router, browserHistory, IndexRoute, Redirect} from 'react-router';
+import {Route, Router, browserHistory, IndexRoute} from 'react-router';
 import Home from './componentes/Conteudo/Home';
 import Site from './componentes/Rota/Site';
 import Cadastro from './componentes/Rota/Cadastro';

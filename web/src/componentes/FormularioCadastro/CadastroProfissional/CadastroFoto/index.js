@@ -3,9 +3,9 @@ import '../../css/cadastro.css';
 import img from '../../../../img/user3.png'
 import ImgCadastro from '../../ImgCadastro'
 import BotaoCadastro from '../../BotaoCadastro'
-// import '../../../css/bootstrap.min.css'
+import {ipAPI} from '../../../../link_config';
 import $ from 'jquery';
-import {ModalCadastro} from '../../../Modal';
+import {ModalCadastro2} from '../../../Modal';
 import { browserHistory} from 'react-router';
 import imgVoltar from '../../../../img/voltar.png';
 
@@ -79,7 +79,7 @@ class CadastroEndereco extends Component{
         evento.preventDefault();
 
         $.ajax({
-            url:"http://54.242.6.253:8080/enderecoconfeiteiro",
+            url:`${ipAPI}enderecoconfeiteiro`,
             contentType:"application/json",
             dataType:"json",
             type:"post",
@@ -109,7 +109,7 @@ class CadastroEndereco extends Component{
         formDados.append('codConfeiteiro', codigo);
 
         $.ajax({
-            url: 'http://54.242.6.253:8080/foto/confeiteiro',
+            url: `${ipAPI}foto/confeiteiro`,
             data: formDados,
             processData: false,
             contentType: false,
@@ -136,7 +136,7 @@ class CadastroEndereco extends Component{
     render(){
         return(
             <div className="container-fluid pt-5 cadastro-cliente">
-                <ModalCadastro nome="Cadastro efetuado com sucesso!!" alt="Finalizado" title="Finalizado"></ModalCadastro>
+                <ModalCadastro2 nome="Cadastro efetuado com sucesso!!" alt="Finalizado" title="Finalizado"></ModalCadastro2>
                 <div className="container pt-5">
                     <div className="card">
                         <div className="card-header">

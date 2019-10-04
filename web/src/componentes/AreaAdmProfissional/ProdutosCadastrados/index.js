@@ -20,7 +20,7 @@ export class ProdutosCadastrados extends Component{
 
     componentDidMount(){
 
-        const { codProduto } = this.props.match.params
+        // const { codProduto } = this.props.match.params
         $.ajax({
             url: ipAPI + "produto/confeiteiro/" + sessionStorage.getItem("key"),
             dataType: "json",

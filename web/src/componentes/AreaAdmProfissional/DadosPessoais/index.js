@@ -8,6 +8,8 @@ import {ImgAtualizar} from './ImgAtualizar'
 import $ from 'jquery';
 import {ModalCadastro} from '../../Modal';
 import { browserHistory} from 'react-router';
+import {ButtonToolbar} from 'react-bootstrap'
+import {ipAPI} from '../../../link_config';
 
 
 export class AreaEditarDadosPessoais extends Component{
@@ -15,7 +17,7 @@ export class AreaEditarDadosPessoais extends Component{
     constructor(props){
         super(props);
 
-        this.state={nome:'',sobrenome:'',celular:'',dtNasc:'',cpf:'',sexo:'',foto:'',tamanhoFoto:'',message:"",imgFoto:"", classMessage:""};
+        this.state={nome:'',sobrenome:'',celular:'',dtNasc:'',cpf:'',sexo:'',foto:'',tamanhoFoto:'',message:"",imgFoto:"",showConfirm:false, classMessage:""};
         // this.setNome = this.setNome.bind(this);
     
     }
@@ -41,11 +43,6 @@ export class AreaEditarDadosPessoais extends Component{
                 console.log(resposta);
             }
         });
-    }
-
-        this.state={nome:'',sobrenome:'',celular:'',dtNasc:'',cpf:'',sexo:'',foto:'',tamanhoFoto:'',message:"", classMessage:""};
-        
-        this.enviaFormAtualizarDadosConfeiteiro = this.enviaFormAtualizarDadosConfeiteiro.bind(this);
     
     }
 
@@ -178,7 +175,7 @@ export class AreaEditarDadosPessoais extends Component{
 
         console.log(json)
         $.ajax({
-            url: `http://54.242.6.253:8080/confeiteiroDTO/${sessionStorage.getItem("key")}`,
+            url: `${ipAPI}/confeiteiroDTO/${sessionStorage.getItem("key")}`,
             contentType: "application/json",
             dataType: "json",
             type: "put",
@@ -189,12 +186,13 @@ export class AreaEditarDadosPessoais extends Component{
 
                 if(this.state.foto === ""){
 
-                    this.atualizacaoRealizada();
+                    this.open();
 
                 }else{
-                    console.log(resposta.codConfeiteiro)
                     this.enviarFormFoto(resposta.codConfeiteiro);
                 }
+
+                this.atualizarDadosPessoais(resposta);
 
 
             }.bind(this),error:function(resposta){
@@ -236,7 +234,7 @@ export class AreaEditarDadosPessoais extends Component{
 
         $.ajax({
 
-            url: 'http://54.242.6.253:8080/foto/confeiteiro',
+            url: `${ipAPI}/foto/confeiteiro`,
             data: formDados,
             processData: false,
             contentType: false,
@@ -244,39 +242,38 @@ export class AreaEditarDadosPessoais extends Component{
 
             success: function(data) 
             {
-
-                this.atualizacaoRealizada();
+                this.open();
             }.bind(this)
         });
     }
 
+    close=()=>{
+        this.setState({showConfirm:false});
+    }
 
-    atualizacaoRealizada=()=>{
-        //ABRIR A MODAL DE ATUALIZAÇÃO REALIZADA
-        $('#my-modal').modal('show');
-                    
-        //AO APERTAR EM "OK" IRÁ REDIRECIONAR PARA A TELA INCIAL DO SITE
-        $(".btn-modal").on("click", function(){
-            browserHistory.push("/adm/profissional")
-        });
+    open=()=>{
+        this.setState({showConfirm:true});
+    }
+
+    atualizarDadosPessoais(dados){
+        this.setState({nome:dados.nome});
+        this.setState({sobrenome:dados.sobrenome});
+        this.setState({celular:dados.celular.celular});
+        this.setState({sexo:dados.sexo});
+        this.setState({dtNasc:dados.dtNasc});
+        this.setState({ingFoto:dados.foto});
     }
 
 
     render(){
         return(
             <ContainerAdm className="container conteudo">
-                <ModalCadastro nome="Atualização dos dados pessoais efetuado com sucesso!!" alt="Atualizado" title="Atualizado"></ModalCadastro>
+                {/* <ModalCadastro nome="Atualização dos dados pessoais efetuado com sucesso!!" alt="Atualizado" title="Atualizado"></ModalCadastro> */}
                 <form>
                     <div id="caixa_imagem" className="centralizar">
 
                         <ImgAtualizar classe="imagem_confeiteiro" name="file" id="img" onChange={this.setFoto} src={"http://54.242.6.253" + this.state.imgFoto} ></ImgAtualizar>
                         <InputEditarDados classe="input_imagem" tipo="file"  onChange={this.setFoto}  classeInput="form-control-file"></InputEditarDados>
-                    </div>
-                    <div className="form-row mt-5">
-                        <InputEditarDados classe="form-group col-md-4" label="Nome:" tipo="text" classeInput="form-control" id="nome" onChange={this.setNome} value={this.state.nome} placeholder=""></InputEditarDados>
-
-                        <ImgAtualizar name="file" id="img" onChange={this.setFoto} src={this.state.imgFoto} ></ImgAtualizar>
-                        <InputEditarDados classe="input_imagem" tipo="file"  onChange={this.setFoto} src={this.state.imgFoto} classeInput="form-control-file" id="img"></InputEditarDados>
                     </div>
                     <div className="form-row mt-5">
                         <InputEditarDados classe="form-group col-md-4" label="Nome:" tipo="text" classeInput="form-control" id="nome" onChange={this.setNome} value={this.state.nome} placeholder="Digite o seu nome"></InputEditarDados>
@@ -288,9 +285,6 @@ export class AreaEditarDadosPessoais extends Component{
 
                         <SelectDadosPessoais id="sexo" onChange={this.setSexo} value={this.state.sexo}></SelectDadosPessoais>
 
-                        <SelectDadosPessoais id="sexo"></SelectDadosPessoais>
-
-                        
                         <InputEditarDados classe="form-group col-md-4" disable="disable" label="CPF:" tipo="text" classeInput="form-control" id="cpf" onChange={this.setCpf} value={this.state.cpf} desabilitado="disabled"></InputEditarDados>
                         <InputEditarDados classe="form-group col-md-4" label="Data de Nascimento::" tipo="text" classeInput="form-control" id="dtNasc" onChange={this.setDtNasc} value={this.state.dtNasc} placeholder="00/00/0000"></InputEditarDados>
                         
@@ -298,13 +292,30 @@ export class AreaEditarDadosPessoais extends Component{
                         <BotaoEditarDados onClick={this.verificaCampos} id="Salvar" tipo="button" classe="btn btn-success btn_salvar"></BotaoEditarDados>
                         <BotaoEditarDados  id="Cancelar" tipo="button" classe="btn btn-danger"></BotaoEditarDados>
 
-                        <BotaoEditarDados  id="Salvar" tipo="button" classe="btn btn-danger"></BotaoEditarDados>
-
                         </div>
                     </div>
                 </form>
+
+                <ButtonToolbar>
+                    <ModalCadastro titulo="Atualização Realizada com sucesso"
+                        show={this.state.showConfirm}
+                        onHide={this.close}
+                    />
+                </ButtonToolbar>
             </ContainerAdm>
         );
     }
 }
+
+export class BoxEditarDadosPessoais extends Component{
+    render(){
+        return(
+            
+            <div>
+                <Header titulo="Dados Pessoais"></Header>
+                <AreaEditarDadosPessoais atuali></AreaEditarDadosPessoais>
+            </div>
+        )
+    }
+} 
 

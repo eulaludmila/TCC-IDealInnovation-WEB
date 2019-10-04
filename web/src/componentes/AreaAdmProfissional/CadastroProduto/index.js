@@ -10,6 +10,7 @@ import BotaoCadastro from '../../FormularioCadastro/BotaoCadastro';
 import { browserHistory} from 'react-router';
 import {ModalCadastro} from '../../Modal';
 import {ipAPI} from '../../../link_config';
+import {ButtonToolbar} from 'react-bootstrap'
 
 
 export class CadastrarProdutos extends Component{
@@ -19,7 +20,7 @@ export class CadastrarProdutos extends Component{
         super(props);
 
 
-        this.state={foto: "", tamanhoFoto: "", nomeProduto: '', categoriaProduto:'', qtdeMin: '', qtdeMax: '', precoProduto: '' ,descricaoProduto: '',codCategoria: "", categoria:"", tipo:"", message:"", classMessage:""}
+        this.state={foto: "", tamanhoFoto: "", nomeProduto: '', categoriaProduto:'', qtdeMin: '', qtdeMax: '', precoProduto: '' ,descricaoProduto: '',codCategoria: "", categoria:"", tipo:"", message:"", classMessage:"",showConfirm:false}
         this.onFocusInput = this.onFocusInput.bind(this);
 
         this.enviaFormProduto = this.enviaFormProduto.bind(this);
@@ -153,7 +154,6 @@ export class CadastrarProdutos extends Component{
             this.enviaFormProduto();
         }
 
-
     }
 
     //MÉTODO QUE IRÁ SALVAR OS DADOS DO PRODUTO 
@@ -196,7 +196,6 @@ export class CadastrarProdutos extends Component{
 
     enviaFormFotoProduto = (codProduto) =>{
 
-        
         //PEGA O ARQUIVO DA FOTO E SALVA JUNTO COM O CODIGO DO PRODUTO
         var formDados= new FormData();
         formDados.append('foto', this.state.foto);
@@ -210,22 +209,28 @@ export class CadastrarProdutos extends Component{
             type: 'post',
             success: function(data) 
             {
-                this.cadastroRealizado();
+                this.open();
             }.bind(this)
         });
     }
 
-    cadastroRealizado=()=>{
-        //ABRIR A MODAL DE CADASTRO REALIZADO
-        $('#my-modal').modal('show');
+    // cadastroRealizado=()=>{
+    //     //ABRIR A MODAL DE CADASTRO REALIZADO
+    //     $('#my-modal').modal('show');
                     
-        //AO APERTAR EM "OK" IRÁ REDIRECIONAR PARA A TELA INCIAL DO SITE
-        $(".btn-modal").on("click", function(){
-            browserHistory.push("/adm/profissional/produtos_cadastrados")
-        });
+    //     //AO APERTAR EM "OK" IRÁ REDIRECIONAR PARA A TELA INCIAL DO SITE
+    //     $(".btn-modal").on("click", function(){
+    //         browserHistory.push("/adm/profissional/produtos_cadastrados")
+    //     });
+    // }
+    close=()=>{
+        this.setState({showConfirm:false});
+        browserHistory.push("/adm/profissional/produtos_cadastrados")
     }
 
-
+    open=()=>{
+        this.setState({showConfirm:true});
+    }
 
     //TIRAR OS ERROS AO DIGITAR NOS INPUTS
     onFocusInput(id){
@@ -234,12 +239,6 @@ export class CadastrarProdutos extends Component{
         $(id).css('border', '1px solid #ced4da');
 
     }
-
-    // componentWillMount(){
-    //     this.props.location.query.codProduto
-
-
-    // }
 
     render(){
         return(
@@ -276,6 +275,13 @@ export class CadastrarProdutos extends Component{
                     <BotaoCadastro to="" type="submit" onClick={this.verificaCampos} id="Salvar"></BotaoCadastro>
                     <BotaoCadastro to="" type="submit" onClick={this.verificaCampos} id="Cancelar"></BotaoCadastro>
                 </form>
+
+                <ButtonToolbar>
+                    <ModalCadastro titulo="Atualização Realizada com sucesso"
+                        show={this.state.showConfirm}
+                        onHide={this.close}
+                    />
+                </ButtonToolbar>
 
             </ContainerAdm>
 
