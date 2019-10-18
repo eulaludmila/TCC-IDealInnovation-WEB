@@ -1,48 +1,81 @@
 import React, { Component } from 'react';
-import '../../css/style.css';
-import '../../css/rate.css';
-import img from '../../img/app.jpg'
-import $ from 'jquery';
 
+import { Footer } from '../Footer';
+import '../../../css/bootstrap.min.css';
+import '../../../css/bootstrap.min.css';
+import axios from 'axios';
+import { ipAPI } from '../../../link_config';
 
-export class Produto extends Component{
-
+class Produtos extends Component{
 
     constructor(props){
-
         super(props);
 
-        this.state = {listaProdutos: []};
+        this.state = {listaProdutos: [], listaCategorias: [], itemClicado: 0}
+
 
     }
+
 
     componentDidMount(){
 
-        $.ajax({
-           
-            url: "http://54.242.6.253:8080/produto/categoria/"+this.props.codigo,
-            dataType: "json",
-            success: function(resposta){
-                this.setState({listaProdutos: resposta});
-                console.log(resposta);
-            }.bind(this)
+        axios.get(ipAPI + "categoria/")
+        .then(resposta => {
+             const categorias = resposta.data;
+
+             this.setState({listaCategorias: categorias})
         })
+
+       
     }
 
-    atualizarListagemProdutos(novaLista){
-        this.setState({listaProdutos: novaLista});
+  
+    listarProdutos(codCategoria){
+       
+        axios.get('http://54.242.6.253:8080/produto/categoria/'+codCategoria)
+        .then(resposta => {
+
+            const produtos = resposta.data;
+            this.setState({listaProdutos: produtos})
+            
+            this.setState({itemClicado: codCategoria});
+        })
+
     }
-
-
 
     render(){
+  
         return(
+
+            <div> 
+
             <div className="container bolo" id={this.props.id}>
+          
+                
                 <div className="titulo mx-auto">
-                    <h1>{this.props.titulo}</h1>
+
+
+                    <div className="d-flex justify-content-center">
+
+                        <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
+
+                            {this.state.listaCategorias.map(categorias => 
+
+                                <li className="nav-item">
+                                    <a className={categorias.codCategoria == this.state.itemClicado ? "nav-link active" : "nav-link"}  id={categorias.codCategoria} onClick={()=>this.listarProdutos(categorias.codCategoria)}>{categorias.categoria}</a>
+                                </li>
+
+                            )}
+
+                        </ul>
+
+                    </div>
                     <hr></hr>
                 </div>
-            
+                
+
+                <div className="container pt-5">
+
                 {this.state.listaProdutos.map(produtos =>
                 
                     <div className="card text-center prod mb-5"  style={{'width': '14rem'}}>
@@ -67,9 +100,17 @@ export class Produto extends Component{
                         </div>
                     </div>
                 )}
+                </div>
             </div> 
-
+                <Footer/>
+            </div>
+           
+                
+        
+        
         );
     }
 
 }
+
+export default Produtos;

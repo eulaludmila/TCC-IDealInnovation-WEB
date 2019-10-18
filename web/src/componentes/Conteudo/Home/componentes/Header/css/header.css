@@ -6,6 +6,10 @@
   height: 60px;
 }
 
+#menu-responsivo{
+  display: none;
+}
+
 .menu{
   height: 60px;
   background-color: #b41167;
@@ -95,112 +99,154 @@
   
 }
 
+.active{
+  background-color: #880E4F!important;
+}
+
 
 
 /***********Menor que 1100 Celular*/
 @media only screen and (max-width: 1100px) {
-.menu{
-  height: 60px;
-  background-color: #b41167;
-  position: fixed;
-  padding: 0!important;
-  z-index: 999;
-}
 
-  
-/*TEXTO RESPONSIVO*/
-  .texto_header{
+  .menu_pc{
+    display: none;
+  }
+
+
+  #menu-responsivo{
+    width: 100%;
+    height: 60px;
+    background-color: #880e4f;
+    margin: 0px!important;
+    position: fixed;
+    z-index: 8;
+  }
+
+  #texto_header{
     font-size: 25px;
     text-align: center;
     font-family: fonte;
     color: #fff;
-    margin-top: 10px;
-    width: 100%;
-    position: absolute;
     float: left;
+    box-sizing: border-box;
+    padding-top: 8px;
+    padding-left: 70px;
+  }
+
+  #imagem_menu{
+    width: 50px;
+    height: 50px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+  }
+
+  .fechar-menu{
+    background-image: url("../../../img/fechar_menu.jpg");
+  }
+
+  .abrir-menu{
+    background-image: url("../../../img/menu_mobile.jpg");
+  }
+
+  .menu_itens{
+    width: 100%; 
+    min-height: 100px;
+    max-height: auto;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
     z-index: 8;
-  }
-  
-  .demo-1{
-    float: left;
-    margin-top: 8px;
-    z-index: 988;
-    position: absolute;
+    margin-top: -100px;
+    background-color: rgba(136, 14, 79, 10);
   }
 
-/*ITENS DE NAVEGAÇÂO DO MENU */
-.item_menu{
-  height: 100%;
-  float: left;
-  color: #fff;
-  text-align: center;
-  padding: 15px;
-  margin-left: 20px;
-  font-size: 19px;
-  font-weight: 500;
-}
-
-.item_menu:hover{
-  color: #f3f3f3;
-  cursor: pointer;
-}
-
-
-/*SEGUNDA PARTE DO HEADER QUE FICA ALINHADA A DIREITA*/
-
-.container-autenticacao-header{
-  width: 350px;
-  height: 100%; 
-  margin-left: auto;
-  padding-top: 10px;
-  box-sizing: border-box;
-  padding-right: 15px;
-}
-
-.btn_header{
-  height: 40px;
-  margin-left: 10px;
-  float: left;
-  border: none;
-  padding: 5px;
-  border-radius: 5px;
-  margin-top: 10px;
-}
-
-.entrar_header{ 
-  background-color: #fff;
-  margin-left: 40px;
-}
-
-.cadastro_header{
-  background-color: #880e4f;
-  color: #fff;
-}
-
-.baixar_header{
-  color: #fff;
-  cursor: pointer;
-  background-color: #880e4f;
-}
-
-.baixar_header:hover{
-  color: #fff;
-  cursor: pointer;
-}
-  
-  /****** coisas que não existem no mobile**************/
-  
-  .espaco_menu{
-  display: none;
-}
-  
-  .menu_pc{
-    display: none;
+  #imagem_menu img{
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
   }
+
+    
+  .active{
+    background-color: #880E4F!important;
+  }
+
+
+  .aparecer-menu{
+    opacity: 1;
+    visibility: visible;
+    transition: 1s;
+    position: fixed;
+    left: 0;
+    margin-top: 0px;
+  }
+
+  .sumir-menu{
+    opacity: 0;
+    visibility: hidden;
+    transition: 1s;
+    position: fixed;
+    left: 0;
+    margin-top: -100px;
+    z-index: 0;
+  }
+
+  .itens{
+    min-width: 100px;
+    max-width: auto;
+    height: 50px;
+    box-sizing: border-box;
+    padding-top: 8px;
+    
+    
+  }
+
+  .itens p{
+    width: 250px;
+    border-bottom: solid 1px white;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    font-family: fonte;
+    font-size: 22px;
+    letter-spacing: 3px;
+    text-align: center;
+    
+  }
+
+  .setinha p::after {
+    display: inline-block;
+    margin-left: .255em;
+    vertical-align: .18em;
+    content: "";
+    border-top: .3em solid;
+    border-right: .3em solid transparent;
+    border-bottom: 0;
+    border-left: .3em solid transparent;
+  }
+
+  .submenu_r{
+    width: 200px;
+    height: 40px;
+    z-index: 8;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: fonte;
+    font-size: 18px;
+    letter-spacing: 3px;
+    text-align: center;
+  }
+
+
+  .itens:hover > .submenu_r{
+    cursor: pointer;
+  }
+
+
   
-  .logo_header{
-  display: none;
-  
-}
 }
 
