@@ -4,9 +4,11 @@ import Home from './componentes/Conteudo/Home';
 import Site from './componentes/Rota/Site';
 import Cadastro from './componentes/Rota/Cadastro';
 import Login from './componentes/Rota/Login';
+import Produtos  from './componentes/Conteudo/Produtos';
 
 import EntrarLogin from './componentes/Conteudo/EntrarCadastrar/Entrar';
 import CadastrarLogin from './componentes/Conteudo/EntrarCadastrar/Cadastrar';
+
 
 import CadastroCliente from './componentes/FormularioCadastro/CadastroCliente';
 import CadastroProfissional from './componentes/FormularioCadastro/CadastroProfissional';
@@ -27,6 +29,7 @@ import { BoxSolicitacoes } from './componentes/AreaAdmProfissional/SolicitacoesP
 import { BoxPedidos } from './componentes/AreaAdmProfissional/PedidosAprovados'
 import { BoxCadastrarProdutos } from './componentes/AreaAdmProfissional/CadastroProduto'
 
+
 export const Rota = () =>(
     <Router history={browserHistory} >
         <Route path="/" component={Site}>
@@ -34,6 +37,7 @@ export const Rota = () =>(
             <IndexRoute component={Home}></IndexRoute>
             <Route path="/entrar" component={EntrarLogin}></Route>
             <Route path="/cadastrar" component={CadastrarLogin}></Route>
+            <Route path="/produtos" component={Produtos}></Route>
             {/* <Route path="/entrarCliente" component={LoginCliente}></Route>
             <Route path="/entrarProfissional" component={LoginProfissional}></Route> */}
 
