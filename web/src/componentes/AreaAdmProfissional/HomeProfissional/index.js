@@ -23,7 +23,7 @@ export class HomeProfissional extends Component{
           type: "get",
           success: function(resposta){
               this.setState({listaProdutos: resposta});
-              console.log(resposta)
+              console.log("lala:"+resposta)
           }.bind(this)
       })
   }
