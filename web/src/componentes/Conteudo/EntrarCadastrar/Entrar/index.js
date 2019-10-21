@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import '../css/entrarCadastrar.css';
 import { Link } from 'react-router';
+import {Footer} from '../../Footer'
 // import GridAreaClienteProfissional from '../GridAreaClienteProfissional';
 
 class Entrar extends Component{
@@ -8,7 +9,6 @@ class Entrar extends Component{
         return(
             <div>
                 
-    
                     <div className="container area_entrar pt-5">
                         
                         <div><h1 className="mb-5 mt-5 text-center">Venha fazer parte dessas doçuras</h1></div>
@@ -74,6 +74,7 @@ class Entrar extends Component{
                         </div>
                         
                     </div>
+                    <Footer></Footer>
             </div>
         );
     }

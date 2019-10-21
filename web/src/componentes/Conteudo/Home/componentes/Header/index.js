@@ -84,7 +84,7 @@ export class Header extends Component{
 
                     <div className="item_menu">Confeiteiros</div>
                     {/* <AnchorLink href='#variado_home'><div className="item_menu">Variados</div></AnchorLink> */}
-                    <div className="item_menu">Sobre</div>
+                    <Link to='/sobre'><div className="item_menu">Sobre</div></Link>
                         <Link to='/entrar'><button className=" btn_header entrar_header" type="submit">Entrar</button></Link>
                         <Link to='/cadastrar'><button className=" btn_header cadastro_header" type="submit">Cadastre-se</button></Link>   
                     </div>
@@ -95,7 +95,7 @@ export class Header extends Component{
                     
                     
                     <div id="menu-responsivo" className="row">
-
+                    
                     
                         <div id="texto_header" className="col-sm-11 col-10"> Show de Bolos</div>
                         <div id="imagem_menu"  className="col-sm-1 col-2">
@@ -116,6 +116,7 @@ export class Header extends Component{
                             </div>
                         </div>
                     </div>
+                    <div className="espaco_menu_resposnsivo"></div> 
                 </div>
 
 

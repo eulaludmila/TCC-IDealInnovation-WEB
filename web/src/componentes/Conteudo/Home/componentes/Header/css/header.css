@@ -1,5 +1,6 @@
 
 /**************MAIOR QUE 1200 (PC)*/
+
 @media only screen and (min-width: 1200px) {
     .espaco_menu{
   width: 100%;
@@ -111,7 +112,10 @@
   .menu_pc{
     display: none;
   }
-
+  .espaco_menu_resposnsivo{
+    width: 100%;
+    height: 60px;
+  }
 
   #menu-responsivo{
     width: 100%;

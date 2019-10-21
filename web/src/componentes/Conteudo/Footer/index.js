@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import './css/footer-white.css';
 import './css/footer.css';
+import {Link} from 'react-router';
 
 
 export class Footer extends Component{
@@ -27,7 +28,7 @@ export class Footer extends Component{
                                 <h5>Quem somos</h5>
                                 <ul>
                                     <li>Informações da Empresa</li>
-                                    <li>Contato</li>
+                                    <Link to="/faleconosco"><li>Contato</li></Link>
                                     <li>Blog</li>
                                 </ul>
                             </div>

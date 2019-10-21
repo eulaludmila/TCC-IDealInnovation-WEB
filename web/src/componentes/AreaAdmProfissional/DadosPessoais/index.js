@@ -7,7 +7,6 @@ import {SelectDadosPessoais} from './SelectSexoDadosPessoais'
 import {ImgAtualizar} from './ImgAtualizar'
 import $ from 'jquery';
 import {ModalCadastro} from '../../Modal';
-import { browserHistory} from 'react-router';
 import {ButtonToolbar} from 'react-bootstrap'
 import {ipAPI} from '../../../link_config';
 
@@ -24,7 +23,7 @@ export class AreaEditarDadosPessoais extends Component{
 
     componentDidMount(){
         $.ajax({
-            url: `http://54.242.6.253:8080/confeiteiro/${sessionStorage.getItem("key")}`,
+            url: `${ipAPI}confeiteiro/${sessionStorage.getItem("key")}`,
             dataType: 'json',
             success:function(resposta){
                 this.setState({nome:resposta.nome});
@@ -175,7 +174,7 @@ export class AreaEditarDadosPessoais extends Component{
 
         console.log(json)
         $.ajax({
-            url: `${ipAPI}/confeiteiroDTO/${sessionStorage.getItem("key")}`,
+            url: `${ipAPI}confeiteiroDTO/${sessionStorage.getItem("key")}`,
             contentType: "application/json",
             dataType: "json",
             type: "put",
@@ -272,7 +271,7 @@ export class AreaEditarDadosPessoais extends Component{
                 <form>
                     <div id="caixa_imagem" className="centralizar">
 
-                        <ImgAtualizar classe="imagem_confeiteiro" name="file" id="img" onChange={this.setFoto} src={"http://54.242.6.253" + this.state.imgFoto} ></ImgAtualizar>
+                        <ImgAtualizar classe="imagem_confeiteiro" name="file" id="img"  src={"http://54.242.6.253" + this.state.imgFoto} ></ImgAtualizar>
                         <InputEditarDados classe="input_imagem" tipo="file"  onChange={this.setFoto}  classeInput="form-control-file"></InputEditarDados>
                     </div>
                     <div className="form-row mt-5">
