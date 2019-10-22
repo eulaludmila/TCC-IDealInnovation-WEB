@@ -1,6 +1,6 @@
 import React,{Component} from 'react'
 import './faleconosco.css'
-import {Form, Col, Input,InputGroup,Button} from 'react-bootstrap'
+import {Form, Col, InputGroup,Button} from 'react-bootstrap'
 import axios from 'axios'
 import {Footer} from '../Footer'
 import { ipAPI } from '../../../link_config';

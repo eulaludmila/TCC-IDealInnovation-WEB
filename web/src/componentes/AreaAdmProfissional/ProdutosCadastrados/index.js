@@ -4,7 +4,7 @@ import lupa from '../../../img/lupa.png'
 import Header from '../Header'
 import {ContainerAdm} from '../../../styles'
 import $ from 'jquery'
-import {ipAPI, ipFotos} from '../../../link_config';
+import {ipAPI} from '../../../link_config';
 import {Link} from 'react-router';
 
 export class ProdutosCadastrados extends Component{

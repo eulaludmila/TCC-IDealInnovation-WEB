@@ -62,7 +62,7 @@ class Produtos extends Component{
                             {this.state.listaCategorias.map(categorias => 
 
                                 <li className="nav-item">
-                                    <a className={categorias.codCategoria == this.state.itemClicado ? "nav-link active" : "nav-link"}  id={categorias.codCategoria} onClick={()=>this.listarProdutos(categorias.codCategoria)}>{categorias.categoria}</a>
+                                    <span className={categorias.codCategoria === this.state.itemClicado ? "nav-link active" : "nav-link"}  id={categorias.codCategoria} onClick={()=>this.listarProdutos(categorias.codCategoria)}>{categorias.categoria}</span>
                                 </li>
 
                             )}

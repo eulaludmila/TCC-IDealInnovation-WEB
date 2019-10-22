@@ -42,9 +42,9 @@ export class Footer extends Component{
                             </div>
                             <div className="col-sm-3">
                                 <div className="social-networks">
-                                        <a href="#" className="twitter"><i className="fab fa-twitter"></i></a>
-                                        <a href="#" className="facebook"><i className="fab fa-facebook-f"></i></a>
-                                        <a href="#" className="instagram"><i className="fab fa-instagram"></i></a>
+                                        <span className="twitter"><i className="fab fa-twitter"></i></span>
+                                        <span className="facebook"><i className="fab fa-facebook-f"></i></span>
+                                        <span className="instagram"><i className="fab fa-instagram"></i></span>
                                     </div>
                                     
                                         <button type="button" className="btn btn-default">Contato</button>

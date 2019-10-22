@@ -11,7 +11,7 @@ export default class Vendedor extends Component{
                         <img src={ ipFotos + this.props.fotoConfeiteiro} className="img_pessoa mr-2" alt={this.props.nomeConfeiteiro} title={this.props.nomeConfeiteiro}/>
                         <p className="card-text">{this.props.nomeConfeiteiro}</p>
                         <p className="card-text">Jandira-SP</p>
-                        <a href="#" className="btn_desc"><span>Visitar o perfil</span></a>
+                        <span>Visitar o perfil</span>
                     </div>
                 </div>
             </div>

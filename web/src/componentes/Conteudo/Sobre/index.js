@@ -16,12 +16,12 @@ export class Sobre extends Component{
                          
                         </div>
                         <div className='img1 '>
-                            <img className='img1-sobre' style={{'width':'100%','height':'300px'}} src={img}></img>
+                            <img className='img1-sobre' alt="la" style={{'width':'100%','height':'300px'}} src={img}></img>
                         </div>
                     </div>
                     <div className="parte2">
                         <div className='img1 '>
-                            <img className='img1-sobre' style={{'width':'100%','height':'300px'}} src={img}></img>
+                            <img className='img1-sobre' alt="la" style={{'width':'100%','height':'300px'}} src={img}></img>
                         </div>
                         <div className='texto1 '>
                         Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.

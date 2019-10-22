@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import '../../css/cadastro.css';
 import InputCadastro from '../../InputCadastro'
 import BotaoCadastro from '../../BotaoCadastro'
-import {ipAPI} from '../../../../link_config';
 import $ from 'jquery';
 import { browserHistory} from 'react-router';
 import imgVoltar from '../../../../img/voltar.png';
@@ -206,9 +205,9 @@ class CadastroEndereco extends Component{
                                     <InputCadastro id="complemento" className="form-group col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12" type="text" onChange={this.setComplemento} value={this.state.complemento} placeholder=". . ." label="Complemento" ></InputCadastro>
 
                                     
-                                    <InputCadastro id="estado" disabled="disabled" className="form-group col-xl-1 col-lg-3 col-md-4 col-sm-12 col-12" type="text" onChange={this.setEstado} value={this.state.estado}  label="UF" ></InputCadastro>
+                                    <InputCadastro readOnly id="estado" disabled="disabled" className="form-group col-xl-1 col-lg-3 col-md-4 col-sm-12 col-12" type="text" onChange={this.setEstado} value={this.state.estado}  label="UF" ></InputCadastro>
                                     
-                                    <InputCadastro id="cidade" disabled="disabled" className="form-group col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12" type="email" onChange={this.setCidade} value={this.state.cidade}  label="Cidade" ></InputCadastro>
+                                    <InputCadastro readOnly id="cidade" disabled="disabled" className="form-group col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12" type="email" onChange={this.setCidade} value={this.state.cidade}  label="Cidade" ></InputCadastro>
 
                                     </div>
 
