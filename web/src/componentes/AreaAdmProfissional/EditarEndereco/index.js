@@ -3,7 +3,6 @@ import Header from '../Header';
 import {ContainerAdm} from '../../../styles'
 import {InputEditarEndereco} from '../global/inputEditarEndereco'
 import {BotaoEditarEndereco} from '../global/BotaoEditarEndereco'
-import { browserHistory} from 'react-router';
 import {ModalCadastro} from '../../Modal';
 import {ipAPI} from '../../../link_config';
 import $ from 'jquery';

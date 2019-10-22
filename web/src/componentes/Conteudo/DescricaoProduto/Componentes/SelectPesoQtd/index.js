@@ -7,7 +7,7 @@ export default class SelectPesoQtd extends Component{
     constructor(props){
         super(props)
 
-        this.state = {listaPesoQtd: [], multiplo: "", maximo: ""};
+        this.state = {listaPesoQtd: [], multiplo: "", maximo: "", preco:"", precoAtualizado:''};
     }
 
     componentDidMount(){
@@ -17,11 +17,21 @@ export default class SelectPesoQtd extends Component{
             success: function(resposta){
                 this.setState({multiplo: resposta.quantidade.multiplo});
                 this.setState({maximo: resposta.quantidade.maximo});
+                this.setState({preco: resposta.preco});
                 
             }.bind(this)
         })
 
         this.pegarQuantidade()
+    }
+
+    precoProduto = (evento) =>{
+        console.log(evento.target.value)
+        if(evento.target.value !== "Escolha uma opção"){
+            this.setState({precoAtualizado:evento.target.value});
+        }
+        
+
     }
 
     pegarQuantidade(){
@@ -30,11 +40,11 @@ export default class SelectPesoQtd extends Component{
 
         let qtde = [];
              
-        if(this.props.label == "Kg:"){
+        if(this.props.label === "Kg:"){
             for(let i = min; i<= max; i++){
                 qtde.push(i);
             }
-        }else if(this.props.label == "Quantidade:"){
+        }else if(this.props.label === "Quantidade:"){
             for(let i = min; i<= max; i+= min){
                 qtde.push(i);
             }
@@ -42,24 +52,30 @@ export default class SelectPesoQtd extends Component{
         return qtde;
     }
 
+    atualizarPreco = () => {
+
+    }
+
+
     render(){
         return(
             <div className="form-group col-md-6">
                 <label className="font_small">{this.props.label}</label>
-                <select id={this.props.id} onChange={this.props.onChange} className="form-control">
-                <option defaultValue>Escolha uma opção</option>
-
-                    {this.pegarQuantidade().map(qtde=>
-                        <option value={qtde}>{qtde}</option>    
-                    )}
-
-                    {/* for(int i = multiplo; i<=maximo; i=i+multiplo)
-
-                        <option value={this.state.maximo}>{this.state.maximo} </option> */}
+                <select onChange={this.precoProduto} className="form-control">
+                <option defaultValue>Escolha uma opção</option>          
+                {
                     
+                    
+                    this.pegarQuantidade().map(qtde=> 
+                        
+                        <option key={qtde} value={(qtde/this.state.multiplo) * this.state.preco}>{qtde}</option>         
+                    )
+                       
+                }
                 </select>
+                
                 <div className="form-group col-md-12 mt-2">
-                    <p>Preço por Kg: R$</p>
+                    <p style={{'fontSize':'25px'}}>Preço Total: R$ {this.state.precoAtualizado}</p>
                 </div>
             </div>
         );

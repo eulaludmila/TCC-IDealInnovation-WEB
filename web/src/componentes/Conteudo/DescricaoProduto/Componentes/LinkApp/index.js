@@ -6,7 +6,7 @@ export default class LinkApp extends Component{
             <div>
                 <div className="form-row mt-4">
                     <div className="col-md-7 container">
-                        <p className="font_normal">Deseja fazer uma encomenta? <a href="#">baixe nosso App</a></p>
+                        <p className="font_normal">Deseja fazer uma encomenta? <span>baixe nosso App</span></p>
                     </div>     
                 </div>
                 <div className="form-row mt-3">

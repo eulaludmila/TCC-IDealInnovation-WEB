@@ -4,7 +4,6 @@ import { ContainerAdm } from '../../../styles'
 import { InputEmailSenha } from '../global/InputEmailSenha';
 import $ from 'jquery';
 import {Modal} from 'react-bootstrap';
-import {ipAPI} from '../../../link_config';
 
 
 export class TelaEmail extends Component {

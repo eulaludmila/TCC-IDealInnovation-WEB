@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import img from '../../../img/bolo.jpg'
 // import '../../../css/font/all.css'
 import {Link} from 'react-router';
-import { ipAPI, ipFotos } from '../../../link_config';
+import { ipAPI} from '../../../link_config';
 import $ from 'jquery';
-import {Accordion, Card, Button} from 'react-bootstrap'
+
 
 class Menu extends Component{
 
@@ -12,7 +12,7 @@ class Menu extends Component{
      constructor(props){
         super(props);
 
-        this.state = {listaProdutos: []};
+        this.state = {listaProdutos: [], img:''};
 
     }
 
@@ -23,9 +23,15 @@ class Menu extends Component{
             type: "get",
             success: function(resposta){
                 this.setState({listaProdutos: resposta});
-                console.log("fffffgf"+resposta.nome)
+                if(resposta.foto !== null){
+
+                    this.setState({img: "http://54.242.6.253" + resposta.foto});
+                }else{
+                    this.setState({img: img});
+                }
+                // console.log("fffffgf"+resposta.nome)
                 // console.log("fffffgf"+listaProdutos.nome)
-                console.log("http://54.242.6.253" + this.state.listaProdutos.foto)
+                // console.log("http://54.242.6.253" + this.state.listaProdutos.foto)
             }.bind(this)
         })
     }
@@ -42,7 +48,7 @@ class Menu extends Component{
                 <li>
                     <div className="caixa_imagem_confeiteiro">
                         <div className="imagem_confeiteiro">
-                            <img src={"http://54.242.6.253" + this.state.listaProdutos.foto} alt="Foto" title="Foto" className="imagem_confeiteiro" style={{'width':'100%','height':'100%'}}></img>
+                            <img src={this.state.img} alt="Foto" title="Foto" className="imagem_confeiteiro" style={{'width':'100%','height':'100%'}}></img>
                         </div>
                     </div>
                 </li>

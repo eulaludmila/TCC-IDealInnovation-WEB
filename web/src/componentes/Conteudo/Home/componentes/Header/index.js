@@ -28,7 +28,7 @@ export class Header extends Component{
         
         
 
-        if(this.state.clickMenu == "0"){
+        if(this.state.clickMenu === "0"){
 
             $("#menu_imagem").attr('src', fecharMenu);
             
@@ -41,7 +41,7 @@ export class Header extends Component{
            
         }
 
-        if(this.state.clickMenu == "1"){
+        if(this.state.clickMenu === "1"){
             $("#menu_imagem").attr('src', abrirMenu);
            
             $(".menu_itens").removeClass("aparecer-menu");
@@ -53,7 +53,7 @@ export class Header extends Component{
 
     submenu = () => {
 
-        if(this.state.click == "0"){
+        if(this.state.click === "0"){
 
             $(".submenu_responsivo").slideToggle();
            
@@ -62,7 +62,7 @@ export class Header extends Component{
            
         }
 
-        if(this.state.click == "1"){
+        if(this.state.click === "1"){
             $(".submenu_responsivo").slideToggle();
     
            

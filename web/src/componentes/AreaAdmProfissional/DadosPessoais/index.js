@@ -9,6 +9,7 @@ import $ from 'jquery';
 import {ModalCadastro} from '../../Modal';
 import {ButtonToolbar} from 'react-bootstrap'
 import {ipAPI} from '../../../link_config';
+import img from '../../../img/baker.png'
 
 
 export class AreaEditarDadosPessoais extends Component{
@@ -22,6 +23,7 @@ export class AreaEditarDadosPessoais extends Component{
     }
 
     componentDidMount(){
+        console.log(`${ipAPI}confeiteiro/${sessionStorage.getItem("key")}`)
         $.ajax({
             url: `${ipAPI}confeiteiro/${sessionStorage.getItem("key")}`,
             dataType: 'json',
@@ -32,11 +34,17 @@ export class AreaEditarDadosPessoais extends Component{
                 this.setState({dtNasc:resposta.dtNasc});
                 this.setState({cpf:resposta.cpf});
                 this.setState({sexo:resposta.sexo});
-                this.setState({imgFoto:resposta.foto});
+
+                if(resposta.foto !== null){
+                    this.setState({imgFoto:ipAPI + resposta.foto});
+                }else{
+                    this.setState({imgFoto:img});
+                }
+                
 
                 console.log("http://54.242.6.253"+this.state.imgFoto);
 
-                console.log(this.state.nome)
+                console.log(resposta.nome)
             }.bind(this),
             error:function(resposta){
                 console.log(resposta);
@@ -52,6 +60,7 @@ export class AreaEditarDadosPessoais extends Component{
 
         //PEGANDO O ARQUIVO DA FOTO
         let file = evento.target.files[0];
+        console.log("foto:" + file )
         if(evento.target.files[0].size !== null){
             var tamanho = evento.target.files[0].size
         }
@@ -62,6 +71,8 @@ export class AreaEditarDadosPessoais extends Component{
             //SETANDO O ESTADO DA FOTO COM O ARQUIVO
             this.setState({foto:file});
             let reader = new FileReader();
+
+            console.log("foto2:" + this.state.foto )
 
             //PREVIEW DA FOTO
             reader.onloadend = function(){
@@ -203,22 +214,6 @@ export class AreaEditarDadosPessoais extends Component{
         });
     }
 
-
-    enviaFormAtualizarDadosConfeiteiro(){
-        let json = {nome: this.state.nome,
-            sobrenome: this.state.sobrenome,
-            celular: {celular:this.state.celular},
-            sexo: this.state.sexo,
-            cpf: this.state.cpf,
-            dtNasc: this.state.dtNasc};
-
-            sessionStorage.setItem('dados_confeiteiro', JSON.stringify(json));
-
-            this.enviarForm(json);
-
-    }
-
-
     enviarFormFoto=(codigo)=>{
 
         //PEGA O ARQUIVO DA FOTO E SALVA JUNTO COM O CODIGO DO CONFEITEIRO
@@ -233,7 +228,7 @@ export class AreaEditarDadosPessoais extends Component{
 
         $.ajax({
 
-            url: `${ipAPI}/foto/confeiteiro`,
+            url: `${ipAPI}foto/confeiteiro`,
             data: formDados,
             processData: false,
             contentType: false,
@@ -271,11 +266,11 @@ export class AreaEditarDadosPessoais extends Component{
                 <form>
                     <div id="caixa_imagem" className="centralizar">
 
-                        <ImgAtualizar classe="imagem_confeiteiro" name="file" id="img"  src={"http://54.242.6.253" + this.state.imgFoto} ></ImgAtualizar>
+                        <ImgAtualizar classe="imagem_confeiteiro" name="file" id="img"  src={this.state.imgFoto} ></ImgAtualizar>
                         <InputEditarDados classe="input_imagem" tipo="file"  onChange={this.setFoto}  classeInput="form-control-file"></InputEditarDados>
                     </div>
                     <div className="form-row mt-5">
-                        <InputEditarDados classe="form-group col-md-4" label="Nome:" tipo="text" classeInput="form-control" id="nome" onChange={this.setNome} value={this.state.nome} placeholder="Digite o seu nome"></InputEditarDados>
+                        <InputEditarDados classe="form-group col-md-4" label="Nome:" tipo="text" classeInput="form-control" id="nome" onChange={this.setNome} value={this.state.nome} placeholder="Digite o seu nome">{this.state.nome}</InputEditarDados>
 
                         <InputEditarDados classe="form-group col-md-4" label="Sobrenome:" tipo="text" classeInput="form-control" id="sobrenome" onChange={this.setSobrenome} value={this.state.sobrenome} placeholder="Digite o seu sobrenome"></InputEditarDados>
                         <InputEditarDados classe="form-group col-md-4" label="Celular:" tipo="text" classeInput="form-control" id="celular" onChange={this.setCelular} value={this.state.celular} placeholder="(00) 00000-0000"></InputEditarDados>

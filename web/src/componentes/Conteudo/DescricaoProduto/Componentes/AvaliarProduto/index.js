@@ -5,7 +5,7 @@ import TextAvaliar from '../TextAvaliar'
 export default class AvaliarProduto extends Component{
     render(){
         return(
-            <div className="form-row mt-3">
+            <div className="form-row mt-3 mb-4">
                 <div className="col-md-8 container">
                     <h4 className="card-text">Avalie este produto:</h4>
                     <h6>Sua Avaliação:*</h6>

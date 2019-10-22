@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import Vendedor from '../Vendedor';
 import Descricao from '../Descricao';
 import SelectPesoQtd from '../SelectPesoQtd';
 import $ from 'jquery';
-import { ipFotos } from '../../../../../link_config';
 
 export default class Produto extends Component{
 
@@ -64,14 +63,15 @@ export default class Produto extends Component{
                     </div>
                     <div className="form-row">
                         {(() => {
-                            if(this.state.tipoUni == "uni."){
+                            if(this.state.tipoUni === "uni."){
+                                // useState()
                                 this.state.labelProdutoSelect = "Quantidade:";
                             }else{
                                 this.state.labelProdutoSelect = "Kg:";
                             }
                         })()}
                             
-                        <SelectPesoQtd  codigo={this.props.codigo} label={this.state.labelProdutoSelect } />
+                        <SelectPesoQtd  codigo={this.props.codigo} label={this.state.labelProdutoSelect} />
                     </div>
                 </div>
                 <div className="col-md-5">
