@@ -12,12 +12,6 @@ class Home extends Component{
     render(){
         return(
 
-            // <div>
-                
-            //     <Link to="/entrar"><p>Entrar</p></Link>
-            //     <Link to="/cadastrar"><p>Cadastre-se</p></Link>
-            // </div>
-
             <div>
                 <SliderHome id="header_home" />
                 <Produto titulo="BOLOS SIMPLES" codigo="1" id="bolo_simples_home"/>
@@ -29,13 +23,6 @@ class Home extends Component{
                 <Footer/>
             </div>
            
-                
-        
-            
-
-            
-            
-
         );
     }
 

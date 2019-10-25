@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../../css/style.css';
 import '../../css/rate.css';
 import $ from 'jquery';
+import {ipAPI, ipFotos} from '../../../../../link_config'
 
 
 
@@ -20,7 +21,7 @@ export class Confeiteiro extends Component{
         
         $.ajax({
            
-            url: "http://54.242.6.253:8080/confeiteiroDTO/avaliacao",
+            url: `${ipAPI}confeiteiroDTO/avaliacao`,
             dataType: "json",
             success: function(resposta){
                 this.setState({listaConfeiteiros: resposta});
@@ -44,8 +45,8 @@ export class Confeiteiro extends Component{
             
                 {this.state.listaConfeiteiros.map(confeiteiros =>
                 
-                    <div className="card text-center prod mb-5"  style={{'width': '14rem'}}>
-                        <img className="card-img-top imagens-bolos" src={"http://54.242.6.253"+confeiteiros.foto} alt={confeiteiros.nome}/>
+                    <div key={confeiteiros.codConfeiteiro} className="card text-center prod mb-5"  style={{'width': '14rem'}}>
+                        <img className="card-img-top imagens-bolos" src={ipFotos+confeiteiros.foto} alt={confeiteiros.nome}/>
                         <div className="card-body">
                             <h5 className="card-title nome-bolo-adm">{confeiteiros.nome}</h5>
                             <div className="avaliacao">

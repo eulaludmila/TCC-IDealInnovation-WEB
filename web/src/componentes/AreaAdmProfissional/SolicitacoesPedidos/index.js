@@ -33,6 +33,12 @@ export class AreaSolicitacoes extends Component{
 }
 
 export class BoxSolicitacoes extends Component{
+
+    constructor(props){
+        super(props)
+
+    }
+
     render(){
         return(
             <div>

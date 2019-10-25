@@ -5,6 +5,7 @@ import {InputEmailSenha} from '../global/InputEmailSenha';
 import $ from 'jquery';
 import {ButtonToolbar} from 'react-bootstrap';
 import {ModalCadastro} from '../../Modal'
+import {ipAPI} from '../../../link_config'
 
 export class TelaSenha extends Component{
 
@@ -91,7 +92,7 @@ export class TelaSenha extends Component{
 
     verificaSenhaAtual=()=>{
         $.ajax({
-            url: `http://54.242.6.253:8080/confeiteiro/senha/${this.state.codConfeiteiro}/${this.state.senhaAtual}`,
+            url: `${ipAPI}/confeiteiro/senha/${this.state.codConfeiteiro}/${this.state.senhaAtual}`,
             dataType:"json",
             success: function(resposta)
             {
@@ -114,7 +115,7 @@ export class TelaSenha extends Component{
 
     atualizaSenha=()=>{
         $.ajax({
-            url: `http://localhost:8080/confeiteiro/senha/${this.state.codConfeiteiro}`,
+            url: `${ipAPI}confeiteiro/senha/${this.state.codConfeiteiro}`,
             contentType:"application/json",
             dataType:"json",
             type:"put",
@@ -170,6 +171,10 @@ export class TelaSenha extends Component{
 }
 
 export class BoxTelaSenha extends Component{
+    constructor(props){
+        super(props)
+
+    }
     render(){
         return(
             <div>

@@ -4,7 +4,6 @@ import './css/footer-white.css';
 import './css/footer.css';
 import {Link} from 'react-router';
 
-
 export class Footer extends Component{
 
     render(){
@@ -48,7 +47,6 @@ export class Footer extends Component{
                                     </div>
                                     
                                         <button type="button" className="btn btn-default">Contato</button>
-                                    
                                 </div>
                             </div>
                         </div>

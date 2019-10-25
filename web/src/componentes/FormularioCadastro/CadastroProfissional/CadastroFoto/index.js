@@ -117,8 +117,9 @@ class CadastroEndereco extends Component{
             success: function(data) 
             {
                 sessionStorage.removeItem("endereco")
+                sessionStorage.removeItem("dados")
                 this.cadastroRealizado();
-                sessionStorage.setItem("key", codigo)
+                // sessionStorage.setItem("key", codigo)
             }.bind(this)
         });
     }
@@ -129,7 +130,8 @@ class CadastroEndereco extends Component{
                     
         //AO APERTAR EM "OK" IRÁ REDIRECIONAR PARA A TELA INCIAL DO SITE
         $(".btn-modal").on("click", function(){
-            browserHistory.push("/adm/profissional")
+           
+            browserHistory.push("/login/profissional")
         });
     }
 

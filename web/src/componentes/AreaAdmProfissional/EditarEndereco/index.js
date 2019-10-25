@@ -6,6 +6,7 @@ import {BotaoEditarEndereco} from '../global/BotaoEditarEndereco'
 import {ModalCadastro} from '../../Modal';
 import {ipAPI} from '../../../link_config';
 import $ from 'jquery';
+import axios from 'axios';
 import {ButtonToolbar} from 'react-bootstrap'; 
 
 
@@ -140,7 +141,24 @@ export class AreaEditarCadastro extends Component{
         //VERIFICANDO SE O CEP É VÁLIDO, SENDO COM 9 NÚMEROS
         if(cep.length === 9){
 
-            //REQUISIÇÃO
+        //     axios.get(`http://viacep.com.br/ws/${cep}/json/?callback=?`)
+        // .then(resposta => {
+        //     const endereco = resposta.data;
+        //     console.log(resposta)
+        //     if(!resposta.erro){
+                        
+        //         this.setState({uf:resposta.data.uf})
+        //         this.setState({cidade:resposta.data.localidade})
+        //         this.setState({bairro:resposta.data.bairro})
+        //         this.setState({endereco:resposta.data.logradouro})
+
+        //     }else{
+        //         alert("CEP não encontrado");
+        //     }
+
+        // }).catch((err) => {console.log("AXIOS ERROR: ", err);})
+
+            // REQUISIÇÃO
             $.ajax({
             
                 url:`http://viacep.com.br/ws/${cep}/json/?callback=?`,
@@ -229,31 +247,30 @@ export class AreaEditarCadastro extends Component{
 
 export class BoxEditarEndereco extends Component{
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {cep: '',numero:'',complemento:'',logradouro:'',bairro:'',cidade:'', uf:'',codConfeiteiro:sessionStorage.getItem("key")};
         this.atualizarEnderecoAtual = this.atualizarEnderecoAtual.bind(this);
     }
     
     componentDidMount(){
         
-        $.ajax({
-            url: `http://54.242.6.253:8080/endereco/confeiteiro/${this.state.codConfeiteiro}`,
-            dataType: 'json',
-            success:function(resposta){
-                console.log(resposta)
-                this.setState({cep:resposta.cep});
-                this.setState({uf:resposta.cidade.estado.uf});
-                this.setState({cidade:resposta.cidade.cidade});
-                this.setState({numero:resposta.numero});
-                this.setState({logradouro:resposta.endereco});
-                this.setState({complemento:resposta.complemento});
-                this.setState({bairro:resposta.bairro});
-            }.bind(this),
-            error:function(resposta){
-                console.log(resposta);
-            }
-        });
+
+        axios.get(`${ipAPI}endereco/confeiteiro/`+this.props.params.codConfeiteiro,{headers: {'Authorization': sessionStorage.getItem('auth')}})
+        .then(resposta => {
+            const endereco = resposta.data;
+
+            this.setState({cep:endereco.cep});
+            this.setState({uf:endereco.cidade.estado.uf});
+            this.setState({cidade:endereco.cidade.cidade});
+            this.setState({numero:endereco.numero});
+            this.setState({logradouro:endereco.endereco});
+            this.setState({complemento:endereco.complemento});
+            this.setState({bairro:endereco.bairro});
+
+
+        }).catch((err) => {console.log("AXIOS ERROR: ", err);})
+        
     }
 
     atualizarEnderecoAtual(novoEndereco){
@@ -272,6 +289,7 @@ export class BoxEditarEndereco extends Component{
             <div>
                 <Header titulo="Configurações de Endereço"></Header>
                 <AreaEditarCadastro 
+                codConfeiteiro={this.props.params.codConfeiteiro}
                 cep={this.state.cep} 
                 cidade={this.state.cidade}
                 uf={this.state.uf}

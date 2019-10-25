@@ -15,10 +15,15 @@ import '../../js/accordian'
 import Menu from '../AreaAdmProfissional/Menu'
 
 class AdmProfissional extends Component {
+
+  constructor(props){
+    super(props)
+  }
+
   render(){
     return (
       <div>
-        <Menu></Menu>
+        <Menu codConfeiteiro={this.props.params.codConfeiteiro}></Menu>
         <div className="main">
         {this.props.children}
 			

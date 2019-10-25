@@ -13,9 +13,7 @@ class Produtos extends Component{
 
         this.state = {listaProdutos: [], listaCategorias: [], itemClicado: 0}
 
-
     }
-
 
     componentDidMount(){
 
@@ -32,7 +30,7 @@ class Produtos extends Component{
   
     listarProdutos(codCategoria){
        
-        axios.get('http://54.242.6.253:8080/produto/categoria/'+codCategoria)
+        axios.get(`${ipAPI}produto/categoria/`+codCategoria)
         .then(resposta => {
 
             const produtos = resposta.data;
@@ -51,17 +49,14 @@ class Produtos extends Component{
 
             <div className="container bolo" id={this.props.id}>
           
-                
                 <div className="titulo mx-auto">
-
-
                     <div className="d-flex justify-content-center">
 
                         <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
 
                             {this.state.listaCategorias.map(categorias => 
 
-                                <li className="nav-item">
+                                <li className="nav-item" key={categorias.codCategoria}>
                                     <span className={categorias.codCategoria === this.state.itemClicado ? "nav-link active" : "nav-link"}  id={categorias.codCategoria} onClick={()=>this.listarProdutos(categorias.codCategoria)}>{categorias.categoria}</span>
                                 </li>
 

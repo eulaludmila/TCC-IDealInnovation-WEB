@@ -19,7 +19,6 @@ export class ContainerImagem extends Component{
                     </div>
                 </div>
             </div>
-
         );
     }
 

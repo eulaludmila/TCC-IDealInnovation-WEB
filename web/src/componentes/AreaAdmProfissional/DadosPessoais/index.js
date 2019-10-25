@@ -8,9 +8,9 @@ import {ImgAtualizar} from './ImgAtualizar'
 import $ from 'jquery';
 import {ModalCadastro} from '../../Modal';
 import {ButtonToolbar} from 'react-bootstrap'
-import {ipAPI} from '../../../link_config';
+import {ipAPI, ipFotos} from '../../../link_config';
 import img from '../../../img/baker.png'
-
+import axios from 'axios';
 
 export class AreaEditarDadosPessoais extends Component{
 
@@ -23,36 +23,28 @@ export class AreaEditarDadosPessoais extends Component{
     }
 
     componentDidMount(){
-        console.log(`${ipAPI}confeiteiro/${sessionStorage.getItem("key")}`)
-        $.ajax({
-            url: `${ipAPI}confeiteiro/${sessionStorage.getItem("key")}`,
-            dataType: 'json',
-            success:function(resposta){
-                this.setState({nome:resposta.nome});
-                this.setState({sobrenome:resposta.sobrenome});
-                this.setState({celular:resposta.celular.celular});
-                this.setState({dtNasc:resposta.dtNasc});
-                this.setState({cpf:resposta.cpf});
-                this.setState({sexo:resposta.sexo});
 
-                if(resposta.foto !== null){
-                    this.setState({imgFoto:ipAPI + resposta.foto});
-                }else{
-                    this.setState({imgFoto:img});
-                }
-                
 
-                console.log("http://54.242.6.253"+this.state.imgFoto);
+        axios.get(`${ipAPI}confeiteiro/`+this.props.codConfeiteiro,{headers: {'Authorization': sessionStorage.getItem('auth')}})
+        .then(resposta => {
+            const dados = resposta.data;
 
-                console.log(resposta.nome)
-            }.bind(this),
-            error:function(resposta){
-                console.log(resposta);
+            this.setState({nome:dados.nome});
+            this.setState({sobrenome:dados.sobrenome});
+            this.setState({celular:dados.celular.celular});
+            this.setState({dtNasc:dados.dtNasc});
+            this.setState({cpf:dados.cpf});
+            this.setState({sexo:dados.sexo});
+
+            if(dados.foto !== null){
+                this.setState({imgFoto:ipFotos + dados.foto});
+            }else{
+                this.setState({imgFoto:img});
             }
-        });
+
+        }).catch((err) => {console.log("AXIOS ERROR: ", err);})
     
     }
-
 
 
     setFoto = (evento) => { 
@@ -148,8 +140,6 @@ export class AreaEditarDadosPessoais extends Component{
 
             this.enviarForm();
 
-
-
         }
 
     }
@@ -184,34 +174,49 @@ export class AreaEditarDadosPessoais extends Component{
             dtNasc: this.state.dtNasc};
 
         console.log(json)
-        $.ajax({
-            url: `${ipAPI}confeiteiroDTO/${sessionStorage.getItem("key")}`,
-            contentType: "application/json",
-            dataType: "json",
-            type: "put",
-            data: JSON.stringify(json),
-            success:function(resposta){
 
-                // this.props.dadosConfeiteiroAtual(resposta);
-
-                if(this.state.foto === ""){
-
-                    this.open();
-
-                }else{
-                    this.enviarFormFoto(resposta.codConfeiteiro);
-                }
-
-                this.atualizarDadosPessoais(resposta);
+        axios.put(`${ipAPI}produto`, JSON.stringify(json), 
+        {headers: {'Authorization': sessionStorage.getItem('auth')}})
+        .then((res) => {
+            this.setState({nomeProduto:""});
+            this.setState({descricaoProduto:""});
+            this.setState({qtdeMin:""});
+            this.setState({qtdeMax:""});
+            this.setState({precoProduto:""});
+            this.enviaFormFotoProduto(res.codProduto);
+        })
+        .catch((err) => {console.log("AXIOS ERROR: ", err);})
 
 
-            }.bind(this),error:function(resposta){
-                console.log(resposta.responseText);
-            }
+
+        // $.ajax({
+        //     url: `${ipAPI}confeiteiroDTO/${this.props.codConfeiteiro}`,
+        //     contentType: "application/json",
+        //     dataType: "json",
+        //     type: "put",
+        //     data: JSON.stringify(json),
+        //     success:function(resposta){
+
+        //         // this.props.dadosConfeiteiroAtual(resposta);
+
+        //         if(this.state.foto === ""){
+
+        //             this.open();
+
+        //         }else{
+        //             this.enviarFormFoto(resposta.codConfeiteiro);
+        //         }
+
+        //         this.atualizarDadosPessoais(resposta);
+
+
+        //     }.bind(this),error:function(resposta){
+        //         console.log(resposta.responseText);
+        //     }
 
 
             
-        });
+        // });
     }
 
     enviarFormFoto=(codigo)=>{
@@ -302,12 +307,16 @@ export class AreaEditarDadosPessoais extends Component{
 }
 
 export class BoxEditarDadosPessoais extends Component{
+    constructor(props){
+        super(props)
+
+    }
     render(){
         return(
             
             <div>
                 <Header titulo="Dados Pessoais"></Header>
-                <AreaEditarDadosPessoais atuali></AreaEditarDadosPessoais>
+                <AreaEditarDadosPessoais codConfeiteiro={this.props.params.codConfeiteiro}></AreaEditarDadosPessoais>
             </div>
         )
     }
