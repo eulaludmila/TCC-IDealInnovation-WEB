@@ -4,6 +4,8 @@ import Header from '../Header'
 import {ContainerAdm} from '../../../styles'
 import { ipAPI } from '../../../link_config';
 import $ from 'jquery'
+import axios from 'axios'
+
 
 
 export class HomeProfissional extends Component{
@@ -17,15 +19,15 @@ export class HomeProfissional extends Component{
   }
 
   componentDidMount(){
-      $.ajax({
-          url: ipAPI + "produto/confeiteiro/" + sessionStorage.getItem("key"),
-          dataType: "json",
-          type: "get",
-          success: function(resposta){
-              this.setState({listaProdutos: resposta});
-              console.log("lala:"+resposta)
-          }.bind(this)
-      })
+
+    axios.get(`${ipAPI}produto/confeiteiro/`+this.props.codConfeiteiro,{headers: {'Authorization': sessionStorage.getItem('auth')}})
+        .then(resposta => {
+
+            const produtos = resposta.data;
+            this.setState({listaProdutos: produtos})
+            
+        })
+      
   }
 
   atualizarListagemProdutos(novalista){
@@ -70,12 +72,18 @@ export class HomeProfissional extends Component{
 }
 
 export class BoxHomeProfissional extends Component{
+
+  constructor(props){
+    super(props)
+
+  }
+  
   render(){
     return (
        
         <div>
           <Header titulo="Área Administrativa"></Header>
-          <HomeProfissional></HomeProfissional>
+          <HomeProfissional codConfeiteiro={this.props.params.codConfeiteiro}></HomeProfissional>
         </div>
 			
     );

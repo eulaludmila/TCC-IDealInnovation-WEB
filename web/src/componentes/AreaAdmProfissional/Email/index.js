@@ -4,6 +4,7 @@ import { ContainerAdm } from '../../../styles'
 import { InputEmailSenha } from '../global/InputEmailSenha';
 import $ from 'jquery';
 import {Modal} from 'react-bootstrap';
+import {ipAPI} from '../../../link_config'
 
 
 export class TelaEmail extends Component {
@@ -18,7 +19,7 @@ export class TelaEmail extends Component {
 
     componentDidMount() {
         $.ajax({
-            url: "http://54.242.6.253:8080/confeiteiro/" + sessionStorage.getItem("key"),
+            url: `${ipAPI}confeiteiro/` + sessionStorage.getItem("key"),
             dataType: 'json',
             success: function (resposta) {
                 
@@ -100,7 +101,7 @@ export class TelaEmail extends Component {
     editarEmail = () => {
 
         $.ajax({
-            url: `http://54.242.6.253:8080/confeiteiro/email/`+sessionStorage.getItem("dados"),
+            url: `${ipAPI}confeiteiro/email/`+sessionStorage.getItem("dados"),
             contentType: "application/json",
             type: "put",
             data: sessionStorage.getItem("confirm"),

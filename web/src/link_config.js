@@ -1,2 +1,2 @@
-export const ipAPI = "http://54.242.6.253:8080/"
-export const ipFotos = "http://54.242.6.253/fotos/"
+export const ipAPI = "http://3.232.178.219:8080/"
+export const ipFotos = "http://3.232.178.219"

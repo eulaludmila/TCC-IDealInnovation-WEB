@@ -32,6 +32,12 @@ export class AreaPedidos extends Component{
 }
 
 export class BoxPedidos extends Component{
+
+    constructor(props){
+        super(props)
+
+    }
+
     render(){
         return(
             <div>

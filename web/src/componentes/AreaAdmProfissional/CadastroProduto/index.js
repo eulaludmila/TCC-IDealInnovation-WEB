@@ -10,7 +10,8 @@ import BotaoCadastro from '../../FormularioCadastro/BotaoCadastro';
 import { browserHistory} from 'react-router';
 import {ModalCadastro} from '../../Modal';
 import {ipAPI} from '../../../link_config';
-import {ButtonToolbar} from 'react-bootstrap'
+import {ButtonToolbar} from 'react-bootstrap';
+import axios from 'axios';
 
 
 export class CadastrarProdutos extends Component{
@@ -163,34 +164,45 @@ export class CadastrarProdutos extends Component{
             nomeProduto: this.state.nomeProduto,
             descricao: this.state.descricaoProduto,
             foto: "teste",
-            confeiteiro: {codConfeiteiro: JSON.parse(sessionStorage.getItem("key"))},
+            confeiteiro: {codConfeiteiro: this.props.codConfeiteiro},
             categoria: {codCategoria: this.state.categoriaProduto},
             quantidade: {multiplo: parseInt(this.state.qtdeMin), maximo: parseInt(this.state.qtdeMax)},
             preco: parseFloat(this.state.precoProduto),
             status: 1
         }
 
-        this.setState({json: json});
-
-        $.ajax({
-            url: "http://54.242.6.253:8080/produto",
-            contentType: "application/json",
-            dataType: "json",
-            type: "post",
-            data: JSON.stringify(json),
-            success: function(resposta){
-                this.setState({nomeProduto:""});
-                this.setState({descricaoProduto:""});
-                this.setState({qtdeMin:""});
-                this.setState({qtdeMax:""});
-                this.setState({precoProduto:""});
-                this.enviaFormFotoProduto(resposta.codProduto);
-
-            
-            }.bind(this)
-
-            
+        
+        axios.post(`${ipAPI}produto`, JSON.stringify(json), 
+        {headers: {'Authorization': sessionStorage.getItem('auth')}})
+        .then((res) => {
+            this.setState({nomeProduto:""});
+            this.setState({descricaoProduto:""});
+            this.setState({qtdeMin:""});
+            this.setState({qtdeMax:""});
+            this.setState({precoProduto:""});
+            this.enviaFormFotoProduto(res.codProduto);
         })
+        .catch((err) => {console.log("AXIOS ERROR: ", err);})
+
+        // $.ajax({
+        //     url: `${ipAPI}produto`,
+        //     contentType: "application/json",
+        //     dataType: "json",
+        //     type: "post",
+        //     data: JSON.stringify(json),
+        //     success: function(resposta){
+        //         this.setState({nomeProduto:""});
+        //         this.setState({descricaoProduto:""});
+        //         this.setState({qtdeMin:""});
+        //         this.setState({qtdeMax:""});
+        //         this.setState({precoProduto:""});
+        //         this.enviaFormFotoProduto(resposta.codProduto);
+
+            
+        //     }.bind(this)
+
+            
+        // })
 
     }
 
@@ -214,15 +226,6 @@ export class CadastrarProdutos extends Component{
         });
     }
 
-    // cadastroRealizado=()=>{
-    //     //ABRIR A MODAL DE CADASTRO REALIZADO
-    //     $('#my-modal').modal('show');
-                    
-    //     //AO APERTAR EM "OK" IRÁ REDIRECIONAR PARA A TELA INCIAL DO SITE
-    //     $(".btn-modal").on("click", function(){
-    //         browserHistory.push("/adm/profissional/produtos_cadastrados")
-    //     });
-    // }
     close=()=>{
         this.setState({showConfirm:false});
         browserHistory.push("/adm/profissional/produtos_cadastrados")
@@ -290,6 +293,12 @@ export class CadastrarProdutos extends Component{
 }
 
 export class BoxCadastrarProdutos extends Component{
+
+    constructor(props){
+        super(props)
+
+    }
+
     render(){
         return(
             <div>

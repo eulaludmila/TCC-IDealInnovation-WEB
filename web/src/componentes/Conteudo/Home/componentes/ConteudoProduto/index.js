@@ -3,6 +3,7 @@ import '../../css/style.css';
 import '../../css/rate.css';
 import img from '../../img/app.jpg'
 import $ from 'jquery';
+import {ipAPI, ipFotos} from '../../../../../link_config'
 
 
 export class Produto extends Component{
@@ -20,7 +21,7 @@ export class Produto extends Component{
 
         $.ajax({
            
-            url: "http://54.242.6.253:8080/produto/categoria/"+this.props.codigo,
+            url: `${ipAPI}produto/categoria/`+this.props.codigo,
             dataType: "json",
             success: function(resposta){
                 this.setState({listaProdutos: resposta});
@@ -45,8 +46,8 @@ export class Produto extends Component{
             
                 {this.state.listaProdutos.map(produtos =>
                 
-                    <div className="card text-center prod mb-5"  style={{'width': '14rem'}}>
-                        <img className="card-img-top imagens-bolos" src={"http://54.242.6.253"+produtos.foto} alt={produtos.nomeProduto}/>
+                    <div key={produtos.codProduto} className="card text-center prod mb-5"  style={{'width': '14rem'}}>
+                        <img className="card-img-top imagens-bolos" src={ipFotos+produtos.foto} alt={produtos.nomeProduto}/>
                         <div className="card-body">
                             <h5 className="card-title nome-bolo-adm">{produtos.nomeProduto}</h5>
                             <p className="card-text">R${produtos.preco}</p>

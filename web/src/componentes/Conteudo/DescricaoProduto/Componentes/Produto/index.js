@@ -3,6 +3,7 @@ import Vendedor from '../Vendedor';
 import Descricao from '../Descricao';
 import SelectPesoQtd from '../SelectPesoQtd';
 import $ from 'jquery';
+import {ipAPI} from '../../../../../link_config'
 
 export default class Produto extends Component{
 
@@ -17,7 +18,7 @@ export default class Produto extends Component{
         // console.log(this.props.params.codProduto)
 
         $.ajax({ 
-            url: "http://54.242.6.253:8080/produto/" + this.props.codigo,
+            url: `${ipAPI}produto/` + this.props.codigo,
             contentType: "application/json",
             dataType: "json",
             type: "get",

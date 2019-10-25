@@ -7,7 +7,7 @@ class InputLogin extends Component{
         return(
             <div className="dados-login" style={this.props.style}>
                 <label htmlFor={this.props.id}>{this.props.label}</label>
-                <InputLoginCSS id={this.props.id} type={this.props.type} placeholder={this.props.placeholder}/>
+                <InputLoginCSS id={this.props.id} onChange={this.props.onChange} value={this.props.value} type={this.props.type} placeholder={this.props.placeholder}/>
             </div>
         )
     }

@@ -57,9 +57,6 @@ class CadastroCliente extends Component{
             var mensagem = "Tamanho máximo para a foto é de 1MB";
             this.erroCaixaVazia(mensagem);
         }
-
-        
-
     }
 
     /*eventos do input do formulario*/
@@ -116,7 +113,6 @@ class CadastroCliente extends Component{
         evento.preventDefault();
         var mensagem = "";
         var id = "";
-
         
         if(this.state.nome.length < 3){
             mensagem = "O nome deve conter no mínimo 3 caracteres";
@@ -176,7 +172,7 @@ class CadastroCliente extends Component{
     // MÉTODO PARA VERIFICAR SE JÁ EXISTE O CPF
     verificaCpf=()=>{
         $.ajax({
-            url: `http://54.242.6.253:8080/cliente/cpf/${this.state.cpf}`,
+            url: `${ipAPI}cliente/cpf/${this.state.cpf}`,
             dataType:"json",
             success: function(resposta)
             {
@@ -316,7 +312,7 @@ class CadastroCliente extends Component{
                     
         //AO APERTAR EM "OK" IRÁ REDIRECIONAR PARA A TELA INCIAL DO SITE
         $(".btn-modal").on("click", function(){
-            browserHistory.push("/")
+            browserHistory.push("/cliente")
         });
     }
 
