@@ -9,7 +9,7 @@ export class ContainerImagem extends Component{
 
     render(){
         return(
-            <div className="container-fluid propaganda " className={this.props.imagem}>
+            <div className="container-fluid propaganda" className={this.props.imagem}>
                 <div className="prop">
                     <div className="titulo_propaganda">
                         <h1>{this.props.titulo}</h1>

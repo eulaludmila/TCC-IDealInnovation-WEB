@@ -29,7 +29,7 @@ export class Confeiteiros extends Component{
 
     listarProdutos(idClicado){
        
-        if(idClicado =="idTodos"){
+        if(idClicado ==="idTodos"){
             axios.get(ipAPI+"confeiteiroDTO/ativo")
             .then(resposta => {
 
@@ -38,7 +38,7 @@ export class Confeiteiros extends Component{
                 
                 this.setState({itemClicado: idClicado});
             })
-        }else if(idClicado =="maisAvaliados"){
+        }else if(idClicado ==="maisAvaliados"){
             axios.get(ipAPI+"confeiteiroDTO/avaliacao/confeiteiros")
             .then(resposta => {
 
@@ -71,10 +71,10 @@ export class Confeiteiros extends Component{
 
                              
                                 <li className="nav-item">
-                                    <a className={"idTodos" == this.state.itemClicado ? "nav-link active" : "nav-link"}  id="idTodos" onClick={()=>this.listarProdutos("idTodos")}>Todos</a>
+                                    <span className={"idTodos" === this.state.itemClicado ? "nav-link active" : "nav-link"}  id="idTodos" onClick={()=>this.listarProdutos("idTodos")}>Todos</span>
                                 </li>
                                 <li className="nav-item">
-                                    <a className={"maisAvaliados" == this.state.itemClicado ? "nav-link active" : "nav-link"}  id="maisAvaliados" onClick={()=>this.listarProdutos("maisAvaliados")}>Melhores Avaliados</a>
+                                    <span className={"maisAvaliados" === this.state.itemClicado ? "nav-link active" : "nav-link"}  id="maisAvaliados" onClick={()=>this.listarProdutos("maisAvaliados")}>Melhores Avaliados</span>
                                 </li>
 
                             

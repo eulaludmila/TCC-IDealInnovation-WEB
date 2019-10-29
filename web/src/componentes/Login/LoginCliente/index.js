@@ -4,7 +4,6 @@ import InputLogin from '../InputLogin'
 import BotaoLogin from '../BotaoLogin'
 import { Link } from 'react-router';
 import axios from 'axios';
-import decode from 'jwt-decode';
 import { ipAPI } from '../../../link_config';
 import { browserHistory} from 'react-router';
 
@@ -29,7 +28,7 @@ class LoginCliente extends Component{
                 sessionStorage.setItem("auth", resposta.data.token)
                 Promise.resolve(resposta.data.token)
                 browserHistory.push("/");
-            }).catch(alert("Usuário ou senhas incorretas"))
+            }).catch(error=>{console.log(error);alert("errorrr ")})
     }
 
     setEmail=(evento)=>{

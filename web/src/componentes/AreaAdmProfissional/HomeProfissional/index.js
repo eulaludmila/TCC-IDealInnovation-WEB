@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
-import img from '../../../img/bolo.jpg'
 import Header from '../Header'
 import {ContainerAdm} from '../../../styles'
 import { ipAPI } from '../../../link_config';
-import $ from 'jquery'
 import axios from 'axios'
 
 
@@ -75,7 +73,7 @@ export class BoxHomeProfissional extends Component{
 
   constructor(props){
     super(props)
-
+      this.state={status:''}
   }
   
   render(){

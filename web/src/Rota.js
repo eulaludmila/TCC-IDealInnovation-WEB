@@ -17,6 +17,7 @@ import CadastroCliente from './componentes/FormularioCadastro/CadastroCliente';
 import CadastroProfissional from './componentes/FormularioCadastro/CadastroProfissional';
 import CadastroProfissionalEndereco from './componentes/FormularioCadastro/CadastroProfissional/CadastroEndereco';
 import CadastroProfissionalFoto from './componentes/FormularioCadastro/CadastroProfissional/CadastroFoto';
+import {AreaCliente} from './componentes/AreaCliente';
 
 import LoginCliente from './componentes/Login/LoginCliente';
 import LoginProfissional from './componentes/Login/LoginProfissional';
@@ -45,15 +46,13 @@ export const Rota = () =>(
             <Route path="/sobre" component={BoxSobre}></Route>
             <Route exact path="/descricao/:codProduto" component={DescricaoProduto}></Route>
             <Route path="/confeiteiros" component={Confeiteiros}></Route>
-            {/* <Route path="/entrarCliente" component={LoginCliente}></Route>
-            <Route path="/entrarProfissional" component={LoginProfissional}></Route> */}
+            <Route path="/cliente/:codCliente" component={AreaCliente}></Route>
 
         </Route>
         <Route path="/cadastro" component={Cadastro}>
-            {/* <Redirect from="/cadastro/cliente" to="/"></Redirect> */}
+            
             <Route path="/cadastro/cliente" component={CadastroCliente}></Route>
             <Route path="/cadastro/profissional" component={CadastroProfissional}></Route>
-            {/* <Redirect from="/cadastro/profissional/endereco" to="/cadastro/profissional"></Redirect> */}
             <Route path="/cadastro/profissional/endereco" component={CadastroProfissionalEndereco}></Route>
             <Route path="/cadastro/profissional/foto" component={CadastroProfissionalFoto}></Route>
 
@@ -67,7 +66,6 @@ export const Rota = () =>(
         <Route path="/adm/profissional/:codConfeiteiro" component={AdmProfissional}>
         
             <IndexRoute component={BoxHomeProfissional}></IndexRoute>
-            
             <Route path="/adm/profissional/produtos/:codConfeiteiro" component={BoxCadastroProdutos}></Route>
             <Route path="/adm/profissional/editar_dados_pessoais/:codConfeiteiro" component={BoxEditarDadosPessoais}></Route>
             <Route path="/adm/profissional/editar_endereco/:codConfeiteiro" exact component={BoxEditarEndereco}></Route>
@@ -77,7 +75,6 @@ export const Rota = () =>(
             <Route path="/adm/profissional/pedidos_aprovados/:codConfeiteiro" component={BoxPedidos}></Route>
             <Route path="/adm/profissional/cadastro_produtos/:codConfeiteiro" component={BoxCadastrarProdutos}></Route>
             <Route exact path="/adm/profissional/cadastro_produtos/:codProduto?" component={BoxCadastrarProdutos}></Route>
-            {/* <Route path="/login/profissional" component={LoginProfissional}></Route> */}
 
         </Route>
     </Router>
