@@ -3,9 +3,43 @@ import '../css/login.css';
 import InputLogin from '../InputLogin'
 import BotaoLogin from '../BotaoLogin'
 import { Link } from 'react-router';
+import axios from 'axios';
+import decode from 'jwt-decode';
+import { ipAPI } from '../../../link_config';
+import { browserHistory} from 'react-router';
 
 //Área de Login do Cliente
 class LoginCliente extends Component{
+    constructor(props){
+        super(props);
+        this.state={email:"", senha:""}
+    }
+
+    autenticar=(evento)=>{
+        evento.preventDefault();
+
+        const login={
+            username: this.state.email,
+            password: this.state.senha
+        };
+
+        axios.post(
+            ipAPI + "login/cliente", login)
+            .then(resposta=> {
+                sessionStorage.setItem("auth", resposta.data.token)
+                Promise.resolve(resposta.data.token)
+                browserHistory.push("/");
+            }).catch(alert("Usuário ou senhas incorretas"))
+    }
+
+    setEmail=(evento)=>{
+        this.setState({email:evento.target.value});
+    }
+
+    setSenha=(evento)=>{
+        this.setState({senha:evento.target.value});
+    }
+    
 
     render(){
         return(
@@ -17,15 +51,15 @@ class LoginCliente extends Component{
 
                     <Link to="/entrar"><div className="btn btn-outline-entrar rounded-circle voltar"> </div></Link>
 
-                    <form className="pure-form pure-form-stacked mb-5">
+                    <form className="pure-form pure-form-stacked mb-5" onSubmit={this.autenticar}>
                         <fieldset>
                             <legend>Bem-vindo a nossa área de login!</legend>
                             <p className="lead mb-5 text-center">Área destinada a clientes</p>
 
                             <div className="elementos-form">
 
-                                <InputLogin id="email" type="email" placeholder="Email" label="Email" style={{marginBottom: '20px'}}></InputLogin>
-                                <InputLogin id="password" type="password" placeholder="Password" label="Password"></InputLogin>
+                                <InputLogin id="email" type="email" placeholder="Email" label="Email" onChange={this.setEmail} style={{marginBottom: '20px'}}></InputLogin>
+                                <InputLogin id="password" type="password" placeholder="Password" onChange={this.setSenha} label="Password"></InputLogin>
                                 <span className="pure-form-message">Esqueceu a senha?</span>
                                 
                                 <BotaoLogin id="botao" type="submit" label="Entrar"></BotaoLogin>

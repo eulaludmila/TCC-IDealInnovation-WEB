@@ -5,41 +5,53 @@ import '../../../css/bootstrap.min.css';
 import '../../../css/bootstrap.min.css';
 import axios from 'axios';
 import { ipAPI } from '../../../link_config';
+import {ipFotos} from '../../../link_config';
 
-class Produtos extends Component{
+export class Confeiteiros extends Component{
 
     constructor(props){
         super(props);
 
-        this.state = {listaProdutos: [], listaCategorias: [], itemClicado: 0}
-
+        this.state = {listaConfeiteiros: [], itemClicado: "",todosConfeiteiros:"http://localhost:8080/confeiteiroDTO/ativo", melhoresAvaliados:"http://localhost:8080/confeiteiroDTO/avaliacao/confeiteiros"}
     }
+
 
     componentDidMount(){
 
-        axios.get(ipAPI + "categoria")
+        axios.get(ipAPI + "confeiteiroDTO/ativo")
         .then(resposta => {
-             const categorias = resposta.data;
+             const confeiteiro = resposta.data;
 
-             this.setState({listaCategorias: categorias})
-        })
-
-       
-    }
-
-  
-    listarProdutos(codCategoria){
-       
-        axios.get(`${ipAPI}produto/categoria/`+codCategoria)
-        .then(resposta => {
-
-            const produtos = resposta.data;
-            this.setState({listaProdutos: produtos})
-            
-            this.setState({itemClicado: codCategoria});
+             this.setState({listaConfeiteiros: confeiteiro})
         })
 
     }
+
+    listarProdutos(idClicado){
+       
+        if(idClicado =="idTodos"){
+            axios.get(ipAPI+"confeiteiroDTO/ativo")
+            .then(resposta => {
+
+                const confeiteiros = resposta.data;
+                this.setState({listaConfeiteiros: confeiteiros})
+                
+                this.setState({itemClicado: idClicado});
+            })
+        }else if(idClicado =="maisAvaliados"){
+            axios.get(ipAPI+"confeiteiroDTO/avaliacao/confeiteiros")
+            .then(resposta => {
+
+                const confeiteiros = resposta.data;
+                this.setState({listaConfeiteiros: confeiteiros})
+                
+                this.setState({itemClicado: idClicado});
+            })
+        }
+        
+
+    }
+
 
     render(){
   
@@ -49,18 +61,23 @@ class Produtos extends Component{
 
             <div className="container bolo" id={this.props.id}>
           
+                
                 <div className="titulo mx-auto">
+
+
                     <div className="d-flex justify-content-center">
 
                         <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
 
-                            {this.state.listaCategorias.map(categorias => 
-
-                                <li className="nav-item" key={categorias.codCategoria}>
-                                    <span className={categorias.codCategoria === this.state.itemClicado ? "nav-link active" : "nav-link"}  id={categorias.codCategoria} onClick={()=>this.listarProdutos(categorias.codCategoria)}>{categorias.categoria}</span>
+                             
+                                <li className="nav-item">
+                                    <a className={"idTodos" == this.state.itemClicado ? "nav-link active" : "nav-link"}  id="idTodos" onClick={()=>this.listarProdutos("idTodos")}>Todos</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className={"maisAvaliados" == this.state.itemClicado ? "nav-link active" : "nav-link"}  id="maisAvaliados" onClick={()=>this.listarProdutos("maisAvaliados")}>Melhores Avaliados</a>
                                 </li>
 
-                            )}
+                            
 
                         </ul>
 
@@ -71,13 +88,12 @@ class Produtos extends Component{
 
                 <div className="container pt-5">
 
-                {this.state.listaProdutos.map(produtos =>
+                {this.state.listaConfeiteiros.map(confeiteiro =>
                 
                     <div className="card text-center prod mb-5"  style={{'width': '14rem'}}>
-                        <img className="card-img-top imagens-bolos" src={"http://54.242.6.253"+produtos.foto} alt={produtos.nomeProduto}/>
+                        <img className="card-img-top imagens-bolos" src={ipFotos+confeiteiro.foto} alt={confeiteiro.nome}/>
                         <div className="card-body">
-                            <h5 className="card-title nome-bolo-adm">{produtos.nomeProduto}</h5>
-                            <p className="card-text">R${produtos.preco}</p>
+                            <h5 className="card-title nome-bolo-adm">{confeiteiro.nome}</h5>
                             <div className="avaliacao">
                                 <div className="rate">
                                 <input type="radio" id="star5" name="rate" value="5" />
@@ -107,5 +123,3 @@ class Produtos extends Component{
     }
 
 }
-
-export default Produtos;

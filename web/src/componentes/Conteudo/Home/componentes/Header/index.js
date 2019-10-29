@@ -82,7 +82,7 @@ export class Header extends Component{
                     <Link to="/produtos"><div className="item_menu">Produtos</div></Link>
                     <div className="item_menu">Categorias</div>
 
-                    <div className="item_menu">Confeiteiros</div>
+                    <Link to="/confeiteiros"><div className="item_menu">Confeiteiros</div></Link>
                     {/* <AnchorLink href='#variado_home'><div className="item_menu">Variados</div></AnchorLink> */}
                     <Link to='/sobre'><div className="item_menu">Sobre</div></Link>
                         <Link to='/entrar'><button className=" btn_header entrar_header" type="submit">Entrar</button></Link>
@@ -112,7 +112,7 @@ export class Header extends Component{
 
                                 
                                 
-                                <div className="itens"> <p>Confeiteiros</p> </div>
+                                <Link to="/confeiteiros"><div className="itens"> <p>Confeiteiros</p> </div></Link>
                             </div>
                         </div>
                     </div>

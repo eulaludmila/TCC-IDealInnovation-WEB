@@ -5,6 +5,7 @@ import Site from './componentes/Rota/Site';
 import Cadastro from './componentes/Rota/Cadastro';
 import Login from './componentes/Rota/Login';
 import Produtos  from './componentes/Conteudo/Produtos';
+import {Confeiteiros} from './componentes/Conteudo/Confeiteiros'
 
 import EntrarLogin from './componentes/Conteudo/EntrarCadastrar/Entrar';
 import CadastrarLogin from './componentes/Conteudo/EntrarCadastrar/Cadastrar';
@@ -43,6 +44,7 @@ export const Rota = () =>(
             <Route path="/faleconosco" component={BoxFaleConosco}></Route>
             <Route path="/sobre" component={BoxSobre}></Route>
             <Route exact path="/descricao/:codProduto" component={DescricaoProduto}></Route>
+            <Route path="/confeiteiros" component={Confeiteiros}></Route>
             {/* <Route path="/entrarCliente" component={LoginCliente}></Route>
             <Route path="/entrarProfissional" component={LoginProfissional}></Route> */}
 
