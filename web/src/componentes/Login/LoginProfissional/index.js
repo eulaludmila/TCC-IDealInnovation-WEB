@@ -8,6 +8,7 @@ import axios from 'axios';
 import { ipAPI } from '../../../link_config';
 import decode from 'jwt-decode';
 import { browserHistory} from 'react-router';
+import {Row, Col, Toast} from 'react-bootstrap';
 
 //Área de Login do Profissional
 class LoginProfissional extends Component{
@@ -17,6 +18,7 @@ class LoginProfissional extends Component{
 
         this.state = {email: "", senha: ""};
     }
+    
 
     autenticar = (evento) =>{
         evento.preventDefault();
@@ -29,7 +31,7 @@ class LoginProfissional extends Component{
         axios.post(
              ipAPI +  "login/confeiteiro", login)
         .then(resposta => {
-            // console.log(resposta)
+            // console.log(resposta.data.token)
             sessionStorage.setItem("auth", resposta.data.token)
 
             Promise.resolve(resposta.data.token)
@@ -38,7 +40,8 @@ class LoginProfissional extends Component{
 
             //mandando para a area administrativa com codigo do usuário vindo do token
             browserHistory.push("/adm/profissional/" + tokenDescrip.codUsuario);
-        }).catch((err) => {console.log("AXIOS ERROR: ", err);})
+        }).catch();
+        
       
     }
 
@@ -51,6 +54,12 @@ class LoginProfissional extends Component{
         console.log(evento.target.value)
         this.setState({senha: evento.target.value});
     }
+
+
+    
+
+
+
     render(){
         return(
             <div className="container-fluid area_login">
@@ -68,7 +77,7 @@ class LoginProfissional extends Component{
 
                             <div className="elementos-form">
 
-                                <InputLogin id="email" type="email" placeholder="Email" label="Email" onChange={this.setEmail} style={{marginBottom: '20px'}}></InputLogin>
+                                <InputLogin id="email" type="email"  placeholder="Email" label="Email" onChange={this.setEmail} style={{marginBottom: '20px'}}></InputLogin>
                                 <InputLogin id="password" type="password" placeholder="Password" onChange={this.setSenha} label="Password"></InputLogin>
                                 <span className="pure-form-message">Esqueceu a senha?</span>
                                 
