@@ -173,7 +173,7 @@ export class TelaSenha extends Component{
 export class BoxTelaSenha extends Component{
     constructor(props){
         super(props)
-
+        this.state={status:''}
     }
     render(){
         return(

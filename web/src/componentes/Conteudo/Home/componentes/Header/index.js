@@ -99,7 +99,7 @@ export class Header extends Component{
                     
                         <div id="texto_header" className="col-sm-11 col-10"> Show de Bolos</div>
                         <div id="imagem_menu"  className="col-sm-1 col-2">
-                            <img id="menu_imagem" onClick={this.menu}/> 
+                            <img id="menu_imagem" onClick={this.menu} alt="menu" title="menu"/> 
                             <div className="menu_itens">
                                 <div className="itens setinha" onClick={this.submenu}> <p>Produtos</p> </div>
                                 

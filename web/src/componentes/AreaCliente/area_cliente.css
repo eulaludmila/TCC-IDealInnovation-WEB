@@ -1,0 +1,39 @@
+.caixa-area-cliente{
+    width: inherit;
+        min-height: 800px;
+        height: auto;
+        /* background-color: aqua; */
+        padding-top: 150px;
+        padding-bottom: 50px;
+        box-sizing: border-box;
+}
+.pedido{
+    width: 80%;
+    background-color: bisque;
+    border: solid 1px #c4c4c4;
+    border-radius: 5px;
+
+}
+
+.area-pedidos{
+    min-height: 200px;
+    height: auto;
+    
+}
+
+.caixa-perfil{
+    width: 100%;
+    /* background-color: blue; */
+    background-color: #ffffff;
+    border: solid 1px #c4c4c4;
+}
+
+.tamanho-editar{
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+}
+
+.tab{
+
+}

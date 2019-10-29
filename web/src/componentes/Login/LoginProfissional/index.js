@@ -8,7 +8,6 @@ import axios from 'axios';
 import { ipAPI } from '../../../link_config';
 import decode from 'jwt-decode';
 import { browserHistory} from 'react-router';
-import {Row, Col, Toast} from 'react-bootstrap';
 
 //Área de Login do Profissional
 class LoginProfissional extends Component{
@@ -40,7 +39,7 @@ class LoginProfissional extends Component{
 
             //mandando para a area administrativa com codigo do usuário vindo do token
             browserHistory.push("/adm/profissional/" + tokenDescrip.codUsuario);
-        }).catch();
+        }).catch(error=>{console.log(error);alert("errorrr ")})
         
       
     }

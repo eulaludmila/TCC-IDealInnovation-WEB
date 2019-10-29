@@ -309,7 +309,7 @@ export class AreaEditarDadosPessoais extends Component{
 export class BoxEditarDadosPessoais extends Component{
     constructor(props){
         super(props)
-
+        this.state={status:''}
     }
     render(){
         return(

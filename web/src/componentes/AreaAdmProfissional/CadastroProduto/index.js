@@ -296,7 +296,7 @@ export class BoxCadastrarProdutos extends Component{
 
     constructor(props){
         super(props)
-
+        this.state={status:''}
     }
 
     render(){

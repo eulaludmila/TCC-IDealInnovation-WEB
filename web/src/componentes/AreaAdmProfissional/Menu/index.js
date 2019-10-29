@@ -3,7 +3,6 @@ import img from '../../../img/bolo.jpg'
 // import '../../../css/font/all.css'
 import {Link} from 'react-router';
 import {ipAPI, ipFotos} from '../../../link_config';
-import $ from 'jquery';
 import axios from 'axios';
 
 
