@@ -75,7 +75,7 @@ class Menu extends Component{
                         <Link to={"/adm/profissional/pedidos_aprovados/"+ this.props.codConfeiteiro}><li>Pedidos Aprovados</li></Link>
                     </ul>
                 </li>
-                <li id="hs_cms"><Link to={"/adm/profissional" + this.props.codConfeiteiro}><div className="link"><i className="fas fa-home"></i>Home</div></Link>
+                <li id="hs_cms"><Link to={"/adm/profissional/" + this.props.codConfeiteiro}><div className="link"><i className="fas fa-home"></i>Home</div></Link>
 
                 </li>
                 <Link to="/"><li><div className="link"><i className="fas fa-sign-out-alt"></i>Sair</div>

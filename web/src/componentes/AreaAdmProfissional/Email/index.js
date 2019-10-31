@@ -22,6 +22,8 @@ export class TelaEmail extends Component {
         $.ajax({
             url: `${ipAPI}confeiteiro/` + this.props.codConfeiteiro,
             dataType: 'json',
+            headers:{'Authorization':sessionStorage.getItem('auth')},
+            
             success: function (resposta) {
                 
                 this.setState({ emailAtual: resposta.email });
@@ -104,6 +106,7 @@ export class TelaEmail extends Component {
         $.ajax({
             url: `${ipAPI}confeiteiro/email/`+sessionStorage.getItem("dados"),
             contentType: "application/json",
+            headers:{'Authorization':sessionStorage.getItem('auth')},
             type: "put",
             data: sessionStorage.getItem("confirm"),
             success: function (resposta) {

@@ -2,20 +2,8 @@ import React, { Component } from 'react';
 // import '../../css/style.css';
 import Carousel from 'react-bootstrap/Carousel'
 import img from '../../../../../img/blur.jpg'
-import img2 from '../../../../../img/baking.jpg'
-import img3 from '../../../../../img/bolo.jpg'
-// export class SliderHome extends Component{
-
-//     render(){
-//         return(
-//                 <div className="container-fluid area_slider" id={this.props.id}>
-      
-//                 </div>    
-
-//         );
-//     }
-
-// }
+import img2 from '../../../../../img/bolo_frutas.jpg'
+import img3 from '../../../../../img/baked_goods.jpg'
 
 export class SliderHome extends Component{
 

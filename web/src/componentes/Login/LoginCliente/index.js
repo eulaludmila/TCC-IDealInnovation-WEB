@@ -25,7 +25,7 @@ class LoginCliente extends Component{
         axios.post(
             ipAPI + "login/cliente", login)
             .then(resposta=> {
-                sessionStorage.setItem("auth", resposta.data.token)
+                sessionStorage.setItem("authC", resposta.data.token)
                 Promise.resolve(resposta.data.token)
                 browserHistory.push("/");
             }).catch(error=>{console.log(error);alert("Usuário e/ou senha incorretos")})

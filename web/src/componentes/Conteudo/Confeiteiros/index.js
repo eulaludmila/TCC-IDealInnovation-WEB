@@ -12,7 +12,7 @@ export class Confeiteiros extends Component{
     constructor(props){
         super(props);
 
-        this.state = {listaConfeiteiros: [], itemClicado: "",todosConfeiteiros:"http://localhost:8080/confeiteiroDTO/ativo", melhoresAvaliados:"http://localhost:8080/confeiteiroDTO/avaliacao/confeiteiros"}
+        this.state = {listaConfeiteiros: [], itemClicado: "idTodos",todosConfeiteiros:"http://localhost:8080/confeiteiroDTO/ativo", melhoresAvaliados:"http://localhost:8080/confeiteiroDTO/avaliacao/confeiteiros"}
     }
 
 

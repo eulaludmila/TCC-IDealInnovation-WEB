@@ -172,37 +172,38 @@ export class CadastrarProdutos extends Component{
         }
 
         
-        axios.post(`${ipAPI}produto`, JSON.stringify(json), 
-        {headers: {'Authorization': sessionStorage.getItem('auth')}})
-        .then((res) => {
-            this.setState({nomeProduto:""});
-            this.setState({descricaoProduto:""});
-            this.setState({qtdeMin:""});
-            this.setState({qtdeMax:""});
-            this.setState({precoProduto:""});
-            this.enviaFormFotoProduto(res.codProduto);
-        })
-        .catch((err) => {console.log("AXIOS ERROR: ", err);})
-
-        // $.ajax({
-        //     url: `${ipAPI}produto`,
-        //     contentType: "application/json",
-        //     dataType: "json",
-        //     type: "post",
-        //     data: JSON.stringify(json),
-        //     success: function(resposta){
-        //         this.setState({nomeProduto:""});
-        //         this.setState({descricaoProduto:""});
-        //         this.setState({qtdeMin:""});
-        //         this.setState({qtdeMax:""});
-        //         this.setState({precoProduto:""});
-        //         this.enviaFormFotoProduto(resposta.codProduto);
-
-            
-        //     }.bind(this)
-
-            
+        // axios.post(`${ipAPI}produto`, JSON.stringify(json), 
+        // {headers: {'Authorization': sessionStorage.getItem('auth')}})
+        // .then((res) => {
+        //     this.setState({nomeProduto:""});
+        //     this.setState({descricaoProduto:""});
+        //     this.setState({qtdeMin:""});
+        //     this.setState({qtdeMax:""});
+        //     this.setState({precoProduto:""});
+        //     this.enviaFormFotoProduto(res.codProduto);
         // })
+        // .catch((err) => {console.log("AXIOS ERROR: ", err);})
+
+        $.ajax({
+            url: `${ipAPI}produto`,
+            contentType: "application/json",
+            headers:{'Authorization':sessionStorage.getItem('auth')},
+            dataType: "json",
+            type: "post",
+            data: JSON.stringify(json),
+            success: function(resposta){
+                this.setState({nomeProduto:""});
+                this.setState({descricaoProduto:""});
+                this.setState({qtdeMin:""});
+                this.setState({qtdeMax:""});
+                this.setState({precoProduto:""});
+                this.enviaFormFotoProduto(resposta.codProduto);
+
+            
+            }.bind(this)
+
+            
+        })
 
     }
 
@@ -216,6 +217,7 @@ export class CadastrarProdutos extends Component{
         $.ajax({
             url: ipAPI + 'foto/produto',
             data: formDados,
+            headers:{'Authorization':sessionStorage.getItem('auth')},
             processData: false,
             contentType: false,
             type: 'post',
@@ -228,7 +230,7 @@ export class CadastrarProdutos extends Component{
 
     close=()=>{
         this.setState({showConfirm:false});
-        browserHistory.push("/adm/profissional/produtos_cadastrados")
+        browserHistory.push("/adm/profissional/produtos/" + this.props.codConfeiteiro)
     }
 
     open=()=>{
@@ -303,7 +305,7 @@ export class BoxCadastrarProdutos extends Component{
         return(
             <div>
                 <Header titulo="Cadastro de Produto"></Header>
-                <CadastrarProdutos></CadastrarProdutos>
+                <CadastrarProdutos codConfeiteiro={this.props.params.codConfeiteiro}></CadastrarProdutos>
             </div>
         )
     }

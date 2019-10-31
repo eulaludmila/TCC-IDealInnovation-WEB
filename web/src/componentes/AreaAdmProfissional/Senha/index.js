@@ -13,7 +13,7 @@ export class TelaSenha extends Component{
     constructor(props){
         super(props);
         this.state={ senhaAtual:'',senhaNova:'',confirmSenha:'',message:"", classMessage:"", codConfeiteiro:sessionStorage.getItem("key"), showConfirm:false};
-        
+        console.log(this.props.codConfeiteiro)
     }
 
     
@@ -92,8 +92,9 @@ export class TelaSenha extends Component{
 
     verificaSenhaAtual=()=>{
         $.ajax({
-            url: `${ipAPI}/confeiteiro/senha/${this.state.codConfeiteiro}/${this.state.senhaAtual}`,
+            url: `${ipAPI}confeiteiro/senha/${this.props.codConfeiteiro}/${this.state.senhaAtual}`,
             dataType:"json",
+            headers:{'Authorization':sessionStorage.getItem('auth')},
             success: function(resposta)
             {
                 var mensagem = "";
@@ -115,9 +116,10 @@ export class TelaSenha extends Component{
 
     atualizaSenha=()=>{
         $.ajax({
-            url: `${ipAPI}confeiteiro/senha/${this.state.codConfeiteiro}`,
+            url: `${ipAPI}confeiteiro/senha/${this.props.codConfeiteiro}`,
             contentType:"application/json",
             dataType:"json",
+            headers:{'Authorization':sessionStorage.getItem('auth')},
             type:"put",
             data:this.state.senhaNova,
             success: function(resposta)
@@ -179,7 +181,7 @@ export class BoxTelaSenha extends Component{
         return(
             <div>
                 <Header titulo="Configurações de Senha"></Header>
-                <TelaSenha></TelaSenha>
+                <TelaSenha codConfeiteiro={this.props.params.codConfeiteiro}></TelaSenha>
             </div>
         );
     }
