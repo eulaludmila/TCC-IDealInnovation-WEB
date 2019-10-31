@@ -21,30 +21,12 @@ export class ProdutosCadastrados extends Component{
 
     componentDidMount(){
 
-        axios.get(`${ipAPI}produto/confeiteiro/`+this.props.codConfeiteiro,{headers: {'Authorization': sessionStorage.getItem('auth')}})
-        .then(resposta => {
+        // axios.get(`${ipAPI}produto/confeiteiro/`+this.props.codConfeiteiro,{headers: {'Authorization': sessionStorage.getItem('auth')}})
+        // .then(resposta => {
             
-            const dados = resposta.data;
+        //     const dados = resposta.data;
 
-            this.setState({listaProdutos: dados});
-
-                if(this.state.listaProdutos.status === false){
-                    this.setState({ativoDesativo: "Ativar"});
-                    this.setState({classAtivoDesativo: "btn-success"});
-                } else {
-                    this.setState({ativoDesativo: "Desativar"});
-                    this.setState({classAtivoDesativo: "btn-danger"});
-                }
-
-        }).catch((err) => {console.log("AXIOS ERROR: ", err);})
-
-        // const { codProduto } = this.props.match.params
-        // $.ajax({
-        //     url: ipAPI + "produto/confeiteiro/" + this.props.codConfeiteiro,
-        //     dataType: "json",
-        //     type: "get",
-        //     success: function(resposta){
-        //         this.setState({listaProdutos: resposta});
+        //     this.setState({listaProdutos: dados});
 
         //         if(this.state.listaProdutos.status === false){
         //             this.setState({ativoDesativo: "Ativar"});
@@ -53,8 +35,27 @@ export class ProdutosCadastrados extends Component{
         //             this.setState({ativoDesativo: "Desativar"});
         //             this.setState({classAtivoDesativo: "btn-danger"});
         //         }
-        //     }.bind(this)
-        // })
+
+        // }).catch((err) => {console.log("AXIOS ERROR: ", err);})
+
+        // const { codProduto } = this.props.match.params
+        $.ajax({
+            url: ipAPI + "produto/confeiteiro/" + this.props.codConfeiteiro,
+            dataType: "json",
+            headers:{'Authorization':sessionStorage.getItem('auth')},
+            type: "get",
+            success: function(resposta){
+                this.setState({listaProdutos: resposta});
+
+                if(this.state.listaProdutos.status === false){
+                    this.setState({ativoDesativo: "Ativar"});
+                    this.setState({classAtivoDesativo: "btn-success"});
+                } else {
+                    this.setState({ativoDesativo: "Desativar"});
+                    this.setState({classAtivoDesativo: "btn-danger"});
+                }
+            }.bind(this)
+        })
     }
 
     atualizarListagemProdutos(novalista){
@@ -66,6 +67,7 @@ export class ProdutosCadastrados extends Component{
         $.ajax({
             url: ipAPI + "produto/status/" + codProduto,
             dataType: "json",
+            headers:{'Authorization':sessionStorage.getItem('auth')},
             type: "put",
             success: function(resposta){
 
@@ -106,10 +108,8 @@ export class ProdutosCadastrados extends Component{
                     </div>
                 </div>
                 
-                
                 )}
 
-            
 
         </ContainerAdm>
 			

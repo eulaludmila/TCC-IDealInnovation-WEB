@@ -7,6 +7,10 @@
   height: 60px;
 }
 
+.nav-link{
+  display: inline!important;
+}
+
 #menu-responsivo{
   display: none;
 }

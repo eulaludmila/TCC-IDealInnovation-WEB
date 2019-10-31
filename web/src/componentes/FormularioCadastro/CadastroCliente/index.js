@@ -312,7 +312,7 @@ class CadastroCliente extends Component{
                     
         //AO APERTAR EM "OK" IRÁ REDIRECIONAR PARA A TELA INCIAL DO SITE
         $(".btn-modal").on("click", function(){
-            browserHistory.push("/cliente")
+            browserHistory.push("/login/cliente")
         });
     }
 

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Header from '../Header'
 import {ContainerAdm} from '../../../styles'
-import { ipAPI } from '../../../link_config';
+import { ipAPI, ipFotos } from '../../../link_config';
 import axios from 'axios'
 
 
@@ -39,7 +39,7 @@ export class HomeProfissional extends Component{
 
           {this.state.listaProdutos.map(produtos =>
               <div className="card text-center float-left mb-5" style={{width: '15rem'}}>
-              <img className="card-img-top imagens-bolos" src={"http://54.242.6.253" + produtos.foto} alt="Imagem de capa do card"/>
+              <img className="card-img-top imagens-bolos" src={ipFotos + produtos.foto} alt="Imagem de capa do card"/>
               <div className="card-body">
                 <h5 className="card-title nome-bolo-adm">{produtos.nomeProduto}</h5>
                 <p className="card-text">{produtos.preco}</p>
