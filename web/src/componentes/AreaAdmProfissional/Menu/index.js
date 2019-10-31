@@ -78,9 +78,9 @@ class Menu extends Component{
                 <li id="hs_cms"><Link to={"/adm/profissional" + this.props.codConfeiteiro}><div className="link"><i className="fas fa-home"></i>Home</div></Link>
 
                 </li>
-                <li><div className="link"><i className="fas fa-sign-out-alt"></i>Sair</div>
+                <Link to="/"><li><div className="link"><i className="fas fa-sign-out-alt"></i>Sair</div>
 
-                </li>
+                </li></Link>
             </ul>
             
         </div>

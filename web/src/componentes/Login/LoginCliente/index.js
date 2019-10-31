@@ -28,7 +28,7 @@ class LoginCliente extends Component{
                 sessionStorage.setItem("auth", resposta.data.token)
                 Promise.resolve(resposta.data.token)
                 browserHistory.push("/");
-            }).catch(error=>{console.log(error);alert("errorrr ")})
+            }).catch(error=>{console.log(error);alert("Usuário e/ou senha incorretos")})
     }
 
     setEmail=(evento)=>{

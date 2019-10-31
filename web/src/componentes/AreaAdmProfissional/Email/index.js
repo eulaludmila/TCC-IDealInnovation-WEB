@@ -14,12 +14,13 @@ export class TelaEmail extends Component {
         super(props);
         this.state = { emailNovo: '', confirmEmail: '', message: "", classMessage: "", show:false, emailAtual:'' };
         this.atualizarListagem = this.atualizarListagem.bind(this);
+        console.log(this.props.codConfeiteiro)
 
     }
 
     componentDidMount() {
         $.ajax({
-            url: `${ipAPI}confeiteiro/` + sessionStorage.getItem("key"),
+            url: `${ipAPI}confeiteiro/` + this.props.codConfeiteiro,
             dataType: 'json',
             success: function (resposta) {
                 
@@ -170,11 +171,15 @@ export class TelaEmail extends Component {
 
 export class BoxTelaEmail extends Component {
 
+    constructor(props){
+        super(props)
+    }
+
     render() {
         return (
             <div>
                 <Header titulo="Configurações do E-mail"></Header>
-                <TelaEmail></TelaEmail>
+                <TelaEmail codConfeiteiro={this.props.params.codConfeiteiro}></TelaEmail>
             </div>
         );
     }

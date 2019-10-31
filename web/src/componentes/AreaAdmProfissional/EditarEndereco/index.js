@@ -19,6 +19,8 @@ export class AreaEditarCadastro extends Component{
         this.state={cep:'',uf:'',numero:'',complemento:'',endereco:'',bairro:'',cidade:'', classMessage:'', message:'', showConfirm:false, codConfeiteiro:sessionStorage.getItem("key")};
 
         this.enviarFormEditarEndereco = this.enviarFormEditarEndereco.bind(this);
+
+        // console.log(this.props.params.codConfeiteiro)
     }
 
     //EVENTOS DOS INPUTS
@@ -69,7 +71,7 @@ export class AreaEditarCadastro extends Component{
 
         console.log(json)
         $.ajax({
-            url: `${ipAPI}endereco/${this.state.codConfeiteiro}`,
+            url: `${ipAPI}endereco/${this.props.params.codConfeiteiro}`,
             contentType: 'application/json',
             dataType: 'json',
             type: 'put',
