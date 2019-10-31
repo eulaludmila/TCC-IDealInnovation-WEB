@@ -39,7 +39,7 @@ class LoginProfissional extends Component{
 
             //mandando para a area administrativa com codigo do usuário vindo do token
             browserHistory.push("/adm/profissional/" + tokenDescrip.codUsuario);
-        }).catch(error=>{console.log(error);alert("errorrr ")})
+        }).catch(error=>{console.log(error);alert("Usuário e/ou senha incorretos")})
         
       
     }
