@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { BotaoLoginCSS } from '../../../styles'
+import {Link} from 'react-router'
 
 class BotaoLogin extends Component{
 
@@ -9,7 +10,7 @@ class BotaoLogin extends Component{
                 <BotaoLoginCSS type={this.props.type} className="my-btn btn">{this.props.label}</BotaoLoginCSS>
 
                 <span className="pure-form-message">Ainda não tem cadastro?</span>
-                <span className="pure-form-message">Cadastre-se aqui!</span>
+                <Link to={this.props.link}><span className="pure-form-message">Cadastre-se aqui!</span></Link>
             </div>
         );
     };

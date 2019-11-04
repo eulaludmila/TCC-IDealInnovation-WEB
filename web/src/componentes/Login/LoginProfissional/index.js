@@ -80,7 +80,7 @@ class LoginProfissional extends Component{
                                 <InputLogin id="password" type="password" placeholder="Password" onChange={this.setSenha} label="Password"></InputLogin>
                                 <span className="pure-form-message">Esqueceu a senha?</span>
                                 
-                                <BotaoLogin id="botao" type="submit" label="Entrar"></BotaoLogin>
+                                <BotaoLogin link="/cadastro/profissional" id="botao" type="submit" label="Entrar"></BotaoLogin>
                                 
                             </div>
 

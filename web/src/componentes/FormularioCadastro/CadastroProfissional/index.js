@@ -274,11 +274,11 @@ class CadastroProfissional extends Component{
                                     <SelectSexoCadastro id="sexo" onChange={this.setSexo} value={this.state.sexo}></SelectSexoCadastro>
                                 </div>
                                 <div className="row mt-4 mb-4 justify-content-md-center" >
-                                    <InputCadastro id="email" type="email" className="form-group col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12" onChange={this.setEmail} value={this.state.email} placeholder=". . ." label="E-mail" ></InputCadastro>
+                                    <InputCadastro id="email" type="email" autocomplete="username" className="form-group col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12" onChange={this.setEmail} value={this.state.email} placeholder=". . ." label="E-mail" ></InputCadastro>
 
-                                    <InputCadastro id="senha" type="password" className="form-group col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12" onChange={this.setSenha} value={this.state.senha} placeholder=". . ." label="Senha" ></InputCadastro>
+                                    <InputCadastro id="senha" autocomplete="new-password" type="password" className="form-group col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12" onChange={this.setSenha} value={this.state.senha} placeholder=". . ." label="Senha" ></InputCadastro>
 
-                                    <InputCadastro id="confirmar-senha" type="password" className="form-group col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12" onChange={this.setConfirmSenha} value={this.state.confirmSenha} placeholder=". . ." label="Confirme a senha" ></InputCadastro>
+                                    <InputCadastro id="confirmar-senha" type="password" autocomplete="new-password" className="form-group col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12" onChange={this.setConfirmSenha} value={this.state.confirmSenha} placeholder=". . ." label="Confirme a senha" ></InputCadastro>
                                 </div>
 
                                 <div className="row justify-content-center">

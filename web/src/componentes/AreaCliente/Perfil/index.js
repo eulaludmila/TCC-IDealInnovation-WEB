@@ -1,5 +1,5 @@
 import React, {Component}  from 'react'
-import {Form , Row, Col,Button,InputGroup} from 'react-bootstrap'
+import {Form , Row, Col} from 'react-bootstrap'
 import editar from '../../../img/edit.png'
 import salvar from '../../../img/correct.png'
 import InputLabel from '../InputLabel'
@@ -69,7 +69,7 @@ export class Perfil extends Component{
                         <span onClick={() => this.editar(this.state.alt)}><img src={this.state.imagem} className="tamanho-editar" alt={this.state.alt} title={this.state.alt}></img></span>
                     </Col>  
                     <Col xs={3} md={3}>
-                        <img src={ipFotos+this.state.imgFoto} style={{'width':'100%','height':'180px'}} ></img>
+                        <img src={ipFotos+this.state.imgFoto} alt="" title="" style={{'width':'100%','height':'180px'}} ></img>
                         <input className="input-file" type="file" disabled = {this.state.editar} onChange={this.setFoto} name={this.props.name}/>
                     </Col>
                     <Col xs={9} md={9}>

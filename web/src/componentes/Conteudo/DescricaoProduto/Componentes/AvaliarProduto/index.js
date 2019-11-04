@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import InputAvaliar from '../InputAvaliar'
 import TextAvaliar from '../TextAvaliar'
+import Estrelas from 'react-star-ratings'
 
 export default class AvaliarProduto extends Component{
     render(){
@@ -10,16 +11,7 @@ export default class AvaliarProduto extends Component{
                     <h4 className="card-text">Avalie este produto:</h4>
                     <h6>Sua Avaliação:*</h6>
                     <div className="rate">
-                        <input type="radio" id="star5" name="ratez" value="5" />
-                        <label htmlFor="star5" title="5 entrelas">5 stars</label>
-                        <input type="radio" id="star4" name="rate" value="4" />
-                        <label htmlFor="star4" title="4 entrelas">4 stars</label>
-                        <input type="radio" id="star3" name="rate" value="3" />
-                        <label htmlFor="star3" title="3 entrelas">3 stars</label>
-                        <input type="radio" id="star2" name="rate" value="2" />
-                        <label htmlFor="star2" title="2 entrelas">2 stars</label>
-                        <input type="radio" id="star1" name="rate" value="1" />
-                        <label htmlFor="star1" title="1 entrela">1 star</label>
+                        <Estrelas starDimension="25px" starHoverColor="#fcba03" starRatedColor="#fcba03" starEmptyColor="#dedede" starSpacing="1px" changeRating name="estrelas"></Estrelas>
                     </div>
                 </div>
                 <div className="container col-md-8 mt-3 ">

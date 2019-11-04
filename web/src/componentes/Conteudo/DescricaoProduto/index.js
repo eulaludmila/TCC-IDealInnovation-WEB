@@ -25,7 +25,6 @@ export class DescricaoProduto extends Component{
                 <LinkApp/>
                 <TotalAvaliacao/>
                 <Comentarios/>
-                <Comentarios/>
                 <AvaliarProduto/>   
             </div>
             <Footer></Footer>

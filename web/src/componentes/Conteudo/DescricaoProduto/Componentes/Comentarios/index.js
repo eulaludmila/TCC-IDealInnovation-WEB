@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import img from '../../../../../img/bolo_chocolate.jpg'
+import Estrelas from 'react-star-ratings'
 
 export default class Comentarios extends Component{
     render(){
@@ -8,22 +10,11 @@ export default class Comentarios extends Component{
                     <div className="col-md-8 container">
                         <div className="card">
                             <div className="card-body">
-                                <img src="img/bolo_chocolate.jpg" className="img_pessoa mr-2" alt="Responsive "/>
+                                <img src={img} className="img_pessoa mr-2" alt="Responsive "/>
                                 <p className="card-text mt-3">Roberto Carlos - 12/05/2019</p>
                                 <p className="card-text">Muito bom! Entrega no horário combinado, sem surpresas! Recomendo boleiro e o bolo!</p>
                                 <div className="avaliacao">
-                                    <div className="rate">
-                                        <input type="radio" id="star5" name="ratez" value="5" />
-                                        <label htmlFor="star5" title="5 entrelas">5 stars</label>
-                                        <input type="radio" id="star4" name="rate" value="4" />
-                                        <label htmlFor="star4" title="4 entrelas">4 stars</label>
-                                        <input type="radio" id="star3" name="rate" value="3" />
-                                        <label htmlFor="star3" title="3 entrelas">3 stars</label>
-                                        <input type="radio" id="star2" name="rate" value="2" />
-                                        <label htmlFor="star2" title="2 entrelas">2 stars</label>
-                                        <input type="radio" id="star1" name="rate" value="1" />
-                                        <label htmlFor="star1" title="1 entrela">1 star</label>
-                                    </div>
+                                    <Estrelas starDimension="25px" starRatedColor="#fcba03" starEmptyColor="#dedede" starSpacing="1px" rating={5} numberOfStars={5}></Estrelas>
                                 </div>
                             </div>
                         </div>

@@ -4,9 +4,10 @@ import './css/header.css';
 import './js/index';
 import abrirMenu from '../../img/menu_mobile.jpg';
 import fecharMenu from '../../img/fechar_menu.jpg';
-import {Link} from 'react-router';
+import {Link,browserHistory} from 'react-router';
 import $ from 'jquery';
-import {NavDropdown} from 'react-bootstrap'
+import {DropdownButton,Dropdown} from 'react-bootstrap'
+import decode from 'jwt-decode'
 
 
 export class Header extends Component{
@@ -21,6 +22,11 @@ export class Header extends Component{
     componentDidMount(){
         $(".submenu_responsivo").hide();
         $("#menu_imagem").attr('src', abrirMenu);
+    }
+
+    logout = () =>{
+        sessionStorage.removeItem('authC')
+        browserHistory.push('/')
     }
 
 
@@ -131,16 +137,17 @@ export class Header extends Component{
         if(sessionStorage.getItem('authC')=== null){
            menuentrar = <Link to='/entrar'><button className=" btn_header entrar_header" type="submit">Entrar</button></Link>
             menucadastrar = <Link to='/cadastrar'><button className=" btn_header cadastro_header" type="submit">Cadastre-se</button></Link>
-                  
+            
                          
         }else{
-            dropdown = <NavDropdown title="Dropdown" id="nav-dropdown" style={{'paddingTop':'15px'}}>
-            <NavDropdown.Item eventKey="4.1">Meu Perfil</NavDropdown.Item>
-            <NavDropdown.Item eventKey="4.2">Pedidos</NavDropdown.Item>
-            {/* <NavDropdown.Item eventKey="4.3">Something else here</NavDropdown.Item> */}
-            <NavDropdown.Divider />
-            <NavDropdown.Item eventKey="4.4">Sair</NavDropdown.Item>
-        </NavDropdown>
+
+
+            var cod = decode(sessionStorage.getItem('authC'))
+            dropdown = <DropdownButton variant='Primary' className="entrar_header btn_header" id="dropdown-basic-button" title="Eu">
+            <Link to={"/cliente/" + cod.codUsuario}><Dropdown.Item>Configurações</Dropdown.Item></Link>
+            <Dropdown.Divider/>
+            <Dropdown.Item onClick={this.logout}>Sair</Dropdown.Item>
+          </DropdownButton>
         console.log( dropdown )
               
         }

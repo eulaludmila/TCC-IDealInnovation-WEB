@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ipFotos } from '../../../../../link_config';
+import {Link} from 'react-router'
 
 export default class Vendedor extends Component{
     render(){
@@ -11,7 +12,7 @@ export default class Vendedor extends Component{
                         <img src={ ipFotos + this.props.fotoConfeiteiro} className="img_pessoa mr-2" alt={this.props.nomeConfeiteiro} title={this.props.nomeConfeiteiro}/>
                         <p className="card-text">{this.props.nomeConfeiteiro}</p>
                         <p className="card-text">Jandira-SP</p>
-                        <span>Visitar o perfil</span>
+                        <Link to={"/confeiteiro/" + this.props.codConfeiteiro}><span>Visitar o perfil</span></Link>
                     </div>
                 </div>
             </div>
