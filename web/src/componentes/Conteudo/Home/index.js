@@ -18,7 +18,7 @@ class Home extends Component{
                 <Produto  titulo="BOLOS RECHEADOS" codigo="2" id="bolo_recheado_home"/>
                 <ContainerImagem imagem="baixar_app_img" titulo="Fique por dentro dos novos produtos e faça umas compras" conteudoBotao="Baixe nosso App" link="#"/>
                 <Produto  titulo="DOCES" codigo="3" id="doce_home"/>
-                <ContainerImagem imagem="registre_seu_produto_img" titulo="Registre seu produto aqui" conteudoBotao="SAIBA MAIS" link="#"/>
+                <ContainerImagem imagem="registre_seu_produto_img" titulo="Registre seu produto aqui" conteudoBotao="SAIBA MAIS" link="/login/profissional"/>
                 <Confeiteiro  titulo="NOSSOS PROFISSIONAIS" id="profissional_home"/>
                 <Footer/>
             </div>

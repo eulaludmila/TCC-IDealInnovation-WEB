@@ -3,6 +3,8 @@ import '../../css/style.css';
 import '../../css/rate.css';
 import $ from 'jquery';
 import {ipAPI, ipFotos} from '../../../../../link_config'
+import {Link} from 'react-router'
+import Estrelas from 'react-star-ratings'
 
 
 
@@ -44,26 +46,16 @@ export class Confeiteiro extends Component{
                 </div>
             
                 {this.state.listaConfeiteiros.map(confeiteiros =>
-                
-                    <div key={confeiteiros.codConfeiteiro} className="card text-center prod mb-5"  style={{'width': '14rem'}}>
-                        <img className="card-img-top imagens-bolos" src={ipFotos+confeiteiros.foto} alt={confeiteiros.nome}/>
-                        <div className="card-body">
-                            <h5 className="card-title nome-bolo-adm">{confeiteiros.nome}</h5>
-                            <div className="avaliacao">
-                                <div className="rate">
-                                <input type="radio" id="star5" name="rate" value="5" />
-                                <label htmlFor="star5" title="5 entrelas">5 stars</label>
-                                <input type="radio" id="star4" name="rate" value="4" />
-                                <label htmlFor="star4" title="4 entrelas">4 stars</label>
-                                <input type="radio" id="star3" name="rate" value="3" />
-                                <label htmlFor="star3" title="3 entrelas">3 stars</label>
-                                <input type="radio" id="star2" name="rate" value="2" />
-                                <label htmlFor="star2" title="2 entrelas">2 stars</label>
-                                <input type="radio" id="star1" name="rate" value="1" />
-                                <label htmlFor="star1" title="1 entrela">1 star</label>
+                    <div key={confeiteiros.codConfeiteiro} >
+                        <Link to={"/confeiteiro/" + confeiteiros.codConfeiteiro}><div className="card text-center prod mb-5"  style={{'width': '14rem'}}>
+                            <img className="card-img-top imagens-bolos" src={ipFotos+confeiteiros.foto} alt={confeiteiros.nome}/>
+                            <div className="card-body">
+                                <h5 className="card-title nome-bolo-adm">{confeiteiros.nome}</h5>
+                                <div className="avaliacao">
+                                <Estrelas starDimension="25px" starRatedColor="#fcba03" starEmptyColor="#dedede" starSpacing="1px" rating={confeiteiros.avaliacao} numberOfStars={5}></Estrelas>
                                 </div>
                             </div>
-                        </div>
+                        </div></Link>
                     </div>
                 )}
             </div> 

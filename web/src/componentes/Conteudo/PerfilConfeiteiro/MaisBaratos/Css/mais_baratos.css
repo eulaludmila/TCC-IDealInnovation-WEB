@@ -116,13 +116,13 @@ hr{
     font-size: 20px;
 }
 
-.caixa_confeiteiro{
+/* .caixa_confeiteiro{
     height: 350px;
     background-color: #fff;
     box-shadow: 0 0 1em black;
     margin-top: -100px;
     padding-top: 135px;
-}
+} */
 
 .img_confeiteiro{
     width: 220px;
@@ -172,7 +172,7 @@ hr{
         width: inherit;
         height: inherit;
     }
-
+/* 
     .caixa_confeiteiro{
         width:250px;
         height: 465px;
@@ -181,7 +181,7 @@ hr{
         box-shadow: 0 0 1em black;
         margin-top: -100px;
         padding-top: 85px;
-    }
+    } */
 
     .link_produto{
         width: 180px;
@@ -212,7 +212,7 @@ hr{
         width: inherit;
         height: inherit;
     }
-
+/* 
     .caixa_confeiteiro{
         width:250px;
         height: 350px;
@@ -221,7 +221,7 @@ hr{
         box-shadow: 0 0 1em black;
         margin-top: -100px;
         padding-top: 85px;
-    }
+    } */
 }
 
 @media all and (device-width: 768px) and (device-height: 1024px) and (orientation:portrait) {
@@ -248,7 +248,7 @@ hr{
         width: inherit;
         height: inherit;
     }
-
+/* 
     .caixa_confeiteiro{
         width:250px;
         height: 460px;
@@ -257,7 +257,7 @@ hr{
         box-shadow: 0 0 1em black;
         margin-top: -100px;
         padding-top: 85px;
-    }
+    } */
 
     .avaliacao_perfil{
         width: 150px;
@@ -294,7 +294,7 @@ hr{
         height: inherit;
     }
 
-    .caixa_confeiteiro{
+    /* .caixa_confeiteiro{
         width:250px;
         height: 460px;
         margin-left: 140px;
@@ -302,7 +302,7 @@ hr{
         box-shadow: 0 0 1em black;
         margin-top: -100px;
         padding-top: 85px;
-    }
+    } */
 
     .avaliacao_perfil{
         width: 150px;
@@ -325,7 +325,7 @@ hr{
         height: inherit;
     }
 
-    .caixa_confeiteiro{
+    /* .caixa_confeiteiro{
         width:250px;
         height: 495px;
         margin-left: 190px;
@@ -333,7 +333,7 @@ hr{
         box-shadow: 0 0 1em black;
         margin-top: -100px;
         padding-top: 135px;
-    }
+    } */
 
     .avaliacao_perfil{
         width: 150px;

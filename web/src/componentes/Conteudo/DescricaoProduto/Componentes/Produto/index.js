@@ -3,14 +3,15 @@ import Vendedor from '../Vendedor';
 import Descricao from '../Descricao';
 import SelectPesoQtd from '../SelectPesoQtd';
 import $ from 'jquery';
-import {ipAPI} from '../../../../../link_config'
+import {ipAPI, ipFotos} from '../../../../../link_config'
+import Estrelas from 'react-star-ratings'
 
 export default class Produto extends Component{
 
     constructor(props){
         super(props)
 
-        this.state={nomeProduto:"",preco:0,foto:"",nomeConfeiteiro:"",fotoConfeiteiro:"", descricao:"", tipoUni:"",labelProdutoSelect:"", resultado:""};
+        this.state={nomeProduto:"",preco:0,foto:"",codConfeiteiro:0,nomeConfeiteiro:"",fotoConfeiteiro:"", descricao:"",avaliacao:0, tipoUni:"",labelProdutoSelect:"", resultado:""};
     }
 
     componentDidMount(){
@@ -25,9 +26,11 @@ export default class Produto extends Component{
             success: function(resposta){
 
                 console.log(resposta.confeiteiro.foto)
+                this.setState({codConfeiteiro:resposta.confeiteiro.codConfeiteiro})
                 this.setState({nomeProduto: resposta.nomeProduto});
                 this.setState({preco: resposta.preco});
                 this.setState({imgFoto: resposta.foto});
+                this.setState({avaliacao:resposta.avaliacao})
                 this.setState({nomeConfeiteiro: resposta.confeiteiro.nome});
                 this.setState({fotoConfeiteiro: resposta.confeiteiro.foto});
                 this.setState({descricao: resposta.descricao});
@@ -44,20 +47,9 @@ export default class Produto extends Component{
                     <h1>{this.state.nomeProduto}</h1>
                 </div>
                 <div className="col-md-6 mt-3">
-                    <img src={"http://54.242.6.253"+ this.state.imgFoto} className="img-fluid" alt={this.state.nomeProduto} title={this.state.nomeProduto}/>
+                    <img src={ipFotos + this.state.imgFoto} className="img-fluid" alt={this.state.nomeProduto} title={this.state.nomeProduto}/>
                     <div className="avaliacao">
-                        <div className="rate">
-                            <input type="radio" id="star5" name="ratez" value="5" />
-                            <label htmlFor="star5" title="5 entrelas">5 stars</label>
-                            <input type="radio" id="star4" name="rate" value="4" />
-                            <label htmlFor="star4" title="4 entrelas">4 stars</label>
-                            <input type="radio" id="star3" name="rate" value="3" />
-                            <label htmlFor="star3" title="3 entrelas">3 stars</label>
-                            <input type="radio" id="star2" name="rate" value="2" />
-                            <label htmlFor="star2" title="2 entrelas">2 stars</label>
-                            <input type="radio" id="star1" name="rate" value="1" />
-                            <label htmlFor="star1" title="1 entrela">1 star</label>
-                        </div>
+                        <Estrelas starDimension="25px" starRatedColor="#fcba03" starEmptyColor="#dedede" starSpacing="1px" rating={this.state.avaliacao} numberOfStars={5}></Estrelas>
                     </div>
                     <div className="row col-md-12 mt-2">
                         <p className="texto_preco">Preço a partir de: R$ {this.state.preco}</p>
@@ -76,7 +68,7 @@ export default class Produto extends Component{
                     </div>
                 </div>
                 <div className="col-md-5">
-                    <Vendedor nomeConfeiteiro={this.state.nomeConfeiteiro} fotoConfeiteiro={this.state.fotoConfeiteiro}/>
+                    <Vendedor nomeConfeiteiro={this.state.nomeConfeiteiro} codConfeiteiro={this.state.codConfeiteiro} fotoConfeiteiro={this.state.fotoConfeiteiro}/>
                     <Descricao descricao={this.state.descricao}/>
                 </div>
             </div>

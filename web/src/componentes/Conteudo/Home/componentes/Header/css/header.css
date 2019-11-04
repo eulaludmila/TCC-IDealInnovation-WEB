@@ -108,7 +108,13 @@
   background-color: #880E4F!important;
 }
 
-
+.categoria:hover{
+  cursor: pointer;
+}
+.prod:hover{
+  cursor: pointer;
+  box-shadow: 8px 8px 5px 0px rgba(0,0,0,0.1);
+}
 
 /***********Menor que 1100 Celular*/
 @media only screen and (max-width: 1100px) {

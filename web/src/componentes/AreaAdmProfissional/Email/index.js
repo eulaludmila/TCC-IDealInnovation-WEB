@@ -176,6 +176,7 @@ export class BoxTelaEmail extends Component {
 
     constructor(props){
         super(props)
+        this.state={lala:''}
     }
 
     render() {

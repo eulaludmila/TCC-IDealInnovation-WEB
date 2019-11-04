@@ -12,6 +12,10 @@ import CadastrarLogin from './componentes/Conteudo/EntrarCadastrar/Cadastrar';
 import {BoxSobre} from './componentes/Conteudo/Sobre'
 import {BoxFaleConosco} from './componentes/Conteudo/FaleConosco'
 import DescricaoProduto from './componentes/Conteudo/DescricaoProduto'
+import Perfil from './componentes/Conteudo/PerfilConfeiteiro/Perfil';
+import ProdutosConfeiteiro from './componentes/Conteudo/PerfilConfeiteiro/ProdutosConfeiteiro';
+import MelhoresAvaliados from './componentes/Conteudo/PerfilConfeiteiro/MelhoresAvaliados';
+import MaisBaratos from './componentes/Conteudo/PerfilConfeiteiro/MaisBaratos';
 
 import CadastroCliente from './componentes/FormularioCadastro/CadastroCliente';
 import CadastroProfissional from './componentes/FormularioCadastro/CadastroProfissional';
@@ -47,6 +51,10 @@ export const Rota = () =>(
             <Route exact path="/descricao/:codProduto" component={DescricaoProduto}></Route>
             <Route path="/confeiteiros" component={Confeiteiros}></Route>
             <Route path="/cliente/:codCliente" component={AreaCliente}></Route>
+            <Route exact path="/confeiteiro/:codConfeiteiro" component={Perfil}></Route>
+            <Route exact path="/confeiteiro/:codConfeiteiro/produto" component={ProdutosConfeiteiro}></Route>
+            <Route exact path="/confeiteiro/:codConfeiteiro/produto/melhoravaliados" component={MelhoresAvaliados}></Route>
+            <Route exact path="/confeiteiro/:codConfeiteiro/produto/menorpreco" component={MaisBaratos}></Route>
 
         </Route>
         <Route path="/cadastro" component={Cadastro}>

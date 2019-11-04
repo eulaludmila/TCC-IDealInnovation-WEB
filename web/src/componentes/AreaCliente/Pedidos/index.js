@@ -9,7 +9,7 @@ export class PedidosCliente extends Component{
             <div className="pedido center">
                 <Row className="show-grid area-pedidos pt-4 pb-3 pr-3 pl-3">
                     <Col xs={3} md={3}>
-                        <img src={img2} style={{'width':'100%','height':'150px'}} ></img>
+                        <img src={img2} alt="" title="" style={{'width':'100%','height':'150px'}} ></img>
                     </Col>
                     <Col xs={9} md={9}>
                         <Row className="show-grid">

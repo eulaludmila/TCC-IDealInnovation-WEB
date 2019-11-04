@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 
 import { Footer } from '../Footer';
 import '../../../css/bootstrap.min.css';
-import '../../../css/bootstrap.min.css';
 import axios from 'axios';
 import { ipAPI, ipFotos } from '../../../link_config';
+import {Link} from 'react-router'
+import Estrelas from 'react-star-ratings'
 
 class Produtos extends Component{
 
@@ -60,7 +61,7 @@ class Produtos extends Component{
 
                             {this.state.listaCategorias.map(categorias => 
 
-                                <li className="nav-item" key={categorias.codCategoria}>
+                                <li className="nav-item categoria" key={categorias.codCategoria}>
                                     <span className={categorias.codCategoria === this.state.itemClicado ? "nav-link active" : "nav-link"}  id={categorias.codCategoria} onClick={()=>this.listarProdutos(categorias.codCategoria)}>{categorias.categoria}</span>
                                 </li>
 
@@ -76,27 +77,17 @@ class Produtos extends Component{
                 <div className="container pt-5">
 
                 {this.state.listaProdutos.map(produtos =>
-                
-                    <div className="card text-center prod mb-5"  style={{'width': '14rem'}}>
+                    <div key={produtos.codProduto}>
+                    <Link to={"/descricao/" + produtos.codProduto}><div className="card text-center prod mb-5"  style={{'width': '14rem'}}>
                         <img className="card-img-top imagens-bolos" src={ipFotos+produtos.foto} alt={produtos.nomeProduto}/>
                         <div className="card-body">
-                            <h5 className="card-title nome-bolo-adm">{produtos.nomeProduto}</h5>
+                        <h5 className="card-title nome-bolo-adm">{produtos.nomeProduto}</h5>
                             <p className="card-text">R${produtos.preco}</p>
                             <div className="avaliacao">
-                                <div className="rate">
-                                <input type="radio" id="star5" name="rate" value="5" checked={produtos.avaliacao === 5 ? "checked":""}/>
-                                <label htmlFor="star5" title="5 entrelas">5 stars</label>
-                                <input type="radio" id="star4" name="rate" value="4" checked={produtos.avaliacao <5 && produtos.avaliacao<=4 ? "checked":""}/>
-                                <label htmlFor="star4" title="4 entrelas">4 stars</label>
-                                <input type="radio" id="star3" name="rate" value="3" checked={produtos.avaliacao <4 &&produtos.avaliacao<=3 ? "checked":""}/>
-                                <label htmlFor="star3" title="3 entrelas">3 stars</label>
-                                <input type="radio" id="star2" name="rate" value="2" checked={produtos.avaliacao <3 &&produtos.avaliacao<=2 ? "checked":""}/>
-                                <label htmlFor="star2" title="2 entrelas">2 stars</label>
-                                <input type="radio" id="star1" name="rate" value="1"checked={produtos.avaliacao <2 &&produtos.avaliacao<=0 ? "checked":""}/>
-                                <label htmlFor="star1" title="1 entrela">1 star</label>
-                                </div>
+                            <Estrelas starDimension="25px" starRatedColor="#fcba03" starEmptyColor="#dedede" starSpacing="1px" rating={produtos.avaliacao} numberOfStars={5}></Estrelas>
                             </div>
                         </div>
+                    </div></Link>
                     </div>
                 )}
                 </div>
