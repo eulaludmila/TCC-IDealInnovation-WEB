@@ -101,7 +101,7 @@ export class ProdutosCadastrados extends Component{
                                 <div className="botao-centro">
                                     <Link to={"/adm/profissional/cadastro_produtos/" + produtos.codProduto}><button className="btn btn-warning mr-2">Editar</button></Link>
                                     <button className="btn btn-dark  mr-2 "><img src={lupa} alt="..."></img></button>
-                                    <input type="button" className={"btn " + this.state.classAtivoDesativo} onClick={() => this.ativarDesativarProduto(produtos.codProduto)} value={this.state.ativoDesativo}/>
+                                    <input type="button" className={"btn " + this.state.classAtivoDesativo} id={produtos.codProduto} onClick={() => this.ativarDesativarProduto(produtos.codProduto)} value={this.state.ativoDesativo}/>
                                 </div>
                             </div>
                         </div>
@@ -127,7 +127,7 @@ export class BoxCadastroProdutos extends Component{
     render(){
       return (
          <div>
-             <Header titulo="Seus Produtos"></Header>
+            <Header titulo="Seus Produtos"></Header>
             <ProdutosCadastrados codConfeiteiro={this.props.params.codConfeiteiro}></ProdutosCadastrados>
          </div>
           
