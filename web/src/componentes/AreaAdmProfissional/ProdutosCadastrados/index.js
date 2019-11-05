@@ -15,45 +15,20 @@ export class ProdutosCadastrados extends Component{
     constructor(props){
         super(props);
 
-        this.state = {listaProdutos: [], ativoDesativo: "", classAtivoDesativo:""};
+        this.state = {listaProdutos: [], ativoDesativo: "", classAtivo:"btn-success", classDesativo:"btn-danger"};
 
     }
 
     componentDidMount(){
-
-        // axios.get(`${ipAPI}produto/confeiteiro/`+this.props.codConfeiteiro,{headers: {'Authorization': sessionStorage.getItem('auth')}})
-        // .then(resposta => {
-            
-        //     const dados = resposta.data;
-
-        //     this.setState({listaProdutos: dados});
-
-        //         if(this.state.listaProdutos.status === false){
-        //             this.setState({ativoDesativo: "Ativar"});
-        //             this.setState({classAtivoDesativo: "btn-success"});
-        //         } else {
-        //             this.setState({ativoDesativo: "Desativar"});
-        //             this.setState({classAtivoDesativo: "btn-danger"});
-        //         }
-
-        // }).catch((err) => {console.log("AXIOS ERROR: ", err);})
-
-        // const { codProduto } = this.props.match.params
         $.ajax({
             url: ipAPI + "produto/confeiteiro/" + this.props.codConfeiteiro,
             dataType: "json",
             headers:{'Authorization':sessionStorage.getItem('auth')},
             type: "get",
             success: function(resposta){
+
                 this.setState({listaProdutos: resposta});
 
-                if(this.state.listaProdutos.status === false){
-                    this.setState({ativoDesativo: "Ativar"});
-                    this.setState({classAtivoDesativo: "btn-success"});
-                } else {
-                    this.setState({ativoDesativo: "Desativar"});
-                    this.setState({classAtivoDesativo: "btn-danger"});
-                }
             }.bind(this)
         })
     }
@@ -71,13 +46,19 @@ export class ProdutosCadastrados extends Component{
             type: "put",
             success: function(resposta){
 
-                if(resposta.status === false){
-                    this.setState({ativoDesativo: "Ativar"});
-                    this.setState({classAtivoDesativo: "btn-success"});
+                var dados = `#${resposta.codProduto}`
+
+                if(resposta.status === true){
+                    $(dados).removeClass("btn btn-success")
+                    $(dados).addClass("btn btn-danger")
+                    $(dados).val("Desativar")
+                   
                 } else {
-                    this.setState({ativoDesativo: "Desativar"});
-                    this.setState({classAtivoDesativo: "btn-danger"});
+                    $(dados).removeClass("btn btn-danger")
+                    $(dados).addClass("btn btn-success")
+                    $(dados).val("Ativar")
                 }
+
             }.bind(this)
         })
     }
@@ -101,7 +82,7 @@ export class ProdutosCadastrados extends Component{
                                 <div className="botao-centro">
                                     <Link to={"/adm/profissional/cadastro_produtos/" + produtos.codProduto}><button className="btn btn-warning mr-2">Editar</button></Link>
                                     <button className="btn btn-dark  mr-2 "><img src={lupa} alt="..."></img></button>
-                                    <input type="button" className={"btn " + this.state.classAtivoDesativo} id={produtos.codProduto} onClick={() => this.ativarDesativarProduto(produtos.codProduto)} value={this.state.ativoDesativo}/>
+                                    <input type="button" className={produtos.status === true ? "btn " + this.state.classDesativo :"btn " + this.state.classAtivo} id={produtos.codProduto} onClick={() => this.ativarDesativarProduto(produtos.codProduto)} value={produtos.status === true ? "Desativar" : "Ativar"}/>
                                 </div>
                             </div>
                         </div>

@@ -6,6 +6,7 @@ import $ from 'jquery';
 import {Modal} from 'react-bootstrap';
 import {ipAPI} from '../../../link_config'
 import decode from 'jwt-decode'
+import email from 'email-validator'
 
 
 export class TelaEmail extends Component {
@@ -36,7 +37,13 @@ export class TelaEmail extends Component {
     setEmailNovo = (evento) => {
         console.log(evento.target.value)
         this.setState({ emailNovo: evento.target.value });
-        this.onFocusInput("#txt_novo_email");
+        if(email.validate(evento.target.value) === false){
+            var mensagem = "Email é inválido";
+            var id = "#txt_novo_email";
+            this.erroCaixaVazia(mensagem, id);
+        }else{
+            this.onFocusInput("#txt_novo_email");
+        }
     }
 
     setConfirmEmail = (evento) => {
