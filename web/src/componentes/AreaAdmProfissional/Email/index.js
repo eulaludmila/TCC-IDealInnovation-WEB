@@ -5,6 +5,7 @@ import { InputEmailSenha } from '../global/InputEmailSenha';
 import $ from 'jquery';
 import {Modal} from 'react-bootstrap';
 import {ipAPI} from '../../../link_config'
+import decode from 'jwt-decode'
 
 
 export class TelaEmail extends Component {
@@ -102,9 +103,12 @@ export class TelaEmail extends Component {
     }
 
     editarEmail = () => {
+        let dados = decode(sessionStorage.getItem('auth'))
+
+        console.log(`${ipAPI}confeiteiro/email/`+this.props.codConfeiteiro)
 
         $.ajax({
-            url: `${ipAPI}confeiteiro/email/`+sessionStorage.getItem("dados"),
+            url: `${ipAPI}confeiteiro/email/`+this.props.codConfeiteiro,
             contentType: "application/json",
             headers:{'Authorization':sessionStorage.getItem('auth')},
             type: "put",
@@ -118,7 +122,6 @@ export class TelaEmail extends Component {
            }.bind(this)
 
         });
-       
     }
 
     render() {

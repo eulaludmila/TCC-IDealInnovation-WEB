@@ -23,7 +23,7 @@ export class AreaEditarDadosPessoais extends Component{
     }
 
     componentDidMount(){
-
+        console.log(this.props.codConfeiteiro)
 
         axios.get(`${ipAPI}confeiteiro/`+this.props.codConfeiteiro,{headers: {'Authorization': sessionStorage.getItem('auth')}})
         .then(resposta => {
@@ -166,7 +166,7 @@ export class AreaEditarDadosPessoais extends Component{
     enviarForm(){
         // evento.preventDefault();
 
-        let json = {codConfeiteiro:sessionStorage.getItem("key"),
+        let json = {codConfeiteiro:this.props.codConfeiteiro,
             nome: this.state.nome,
             sobrenome: this.state.sobrenome,
             celular: {celular:this.state.celular},
@@ -175,48 +175,51 @@ export class AreaEditarDadosPessoais extends Component{
 
         console.log(json)
 
-        axios.put(`${ipAPI}produto`, JSON.stringify(json), 
-        {headers: {'Authorization': sessionStorage.getItem('auth')}})
-        .then((res) => {
-            this.setState({nomeProduto:""});
-            this.setState({descricaoProduto:""});
-            this.setState({qtdeMin:""});
-            this.setState({qtdeMax:""});
-            this.setState({precoProduto:""});
-            this.enviaFormFotoProduto(res.codProduto);
-        })
-        .catch((err) => {console.log("AXIOS ERROR: ", err);})
+        // axios.put(`${ipAPI}confeiteiroDTO/${this.props.codConfeiteiro}`, JSON.stringify(json), 
+        // {headers: {'Authorization': sessionStorage.getItem('auth')}})
+        // .then((res) => {
+        //     let dados = res.dados
+        //     console.log(dados)
+        //     this.setState({nomeProduto:""});
+        //     this.setState({descricaoProduto:""});
+        //     this.setState({qtdeMin:""});
+        //     this.setState({qtdeMax:""});
+        //     this.setState({precoProduto:""});
+        //     this.enviaFormFotoProduto(res.codProduto);
+        // })
+        // .catch((err) => {console.log("AXIOS ERROR: ", err);})
 
 
 
-        // $.ajax({
-        //     url: `${ipAPI}confeiteiroDTO/${this.props.codConfeiteiro}`,
-        //     contentType: "application/json",
-        //     dataType: "json",
-        //     type: "put",
-        //     data: JSON.stringify(json),
-        //     success:function(resposta){
+        $.ajax({
+            url: `${ipAPI}confeiteiroDTO/${this.props.codConfeiteiro}`,
+            contentType: "application/json",
+            dataType: "json",
+            headers:{'Authorization':sessionStorage.getItem('auth')},
+            type: "put",
+            data: JSON.stringify(json),
+            success:function(resposta){
 
-        //         // this.props.dadosConfeiteiroAtual(resposta);
+                // this.props.dadosConfeiteiroAtual(resposta);
 
-        //         if(this.state.foto === ""){
+                if(this.state.foto === ""){
 
-        //             this.open();
+                    this.open();
 
-        //         }else{
-        //             this.enviarFormFoto(resposta.codConfeiteiro);
-        //         }
+                }else{
+                    this.enviarFormFoto(resposta.codConfeiteiro);
+                }
 
-        //         this.atualizarDadosPessoais(resposta);
+                this.atualizarDadosPessoais(resposta);
 
 
-        //     }.bind(this),error:function(resposta){
-        //         console.log(resposta.responseText);
-        //     }
+            }.bind(this),error:function(resposta){
+                console.log(resposta.responseText);
+            }
 
 
             
-        // });
+        });
     }
 
     enviarFormFoto=(codigo)=>{

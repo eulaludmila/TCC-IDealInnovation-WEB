@@ -71,8 +71,9 @@ export class AreaEditarCadastro extends Component{
 
         console.log(json)
         $.ajax({
-            url: `${ipAPI}endereco/${this.props.params.codConfeiteiro}`,
+            url: `${ipAPI}endereco/${this.props.codConfeiteiro}`,
             contentType: 'application/json',
+            headers:{'Authorization':sessionStorage.getItem('auth')},
             dataType: 'json',
             type: 'put',
             data: JSON.stringify(json),
