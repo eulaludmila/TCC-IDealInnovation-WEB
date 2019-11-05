@@ -12,6 +12,8 @@ import 'bootstrap/js/dist/modal';
 import { browserHistory} from 'react-router';
 import imgClose from '../../../img/close_form.png';
 import {ipAPI} from '../../../link_config';
+import cpf from 'cpf';
+import email from 'email-validator';
 
 //Classe da áre de Cadastro do Cliente
 class CadastroCliente extends Component{
@@ -85,7 +87,16 @@ class CadastroCliente extends Component{
     
     setCpf = (evento) => {
         this.setState({cpf:evento.target.value});
-        this.onFocusInput("#cpf");
+        console.log(evento.target.value)
+
+        if(cpf.isValid(evento.target.value) === false){
+            var mensagem = "CPF é inválido";
+            var id = "#cpf";
+            this.erroCaixaVazia(mensagem, id);
+        }else{
+            this.onFocusInput("#cpf");
+        }
+
         $("#cpf").mask("000.000.000-00");
     }
 
@@ -95,7 +106,13 @@ class CadastroCliente extends Component{
 
     setEmail = (evento) => {
         this.setState({email:evento.target.value});
-        this.onFocusInput("#email");
+        if(email.validate(evento.target.value) === false){
+            var mensagem = "Email é inválido";
+            var id = "#email";
+            this.erroCaixaVazia(mensagem, id);
+        }else{
+            this.onFocusInput("#email");
+        }
     }
     
     setSenha = (evento) => {

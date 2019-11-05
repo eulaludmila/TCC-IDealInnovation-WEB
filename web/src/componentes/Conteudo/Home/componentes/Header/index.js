@@ -141,10 +141,11 @@ export class Header extends Component{
                          
         }else{
 
-
             var cod = decode(sessionStorage.getItem('authC'))
+           
+            console.log("/cliente/" + cod.codUsuario)
             dropdown = <DropdownButton variant='Primary' className="entrar_header btn_header" id="dropdown-basic-button" title="Eu">
-            <Link to={"/cliente/" + cod.codUsuario}><Dropdown.Item>Configurações</Dropdown.Item></Link>
+            <Dropdown.Item><Link to={"/cliente/" + cod.codUsuario}>Configurações</Link></Dropdown.Item>
             <Dropdown.Divider/>
             <Dropdown.Item onClick={this.logout}>Sair</Dropdown.Item>
           </DropdownButton>

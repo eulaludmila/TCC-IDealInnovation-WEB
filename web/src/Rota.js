@@ -55,6 +55,7 @@ export const Rota = () =>(
             <Route exact path="/confeiteiro/:codConfeiteiro/produto" component={ProdutosConfeiteiro}></Route>
             <Route exact path="/confeiteiro/:codConfeiteiro/produto/melhoravaliados" component={MelhoresAvaliados}></Route>
             <Route exact path="/confeiteiro/:codConfeiteiro/produto/menorpreco" component={MaisBaratos}></Route>
+            <Route exact path="/confeiteiro/:codConfeiteiro/produto/menorpreco" component={MaisBaratos}></Route>
 
         </Route>
         <Route path="/cadastro" component={Cadastro}>

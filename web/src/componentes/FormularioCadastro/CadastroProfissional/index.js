@@ -9,6 +9,8 @@ import {ipAPI} from '../../../link_config';
 import '../../../css/bootstrap.min.css'
 import $ from 'jquery';
 import { browserHistory} from 'react-router';
+import cpf from 'cpf';
+import email from 'email-validator';
 
 
 //CLASSE RESPONSÁVEL PELO CADASTRO DO CLIENTE
@@ -68,7 +70,14 @@ class CadastroProfissional extends Component{
     
     setCpf = (evento) => {
         this.setState({cpf:evento.target.value});
-        this.onFocusInput("#cpf");
+        if(cpf.isValid(evento.target.value) === false){
+            var mensagem = "CPF é inválido";
+            var id = "#cpf";
+            this.erroCaixaVazia(mensagem, id);
+        }else{
+            this.onFocusInput("#cpf");
+        }
+
         $("#cpf").mask("000.000.000-00");
     }
 
@@ -79,7 +88,13 @@ class CadastroProfissional extends Component{
 
     setEmail = (evento) => {
         this.setState({email:evento.target.value});
-        this.onFocusInput("#email");
+        if(email.validate(evento.target.value) === false){
+            var mensagem = "Email é inválido";
+            var id = "#email";
+            this.erroCaixaVazia(mensagem, id);
+        }else{
+            this.onFocusInput("#email");
+        }
     }
     
     setSenha = (evento) => {

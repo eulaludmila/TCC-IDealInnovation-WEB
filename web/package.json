@@ -5,6 +5,8 @@
   "dependencies": {
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
+    "cpf": "^2.0.1",
+    "email-validator": "^2.0.4",
     "jquery": "^3.4.1",
     "jquery-mask-plugin": "^1.14.16",
     "jwt-decode": "^2.2.0",
