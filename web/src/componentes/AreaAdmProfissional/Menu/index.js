@@ -21,7 +21,7 @@ class Menu extends Component {
     componentDidMount() {
         axios.get(`${ipAPI}confeiteiro/` + this.props.codConfeiteiro, { headers: { 'Authorization': sessionStorage.getItem('auth') } })
             .then(resposta => {
-                console.log(resposta)
+                
 
                 const dados = resposta.data;
 
@@ -75,6 +75,10 @@ class Menu extends Component {
         }
 
 
+    }
+
+    home = () =>{
+        browserHistory.push("/adm/profissional/" + this.props.codConfeiteiro)
     }
 
     logout = () =>{
@@ -135,8 +139,8 @@ class Menu extends Component {
                                     <div className="icone"><i className="fas fa-shopping-basket"></i></div> <div className="texto-icone">Pedidos</div><div className={this.state.classe3} ><i className="fa fa-chevron-down"></i></div>
                                 </Accordion.Toggle>
                             </div>
-                            <Link to={"/adm/profissional/solicitacoes_pedidos/" + this.props.codConfeiteiro}><Accordion.Collapse eventKey="2" className="itens">
-                                <div className="info">Solicitação de Pedidos</div>
+                            <Link to={"/adm/profissional/todos_produtos/" + this.props.codConfeiteiro}><Accordion.Collapse eventKey="2" className="itens">
+                                <div className="info">Todos os Pedidos</div>
                             </Accordion.Collapse></Link>
                             <Link to={"/adm/profissional/pedidos_aprovados/" + this.props.codConfeiteiro}><Accordion.Collapse eventKey="2" className="itens">
                                 <div className="info">Pedidos Aprovados</div>
@@ -144,9 +148,9 @@ class Menu extends Component {
                         </div>
                         <div >
                             <div className="info-home">
-                                <Link to="/"><Accordion.Toggle as={Button} className="button-icone linha-icone" variant="link" eventKey="3">
+                                <Accordion.Toggle as={Button} onClick={this.home} className="button-icone linha-icone" variant="link" eventKey="3">
                                     <div className="icone"><i className="fas fa-home"></i></div><div className="texto-icone"> Home</div>
-                                </Accordion.Toggle></Link>
+                                </Accordion.Toggle>
                             </div>
                         </div>
                         <div >

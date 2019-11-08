@@ -1,16 +1,16 @@
 import React from 'react';
-import {Route, Router, browserHistory, IndexRoute} from 'react-router';
+import { Route, Router, browserHistory, IndexRoute } from 'react-router';
 import Home from './componentes/Conteudo/Home';
 import Site from './componentes/Rota/Site';
 import Cadastro from './componentes/Rota/Cadastro';
 import Login from './componentes/Rota/Login';
-import Produtos  from './componentes/Conteudo/Produtos';
-import {Confeiteiros} from './componentes/Conteudo/Confeiteiros'
+import Produtos from './componentes/Conteudo/Produtos';
+import { Confeiteiros } from './componentes/Conteudo/Confeiteiros'
 
 import EntrarLogin from './componentes/Conteudo/EntrarCadastrar/Entrar';
 import CadastrarLogin from './componentes/Conteudo/EntrarCadastrar/Cadastrar';
-import {BoxSobre} from './componentes/Conteudo/Sobre'
-import {BoxFaleConosco} from './componentes/Conteudo/FaleConosco'
+import { BoxSobre } from './componentes/Conteudo/Sobre'
+import { BoxFaleConosco } from './componentes/Conteudo/FaleConosco'
 import DescricaoProduto from './componentes/Conteudo/DescricaoProduto'
 import Perfil from './componentes/Conteudo/PerfilConfeiteiro/Perfil';
 import ProdutosConfeiteiro from './componentes/Conteudo/PerfilConfeiteiro/ProdutosConfeiteiro';
@@ -21,7 +21,7 @@ import CadastroCliente from './componentes/FormularioCadastro/CadastroCliente';
 import CadastroProfissional from './componentes/FormularioCadastro/CadastroProfissional';
 import CadastroProfissionalEndereco from './componentes/FormularioCadastro/CadastroProfissional/CadastroEndereco';
 import CadastroProfissionalFoto from './componentes/FormularioCadastro/CadastroProfissional/CadastroFoto';
-import {AreaCliente} from './componentes/AreaCliente';
+import { AreaCliente } from './componentes/AreaCliente';
 
 import LoginCliente from './componentes/Login/LoginCliente';
 import LoginProfissional from './componentes/Login/LoginProfissional';
@@ -33,12 +33,15 @@ import { BoxEditarDadosPessoais } from './componentes/AreaAdmProfissional/DadosP
 import { BoxEditarEndereco } from './componentes/AreaAdmProfissional/EditarEndereco'
 import { BoxTelaEmail } from './componentes/AreaAdmProfissional/Email'
 import { BoxTelaSenha } from './componentes/AreaAdmProfissional/Senha'
-import { BoxSolicitacoes } from './componentes/AreaAdmProfissional/SolicitacoesPedidos'
 import { BoxPedidos } from './componentes/AreaAdmProfissional/PedidosAprovados'
+import { BoxTodosAguardandoResposta } from './componentes/AreaAdmProfissional/TodosProdutos/Componentes/TodosAguardandoResposta';
+import { BoxTodosAprovados } from './componentes/AreaAdmProfissional/TodosProdutos/Componentes/TodosAprovados';
+import { BoxTodosRecusados } from './componentes/AreaAdmProfissional/TodosProdutos/Componentes/TodosRecusados';
+import { BoxTodosProdutos } from './componentes/AreaAdmProfissional/TodosProdutos';
 import { BoxCadastrarProdutos } from './componentes/AreaAdmProfissional/CadastroProduto'
 
 
-export const Rota = () =>(
+export const Rota = () => (
     <Router history={browserHistory} >
         <Route path="/" component={Site}>
 
@@ -59,7 +62,7 @@ export const Rota = () =>(
 
         </Route>
         <Route path="/cadastro" component={Cadastro}>
-            
+
             <Route path="/cadastro/cliente" component={CadastroCliente}></Route>
             <Route path="/cadastro/profissional" component={CadastroProfissional}></Route>
             <Route path="/cadastro/profissional/endereco" component={CadastroProfissionalEndereco}></Route>
@@ -67,23 +70,26 @@ export const Rota = () =>(
 
         </Route>
         <Route path="/login" component={Login}>
-        
+
             <Route path="/login/cliente" component={LoginCliente}></Route>
             <Route path="/login/profissional" component={LoginProfissional}></Route>
 
         </Route>
         <Route path="/adm/profissional/:codConfeiteiro" component={AdmProfissional}>
-        
+
             <IndexRoute component={BoxHomeProfissional}></IndexRoute>
             <Route path="/adm/profissional/produtos/:codConfeiteiro" component={BoxCadastroProdutos}></Route>
             <Route path="/adm/profissional/editar_dados_pessoais/:codConfeiteiro" component={BoxEditarDadosPessoais}></Route>
             <Route path="/adm/profissional/editar_endereco/:codConfeiteiro" exact component={BoxEditarEndereco}></Route>
             <Route path="/adm/profissional/email/:codConfeiteiro" component={BoxTelaEmail}></Route>
             <Route path="/adm/profissional/senha/:codConfeiteiro" component={BoxTelaSenha}></Route>
-            <Route path="/adm/profissional/solicitacoes_pedidos/:codConfeiteiro" component={BoxSolicitacoes}></Route>
             <Route path="/adm/profissional/pedidos_aprovados/:codConfeiteiro" component={BoxPedidos}></Route>
             <Route path="/adm/profissional/cadastro_produtos/:codConfeiteiro" component={BoxCadastrarProdutos}></Route>
+            <Route path="/adm/profissional/todos_produtos/:codConfeiteiro/aguardando_resposta" component={BoxTodosAguardandoResposta}></Route>
+            <Route path="/adm/profissional/todos_produtos/:codConfeiteiro/aprovados" component={BoxTodosAprovados}></Route>
+            <Route path="/adm/profissional/todos_produtos/:codConfeiteiro/recusados" component={BoxTodosRecusados}></Route>
             <Route exact path="/adm/profissional/cadastro_produtos/:codProduto?" component={BoxCadastrarProdutos}></Route>
+            <Route path="/adm/profissional/todos_produtos/:codConfeiteiro" component={BoxTodosProdutos}></Route>
 
         </Route>
     </Router>

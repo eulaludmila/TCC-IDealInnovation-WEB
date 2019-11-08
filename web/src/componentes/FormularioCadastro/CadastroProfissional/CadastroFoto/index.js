@@ -8,6 +8,7 @@ import $ from 'jquery';
 import {ModalCadastro2} from '../../../Modal';
 import { browserHistory} from 'react-router';
 import imgVoltar from '../../../../img/voltar.png';
+import {Carregando} from '../../../Carregamento'
 
 //Classe da áre de Cadastro do Cliente
 class CadastroEndereco extends Component{
@@ -19,7 +20,7 @@ class CadastroEndereco extends Component{
     //CONSTRUTOR QUE DECLARA OS ESTADOS
     constructor(props){
         super(props);
-        this.state={logradouro:'',complemento:'',numero:'',bairro:'',cep:'',estado:'',foto:'',cidade:'', imgFoto:`${img}`, classMessage:'', message:''};
+        this.state={logradouro:'',complemento:'',numero:'',bairro:'',cep:'',estado:'',foto:'',cidade:'', imgFoto:`${img}`, classMessage:'', message:'', loading:false, botao_invisivel:''};
         
         this.enviaFormEnderecoProfissional = this.enviaFormEnderecoProfissional.bind(this);
     }
@@ -77,6 +78,8 @@ class CadastroEndereco extends Component{
     //MÉTODO RESPONSÁVEL POR SALVAR O ENDEREÇO RELACIONADO AO PROFISSIONAL
     enviaFormEnderecoProfissional(evento){
         evento.preventDefault();
+        this.setState({botao_invisivel:'none'})
+        this.setState({loading:true})
 
         $.ajax({
             url:`${ipAPI}enderecoconfeiteiro`,
@@ -87,7 +90,8 @@ class CadastroEndereco extends Component{
                                 confeiteiro:JSON.parse(sessionStorage.getItem("dados"))}),
 
             success: function(resposta){
-                console.log(resposta);
+                this.setState({botao_invisivel:''})
+                this.setState({loading:false})
                
 
                 if(this.state.foto !== ""){
@@ -156,7 +160,7 @@ class CadastroEndereco extends Component{
                                     <ImgCadastro name="file" id="img" onChange={this.setFoto} src={this.state.imgFoto}></ImgCadastro>
                                 </div>
                                 <div className="row justify-content-center">
-                                        
+                                    <Carregando loading={this.state.loading} message='carregando ...'></Carregando>
                                     <div className="col-xl-2 col-lg-2 col-md-6 col-sm-10 col-8">
                                         <div className="row">
                                             <BotaoCadastro onClick={this.enviaFormEnderecoProfissional} id="Cadastrar"></BotaoCadastro>

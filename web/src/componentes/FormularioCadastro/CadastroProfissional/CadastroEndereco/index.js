@@ -212,8 +212,7 @@ class CadastroEndereco extends Component{
                                     </div>
 
                                 <div className="row justify-content-center">
-                                        
-                                    <div className="col-xl-2 col-lg-2 col-md-6 col-sm-10 col-8">
+                                    <div className="col-xl-2 col-lg-2 col-md-6 col-sm-10 col-8" style={{'display': this.state.botao_invisivel}}>
                                         <div className="row">
                                             <BotaoCadastro onClick={this.verificaCampos} id="Próximo"></BotaoCadastro>
                                             

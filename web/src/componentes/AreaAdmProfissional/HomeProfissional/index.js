@@ -3,7 +3,9 @@ import Header from '../Header'
 import {ContainerAdm} from '../../../styles'
 import { ipAPI, ipFotos } from '../../../link_config';
 import axios from 'axios'
-
+import Estrelas from 'react-star-ratings'
+import {Carregando} from '../../Carregamento'
+import {Link} from 'react-router'
 
 
 export class HomeProfissional extends Component{
@@ -12,15 +14,15 @@ export class HomeProfissional extends Component{
     constructor(props){
       super(props);
 
-      this.state = {listaProdutos: []};
+      this.state = {listaProdutos: [], loading:false};
 
   }
 
   componentDidMount(){
-
+    this.setState({loading:true})
     axios.get(`${ipAPI}produto/confeiteiro/`+this.props.codConfeiteiro,{headers: {'Authorization': sessionStorage.getItem('auth')}})
         .then(resposta => {
-
+          this.setState({loading:false})
             const produtos = resposta.data;
             this.setState({listaProdutos: produtos})
             
@@ -36,32 +38,30 @@ export class HomeProfissional extends Component{
     return (
        
         <ContainerAdm className="container conteudo-adm">
-
+          <div className="card intro">
+                <div className="card-body">
+                    <h5 className="card-title">Olá {this.state.confeiteiro}!</h5>
+                    <p className="card-text">Aqui você tem acesso a lista de produtos que você já cadastrou, você pode editá-los, desativá-los e visualizar os detalhes.</p>
+                    <p className="card-text"> Deseja cadastrar um novo produto? </p> 
+                    <Link to={"/adm/profissional/cadastro_produtos/" + this.props.codConfeiteiro}><div className="btn btn-cadastrar"> Cadastrar</div></Link>
+                </div>
+            </div>
+            
+          <Carregando loading={this.state.loading} message='carregando ...'></Carregando>
           {this.state.listaProdutos.map(produtos =>
-              <div className="card text-center float-left mb-5" style={{width: '15rem'}}>
-              <img className="card-img-top imagens-bolos" src={ipFotos + produtos.foto} alt="Imagem de capa do card"/>
+              <div className="card text-center float-left mb-5 mr-3 ml-3" style={{width: '15rem'}}>
+              <img className="card-img-top imagens-bolos" src={ipFotos + produtos.foto} alt={produtos.nomeProduto} title={produtos.nomeProduto}/>
               <div className="card-body">
                 <h5 className="card-title nome-bolo-adm">{produtos.nomeProduto}</h5>
-                <p className="card-text">{produtos.preco}</p>
+                <p className="card-text">R${produtos.preco.toFixed(2)}</p>
                 <div className="avaliacao">
-                  <div className="rate">
-                    <input type="radio" id="star5" name="rate" value="5" />
-                    <label htmlFor="star5" title="5 entrelas">5 stars</label>
-                    <input type="radio" id="star4" name="rate" value="4" />
-                    <label htmlFor="star4" title="4 entrelas">4 stars</label>
-                    <input type="radio" id="star3" name="rate" value="3" />
-                    <label htmlFor="star3" title="3 entrelas">3 stars</label>
-                    <input type="radio" id="star2" name="rate" value="2" />
-                    <label htmlFor="star2" title="2 entrelas">2 stars</label>
-                    <input type="radio" id="star1" name="rate" value="1" />
-                    <label htmlFor="star1" title="1 entrela">1 star</label>
-                  </div>
+                <Estrelas starDimension="25px" starRatedColor="#fcba03" starEmptyColor="#dedede" starSpacing="1px" rating={produtos.avaliacao} numberOfStars={5}></Estrelas>
                 </div>
               </div>
             </div> 
             )}
 
-
+        
           {/* */}
         </ContainerAdm>
 			

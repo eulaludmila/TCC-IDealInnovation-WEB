@@ -23,23 +23,7 @@ a {
 	text-decoration: none;
 }
 
-#segura_tudo{
-	width: 15%;
-	height: 100vh;
-	top:0;
-	bottom:0;
-	left: 0;
-	position: fixed;
-}
 
-.embaixo{
-	width: 15%;
-	height: 100vh;
-	float: left;
-	top:0;
-	bottom:0;
-	left: 0;
-}
 
 h1{
 	margin: 0!important;
@@ -98,20 +82,5 @@ h1{
 }
 
 
-@media screen and (max-width:1300px){
-	#segura_tudo{
-		width: 25%;
-	}
-	
-	.embaixo{
-		width: 25%;
-	}
-	
-	
-	
-	 .main{
-		 width: 75%;
-		  
-	 }
-}
+
 

@@ -49,10 +49,10 @@ export class Produto extends Component{
                 {this.state.listaProdutos.map(produtos =>
                     <div key={produtos.codProduto}>
                         <Link to={"/descricao/" + produtos.codProduto}><div className="card text-center prod mb-5"  style={{'width': '14rem'}}>
-                            <img className="card-img-top imagens-bolos" src={ipFotos+produtos.foto} alt={produtos.nomeProduto}/>
+                            <img className="card-img-top imagens-bolos" src={ipFotos+produtos.foto} alt={produtos.nomeProduto} title={produtos.nomeProduto}/>
                             <div className="card-body">
                                 <h5 className="card-title nome-bolo-adm">{produtos.nomeProduto}</h5>
-                                <p className="card-text">R${produtos.preco}</p>
+                                <p className="card-text">R${produtos.preco.toFixed(2)}</p>
                                 <div className="avaliacao">
                                 <Estrelas starDimension="25px" starRatedColor="#fcba03" starEmptyColor="#dedede" starSpacing="1px" rating={produtos.avaliacao} numberOfStars={5}></Estrelas>
                                 </div>

@@ -48,7 +48,7 @@ export class Confeiteiro extends Component{
                 {this.state.listaConfeiteiros.map(confeiteiros =>
                     <div key={confeiteiros.codConfeiteiro} >
                         <Link to={"/confeiteiro/" + confeiteiros.codConfeiteiro}><div className="card text-center prod mb-5"  style={{'width': '14rem'}}>
-                            <img className="card-img-top imagens-bolos" src={ipFotos+confeiteiros.foto} alt={confeiteiros.nome}/>
+                            <img className="card-img-top imagens-bolos" src={ipFotos+confeiteiros.foto} alt={confeiteiros.nome} title={confeiteiros.nome}/>
                             <div className="card-body">
                                 <h5 className="card-title nome-bolo-adm">{confeiteiros.nome}</h5>
                                 <div className="avaliacao">

@@ -12,6 +12,7 @@ import {ModalCadastro} from '../../Modal';
 import {ipAPI} from '../../../link_config';
 import {ButtonToolbar} from 'react-bootstrap';
 import axios from 'axios';
+import {Carregando} from '../../Carregamento'
 
 
 export class CadastrarProdutos extends Component{
@@ -21,15 +22,12 @@ export class CadastrarProdutos extends Component{
         super(props);
 
 
-        this.state={foto: "", tamanhoFoto: "", nomeProduto: '', categoriaProduto:'', qtdeMin: '', qtdeMax: '', precoProduto: '' ,descricaoProduto: '',codCategoria: "", categoria:"", tipo:"", message:"", classMessage:"",showConfirm:false}
+        this.state={foto: "", tamanhoFoto: "", nomeProduto: '', categoriaProduto:'', qtdeMin: '', qtdeMax: '', precoProduto: '' ,descricaoProduto: '',codCategoria: "", categoria:"", tipo:"", message:"", classMessage:"",showConfirm:false, loading:false, botao_invisivel:''}
         this.onFocusInput = this.onFocusInput.bind(this);
 
         this.enviaFormProduto = this.enviaFormProduto.bind(this);
-        // this.props.match.codProduto
         
     }
-
-  
 
     
     /* EVENTOS DOS INPUTS */
@@ -183,7 +181,8 @@ export class CadastrarProdutos extends Component{
         //     this.enviaFormFotoProduto(res.codProduto);
         // })
         // .catch((err) => {console.log("AXIOS ERROR: ", err);})
-
+        this.setState({loading:true})
+        this.setState({botao_invisivel:'none'})
         $.ajax({
             url: `${ipAPI}produto`,
             contentType: "application/json",
@@ -192,6 +191,9 @@ export class CadastrarProdutos extends Component{
             type: "post",
             data: JSON.stringify(json),
             success: function(resposta){
+                this.setState({loading:false})
+                this.setState({botao_invisivel:''})
+
                 this.setState({nomeProduto:""});
                 this.setState({descricaoProduto:""});
                 this.setState({qtdeMin:""});
@@ -257,6 +259,7 @@ export class CadastrarProdutos extends Component{
                 
                 <form className="col-md-12 cadastro-produto centralizar">
                     <div className="row">
+                        
                         <div className="col-5">
                             <InputCadastro className="form-group" id="nome-produto" type="text" placeholder="Digite o nome do produto..." label="Nome" onChange={this.setNome}></InputCadastro>
                             <SelectCategorias id="categoria" onChange={this.setCategoria}></SelectCategorias>
@@ -276,9 +279,14 @@ export class CadastrarProdutos extends Component{
 
                         </div>
                     </div>
-
-                    <BotaoCadastro to="" type="submit" onClick={this.verificaCampos} id="Salvar"></BotaoCadastro>
-                    <BotaoCadastro to="" type="submit" onClick={this.verificaCampos} id="Cancelar"></BotaoCadastro>
+                    
+                    <div>
+                    <Carregando loading={this.state.loading} message='carregando ...'></Carregando>
+                    </div>
+                    <div style={{'display':this.state.botao_invisivel}}>
+                        <BotaoCadastro to="" type="submit" onClick={this.verificaCampos} id="Salvar"></BotaoCadastro>
+                        <BotaoCadastro to="" type="submit" onClick={this.verificaCampos} id="Cancelar"></BotaoCadastro>
+                    </div>
                 </form>
 
                 <ButtonToolbar>
