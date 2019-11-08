@@ -7,13 +7,14 @@ import BotaoCadastro from '../BotaoCadastro'
 import ImgCadastro from '../ImgCadastro'
 import '../../../css/bootstrap.min.css'
 import $ from 'jquery';
-import {ModalCadastro} from '../../Modal';
+import {ModalCadastro2} from '../../Modal';
 import 'bootstrap/js/dist/modal';
 import { browserHistory} from 'react-router';
 import imgClose from '../../../img/close_form.png';
 import {ipAPI} from '../../../link_config';
 import cpf from 'cpf';
 import email from 'email-validator';
+import {Carregando} from '../../Carregamento'
 
 //Classe da áre de Cadastro do Cliente
 class CadastroCliente extends Component{
@@ -25,7 +26,7 @@ class CadastroCliente extends Component{
     //construtor para a realização do post
     constructor(props){
         super(props);
-        this.state={nome:'',sobrenome:'',dtNasc:'',celular:'',cpf:'',sexo:'',email:'',senha:'',confirmSenha:'',foto:'',tamanhoFoto:'', imgFoto:`${img}`,message:"", classMessage:""};
+        this.state={nome:'',sobrenome:'',dtNasc:'',celular:'',cpf:'',sexo:'',email:'',senha:'',confirmSenha:'',foto:'',tamanhoFoto:'', imgFoto:`${img}`,message:"", classMessage:"",loading:false,botao_invisivel:''};
         
         this.enviaFormCliente = this.enviaFormCliente.bind(this);
        
@@ -256,9 +257,8 @@ class CadastroCliente extends Component{
 
     //Método que vai salvar os dados do cliente juntamento com o código do seu celular
     enviaFormCliente(){
-
-        console.log(this.state.foto);
-        // this.enviarFormFoto();
+        this.setState({botao_invisivel:'none'})
+        this.setState({loading:true})
         $.ajax({
             url:`${ipAPI}/cliente`,
             contentType:"application/json",
@@ -273,6 +273,9 @@ class CadastroCliente extends Component{
                                 senha:this.state.senha,
                                 sexo:this.state.sexo}),
             success: function(resposta){
+                this.setState({botao_invisivel:''})
+                this.setState({loading:false})
+                
                 this.setState({nome:""});
                 this.setState({sobrenome:""});
                 this.setState({dtNasc:""});
@@ -337,7 +340,7 @@ class CadastroCliente extends Component{
         return(
             <div className="container-fluid cadastro-cliente">
               
-                <ModalCadastro nome="Cadastro efetuado com sucesso!!"></ModalCadastro>
+                <ModalCadastro2 nome="Cadastro efetuado com sucesso!!"></ModalCadastro2>
                 <div className="container pt-5">
                     <div className="card">
                         <div className="card-header">
@@ -373,8 +376,8 @@ class CadastroCliente extends Component{
                                 </div>
 
                                 <div className="row justify-content-center">
-                                        
-                                    <div className="col-xl-2 col-lg-2 col-md-6 col-sm-10 col-8">
+                                    <Carregando loading={this.state.loading} message='carregando ...'></Carregando>
+                                    <div className="col-xl-2 col-lg-2 col-md-6 col-sm-10 col-8" style={{'display': this.state.botao_invisivel}}>
                                         <div className="row">
                                              <BotaoCadastro id="Cadastrar" onClick={this.verificaCampos}></BotaoCadastro>
                                         </div>

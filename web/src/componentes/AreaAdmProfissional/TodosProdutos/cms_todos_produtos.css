@@ -21,17 +21,14 @@ header{
 	font-size: 17px;
 }
 
-.caixa_produto{
-	width: 16.5rem;
+.caixa{
+	width: 320px;
 }
 
-.caixa_img{
-	width: 16.3rem;
-	height: 130px;
-	background-color: #000;
+.link_vermais{
+	color: #880E4F;
 }
 
-.caixa_img img{
-	width: inherit;
-	height: inherit;
+.btn_detalhes{
+	margin-left: 100px;
 }

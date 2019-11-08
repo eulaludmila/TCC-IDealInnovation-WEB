@@ -7,6 +7,10 @@ import $ from 'jquery'
 import axios from 'axios'
 import {ipAPI,ipFotos} from '../../../link_config';
 import {Link} from 'react-router';
+import {ModalDetalhesProduto} from './Modal/'
+import {ButtonToolbar} from 'react-bootstrap';
+import {CarregandoMaior} from '../../Carregamento'
+import {Form, Button, FormControl} from 'react-bootstrap'
 
 export class ProdutosCadastrados extends Component{
 
@@ -15,11 +19,12 @@ export class ProdutosCadastrados extends Component{
     constructor(props){
         super(props);
 
-        this.state = {listaProdutos: [], ativoDesativo: "", classAtivo:"btn-success", classDesativo:"btn-danger"};
+        this.state = {confeiteiro: "", avaliacao: "", listaProdutos: [], ativoDesativo: "", classAtivo:"btn-success", classDesativo:"btn-danger", showConfirm:false, categoria: "", produto: [], loading:false};
 
     }
 
     componentDidMount(){
+        this.setState({loading:true})
         $.ajax({
             url: ipAPI + "produto/confeiteiro/" + this.props.codConfeiteiro,
             dataType: "json",
@@ -27,15 +32,54 @@ export class ProdutosCadastrados extends Component{
             type: "get",
             success: function(resposta){
 
+                this.setState({loading:false})
+
                 this.setState({listaProdutos: resposta});
+
+                resposta.map( confeiteiro => 
+                    this.setState({confeiteiro : confeiteiro.confeiteiro.nome}))
+
+
 
             }.bind(this)
         })
     }
 
+    // componentDidUpdate(){
+    //     alert("lala")
+    // }
+
     atualizarListagemProdutos(novalista){
         this.setState({listaProdutos: novalista});
     }
+
+    close=()=>{
+        this.setState({showConfirm:false});
+    }
+
+    open(){
+  
+        this.setState({showConfirm:true});
+    }
+
+    detalhes = (codProduto) =>{
+
+        var config = {
+            headers: {'Authorization':sessionStorage.getItem('auth')}
+        };
+
+        axios.get(ipAPI + "produto/" + codProduto, config)
+        .then(resposta => {
+
+            this.setState({produto: resposta.data})
+            this.setState({categoria: this.state.produto.categoria.categoria})
+            this.setState({avaliacao: resposta.data.avaliacao})
+            
+
+            this.open()
+       })
+    }
+
 
     ativarDesativarProduto(codProduto){
 
@@ -47,13 +91,18 @@ export class ProdutosCadastrados extends Component{
             success: function(resposta){
 
                 var dados = `#${resposta.codProduto}`
-
+               
                 if(resposta.status === true){
+                    // this.setState({listaProdutos: resposta});
+
                     $(dados).removeClass("btn btn-success")
                     $(dados).addClass("btn btn-danger")
                     $(dados).val("Desativar")
                    
+                   
+                    
                 } else {
+                    // this.setState({listaProdutos: resposta});
                     $(dados).removeClass("btn btn-danger")
                     $(dados).addClass("btn btn-success")
                     $(dados).val("Ativar")
@@ -68,7 +117,34 @@ export class ProdutosCadastrados extends Component{
        
         <ContainerAdm className="container conteudo-adm">
 
-            {this.state.listaProdutos.map(produtos =>
+            <div className="card intro">
+                <div className="card-body">
+                    <h5 className="card-title">Olá {this.state.confeiteiro}!</h5>
+                    <p className="card-text">Aqui você tem acesso a lista de produtos que você já cadastrou, você pode editá-los, desativá-los e visualizar os detalhes.</p>
+                    <p className="card-text"> Deseja cadastrar um novo produto? </p> 
+                    <Link to={"/adm/profissional/cadastro_produtos/" + this.props.codConfeiteiro}><div className="btn btn-cadastrar"> Cadastrar</div></Link>
+                </div>
+            </div>
+
+            <div style={{'width':'100%', 'marginBottom':'2em','marginTop':'2em'}}>
+
+              <Form style={{'width':'27em','marginLeft':'auto'}}>
+                <div style={{'width':'70%','float':'left','marginRight':'17px'}}>
+                  <FormControl type="text" placeholder="Pesquisa" className="mr-sm-2" style={{}}/>
+                </div>
+                <div >
+                  <Button variant="btn btn-cadastrar" >Pesquisa</Button>
+                </div>
+              </Form>
+
+            </div>
+
+        
+            <div className="form-row">
+            <CarregandoMaior loading={this.state.loading} message='carregando ...'></CarregandoMaior>
+                <div className="form-group">
+
+                {this.state.listaProdutos.map(produtos =>
                 
                 <div key={produtos.codProduto} className="card mb-3 mr-3 float-left" style={{maxWidth: '540px'}}>
                     <div className="row no-gutters">
@@ -78,10 +154,10 @@ export class ProdutosCadastrados extends Component{
                         <div className="col-md-7">
                             <div className="card-body">
                                 <h5 className="card-title titulo-produto-adm" >{produtos.nomeProduto}</h5>
-                                <p className="card-text mb-5">{produtos.descricao}</p>
+                                <p className="card-text mb-5 descricao">{produtos.descricao}</p>
                                 <div className="botao-centro">
                                     <Link to={"/adm/profissional/cadastro_produtos/" + produtos.codProduto}><button className="btn btn-warning mr-2">Editar</button></Link>
-                                    <button className="btn btn-dark  mr-2 "><img src={lupa} alt="..."></img></button>
+                                    <button className="btn btn-dark  mr-2 "><img src={lupa} alt="..." onClick={() => this.detalhes(produtos.codProduto)}></img></button>
                                     <input type="button" className={produtos.status === true ? "btn " + this.state.classDesativo :"btn " + this.state.classAtivo} id={produtos.codProduto} onClick={() => this.ativarDesativarProduto(produtos.codProduto)} value={produtos.status === true ? "Desativar" : "Ativar"}/>
                                 </div>
                             </div>
@@ -90,6 +166,26 @@ export class ProdutosCadastrados extends Component{
                 </div>
                 
                 )}
+
+
+                </div>
+           
+
+           </div>
+                
+                <ButtonToolbar>
+                    <ModalDetalhesProduto
+                        show={this.state.showConfirm}
+                        onHide={this.close}
+                        codproduto = {this.state.codProduto}
+                        descricao = {this.state.produto.descricao}
+                        foto = {this.state.produto.foto}
+                        preco = {this.state.produto.preco}
+                        nome = {this.state.produto.nomeProduto}
+                        categoria = {this.state.categoria}
+                        avaliacao = {this.state.avaliacao}
+                    />
+                </ButtonToolbar>
 
 
         </ContainerAdm>
@@ -102,7 +198,7 @@ export class BoxCadastroProdutos extends Component{
 
     constructor(props){
         super(props)
-        this.state = {status:''}
+        this.state = {lala:''}
     }
 
     render(){

@@ -5,7 +5,7 @@ export default class InputAvaliar extends Component{
         return(
             <div className={this.props.className}>
                 <label>{this.props.label}</label>
-                <input type={this.props.type} value={this.props.value} id={this.props.id} className={this.props.classeIp}  onChange={this.props.onChange} disabled={this.props.disabled}></input>
+                <input type={this.props.type} value={this.props.value} id={this.props.id} onFocusOut={this.props.onFocusOut} className={this.props.classeIp} onFocus={this.props.onFocus} onChange={this.props.onChange} disabled={this.props.disabled}></input>
             </div>
         );
     }
