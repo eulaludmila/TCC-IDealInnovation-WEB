@@ -11,7 +11,7 @@ import { browserHistory} from 'react-router';
 import {ModalCadastro} from '../../Modal';
 import {ipAPI} from '../../../link_config';
 import {ButtonToolbar} from 'react-bootstrap';
-import axios from 'axios';
+// import axios from 'axios';
 import {Carregando} from '../../Carregamento'
 
 
@@ -20,7 +20,6 @@ export class CadastrarProdutos extends Component{
     //CONSTRUTOR DECLARANDO OS ESTADOS
     constructor(props){
         super(props);
-
 
         this.state={foto: "", tamanhoFoto: "", nomeProduto: '', categoriaProduto:'', qtdeMin: '', qtdeMax: '', precoProduto: '' ,descricaoProduto: '',codCategoria: "", categoria:"", tipo:"", message:"", classMessage:"",showConfirm:false, loading:false, botao_invisivel:''}
         this.onFocusInput = this.onFocusInput.bind(this);

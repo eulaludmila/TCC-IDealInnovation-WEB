@@ -6,6 +6,7 @@ import InputLabel from '../InputLabel'
 import axios from 'axios'
 import $ from 'jquery'
 import { ipAPI, ipFotos } from '../../../link_config'
+import { CarregandoMaior } from '../../Carregamento'
 
 export class Perfil extends Component {
     constructor(props) {
@@ -22,46 +23,47 @@ export class Perfil extends Component {
     componentDidMount() {
         console.log(this.props.codCliente)
 
-        // axios.get(`${ipAPI}cliente/` + this.props.codCliente, { headers: { 'Authorization': sessionStorage.getItem('authC') } })
-        //     .then(resposta => {
-        //         const dados = resposta.data;
-        //         this.setState({ nome: dados.nome })
-        //         this.setState({ sobrenome: dados.sobrenome })
-        //         this.setState({ celular: dados.celular.celular })
-        //         this.setState({ dtnasc: dados.dtNasc })
-        //         this.setState({ sexo: dados.sexo })
-        //         this.setState({ imgFoto: dados.foto })
-
-
-        //     }).catch((err) => { console.log("AXIOS ERROR: ", err); })
-
-            // axios.get(`${ipAPI}endereco/cliente/` + this.props.codCliente, { headers: { 'Authorization': sessionStorage.getItem('authC') } })
-            // .then(resposta => {
-            //     const dados = resposta.data;
-            //    alert(dados)
-
-
-            // }).catch((err) => { console.log("AXIOS ERROR: ", err); })
-            $.ajax({
-                url: `${ipAPI}endereco/cliente/` + this.props.codCliente,
-                dataType: 'json',
-                headers:{'Authorization': sessionStorage.getItem('authC')},
-                
-                success: function (resposta) {
-                    
-                    alert('lalalala')
-    
-                }.bind(this)
-            })
-
-    }
-
-    endereco=()=>{
-        axios.get(`${ipAPI}endereco/cliente/` + this.props.codCliente, { headers: { 'Authorization': sessionStorage.getItem('authC') } })
+        axios.get(`${ipAPI}cliente/` + this.props.codCliente, { headers: { 'Authorization': sessionStorage.getItem('authC') } })
             .then(resposta => {
                 const dados = resposta.data;
-               alert(dados)
+                this.setState({ nome: dados.nome })
+                this.setState({ sobrenome: dados.sobrenome })
+                this.setState({ celular: dados.celular.celular })
+                this.setState({ dtnasc: dados.dtNasc })
+                this.setState({ sexo: dados.sexo })
+                this.setState({ imgFoto: dados.foto })
 
+                // this.verificaEndereco()
+                this.endereco()
+
+            }).catch((err) => { console.log("AXIOS ERROR: ", err); })
+    }
+
+
+    // verificaEndereco = () =>{
+
+    //     axios.get(`${ipAPI}endereco/verifica/cliente/` + this.props.codCliente, { headers: { 'Authorization': sessionStorage.getItem('authC') } })
+    //         .then(resposta => {
+    //             const dados = resposta.data;
+    //            alert(dados)
+
+
+    //         }).catch((err) => { console.log("AXIOS ERROR: ", err); })
+
+    // }
+
+    endereco=()=>{
+        axios.get(`${ipAPI}enderecocliente/endereco/cliente/` + this.props.codCliente, { headers: { 'Authorization': sessionStorage.getItem('authC') } })
+            .then(resposta => {
+                const dados = resposta.data;
+               console.log(dados)
+               this.setState({ endereco: dados.endereco })
+               this.setState({ cidade: dados.cidade.cidade })
+               this.setState({ estado: dados.cidade.estado.uf })
+               this.setState({ cep: dados.cep })
+               this.setState({ numero: dados.numero })
+               this.setState({ bairro: dados.bairro})
+               
 
             }).catch((err) => { console.log("AXIOS ERROR: ", err); })
     }
@@ -69,8 +71,8 @@ export class Perfil extends Component {
     editar = (alt) => {
 
         if (alt === "Editar") {
-            this.setState({ editar_dados: '' })
-            this.setState({ imagem_dados: salvar })
+            // this.setState({ editar_dados: '' })
+            // this.setState({ imagem_dados: salvar })
             this.setState({ alt_dados: "Salvar" })
         } else {
             this.setState({ editar_dados: 'disabled' })
@@ -96,6 +98,7 @@ export class Perfil extends Component {
     render() {
         return (
             <div>
+                <CarregandoMaior></CarregandoMaior>
                 <div className="caixa-perfil p-3 mt-4 center">
                 <Form>
                     <Row className="show-grid area-pedidos pb-3 pr-3 pl-3">

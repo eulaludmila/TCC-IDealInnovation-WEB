@@ -3,6 +3,7 @@ import {Tabs, Tab} from 'react-bootstrap'
 import './area_cliente.css'
 import {PedidosCliente} from './Pedidos'
 import {Perfil} from './Perfil'
+// import {PedidosAndamento} from './Andamento'
 
 export class AreaCliente extends Component{
 
@@ -25,10 +26,10 @@ export class AreaCliente extends Component{
                         </Tab>
                         <Tab eventKey="profile" className='pt-5 pb-5' title="Pedidos Realizados">
                             {/* <Sonnet /> */}
-                            <PedidosCliente></PedidosCliente>
+                            <PedidosCliente codCliente={this.props.params.codCliente}></PedidosCliente>
                         </Tab>
                         <Tab eventKey="contact" title="Em andamento">
-                            {/* <Sonnet /> */}
+                        {/* <PedidosAndamento codCliente={this.props.params.codCliente}></PedidosAndamento> */}
                         </Tab>
                     </Tabs>
                 </div>

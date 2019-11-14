@@ -72,7 +72,7 @@ class LoginProfissional extends Component{
                     <form className="pure-form pure-form-stacked mb-5" onSubmit={this.autenticar}>
                         <fieldset>
                             <legend>Bem-vindo a nossa área de login!</legend>
-                            <p className="lead mb-5 text-center">Área destinada a profissionais</p>
+                            <p className="lead mb-5 text-center">Área destinada a confeiteiros</p>
 
                             <div className="elementos-form">
 

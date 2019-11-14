@@ -27,7 +27,6 @@ export class Produto extends Component{
             dataType: "json",
             success: function(resposta){
                 this.setState({listaProdutos: resposta});
-                console.log(resposta);
             }.bind(this)
         })
     }

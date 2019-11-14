@@ -1,6 +1,5 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {Modal} from 'react-bootstrap'
-import {Button} from 'react-bootstrap'
 import { ipFotos } from '../../../../link_config'
 import './modal_detalhes_produto.css'
 

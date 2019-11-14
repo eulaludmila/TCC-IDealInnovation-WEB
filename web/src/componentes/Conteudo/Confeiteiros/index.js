@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import { Footer } from '../Footer';
 import '../../../css/bootstrap.min.css';
 import axios from 'axios';
 import { ipAPI,ipFotos } from '../../../link_config';
@@ -58,7 +57,7 @@ export class Confeiteiros extends Component{
   
         return(
 
-            <div> 
+          
 
             <div className="container bolo" id={this.props.id}>
           
@@ -105,8 +104,6 @@ export class Confeiteiros extends Component{
                 )}
                 </div>
             </div> 
-                <Footer/>
-            </div>
            
                 
         

@@ -9,16 +9,22 @@ import Titulos from './Componentes/Titulos';
 
 export class AreaTodosProdutos extends Component{
 
+    constructor(props){
+        super(props);
+
+        this.state = {codConfeiteiro:''};
+    }
+
 
     render(){
         return(
             <ContainerAdm className="container conteudo">
                 <Titulos titulo="Aguardando resposta"/>
-                <AguardandoResposta/>
+                <AguardandoResposta codConfeiteiro={this.props.codConfeiteiro}/>
                 <Titulos titulo="Aprovados"/>
-                <Aprovados/>
+                <Aprovados codConfeiteiro={this.props.codConfeiteiro}/>
                 <Titulos titulo="Recusados"/>
-                <Recusados/>
+                <Recusados codConfeiteiro={this.props.codConfeiteiro}/>
             </ContainerAdm>
         );
     }
@@ -37,7 +43,7 @@ export class BoxTodosProdutos extends Component{
         return(
             <div>
                 <Header titulo="Seus Pedidos"></Header>
-                <AreaTodosProdutos></AreaTodosProdutos>
+                <AreaTodosProdutos codConfeiteiro={this.props.params.codConfeiteiro}></AreaTodosProdutos>
             </div>
         );
     }
