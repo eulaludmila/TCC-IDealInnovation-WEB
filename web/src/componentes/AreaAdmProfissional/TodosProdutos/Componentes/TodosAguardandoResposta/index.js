@@ -8,7 +8,7 @@ export default class TodosAguardandoResposta extends Component{
     render(){
         return(
             <ContainerAdm className="container conteudo">
-                <Produtos/>
+                <Produtos codConfeiteiro={this.props.codConfeiteiro}/>
             </ContainerAdm>
         );
     }
@@ -25,7 +25,7 @@ export class BoxTodosAguardandoResposta extends Component{
         return(
             <div>
                 <Header titulo="Pedidos aguardando resposta"></Header>
-                <TodosAguardandoResposta></TodosAguardandoResposta>
+                <TodosAguardandoResposta codConfeiteiro={this.props.params.codConfeiteiro}></TodosAguardandoResposta>
             </div>
         );
     }

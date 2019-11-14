@@ -20,7 +20,7 @@ class Home extends Component{
                 <Produto  titulo="DOCES" codigo="3" id="doce_home"/>
                 <ContainerImagem imagem="registre_seu_produto_img" titulo="Registre seu produto aqui" conteudoBotao="SAIBA MAIS" link="/login/profissional"/>
                 <Confeiteiro  titulo="NOSSOS PROFISSIONAIS" id="profissional_home"/>
-                <Footer/>
+                
             </div>
            
         );

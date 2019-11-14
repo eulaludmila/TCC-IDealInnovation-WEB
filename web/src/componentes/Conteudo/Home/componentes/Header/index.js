@@ -149,7 +149,6 @@ export class Header extends Component{
             <Dropdown.Divider/>
             <Dropdown.Item onClick={this.logout}>Sair</Dropdown.Item>
           </DropdownButton>
-        console.log( dropdown )
               
         }
 

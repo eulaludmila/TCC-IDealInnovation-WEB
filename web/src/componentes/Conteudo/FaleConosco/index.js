@@ -2,7 +2,6 @@ import React,{Component} from 'react'
 import './faleconosco.css'
 import {Form, Col, InputGroup,Button} from 'react-bootstrap'
 import axios from 'axios'
-import {Footer} from '../Footer'
 import { ipAPI } from '../../../link_config';
 export class FaleConosco extends Component{
 
@@ -109,7 +108,6 @@ export class BoxFaleConosco extends Component{
         return(
             <div>
                 <FaleConosco></FaleConosco>
-                <Footer></Footer>
             </div>
         )
     }

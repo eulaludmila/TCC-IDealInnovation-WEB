@@ -5,39 +5,68 @@ import Estrelas from 'react-star-ratings'
 import email from 'email-validator'
 import {Modal} from 'react-bootstrap';
 import { InputEmailSenha } from '../../../../AreaAdmProfissional/global/InputEmailSenha';
+import $ from 'jquery'
+import axios from 'axios'
+import {ipAPI} from '../../../../../link_config'
+import {browserHistory} from 'react-router'
 
 export default class AvaliarProduto extends Component{
 
     constructor(props){
         super(props)
-        this.state = {rating:0, nome:'',email:'', teaxo:'', focus:false, show:false, blur:true}
+        this.state = {rating:0, nome:'',email:'', teaxo:'',show:false,emailVerificacao:'',senhaVerificacao:''}
+        console.log("/descricao/" + this.props.codProduto)
     }
 
     onFocus = (evento) => {
-        this.setState({blur:false});
         
-        if(this.state.blur === false){
+        console.log(evento)
+        if(sessionStorage.getItem('authC') === null){
             // alert('ksfnsf')
-           
+            if(evento === "opiniao"){
+                $("#txt_opiniao").blur();
+                
+            }else if(evento === "nome"){
+                $("#txt_nome").blur();
+            }else if(evento === "email"){
+                $("#txt_email").blur();
+            }
             this.setState({show:true})
-            this.setState({focus:true})
+                
+            return false
         }else{
             
         }
     }
 
-    close=()=>{
-        this.setState({blur:true});
-        this.setState({focus:false})
-        this.setState({show:false});
-        
+    autenticar=(evento)=>{
+        evento.preventDefault();
+
+        const login={
+            username: this.state.emailVerificacao,
+            password: this.state.senhaVerificacao
+        };
+
+        axios.post(
+            ipAPI + "login/cliente", login)
+            .then(resposta=> {
+                sessionStorage.setItem("authC", resposta.data.token)
+                Promise.resolve(resposta.data.token)
+                this.close()
+            }).catch(error=>{console.log(error);alert("Usuário e/ou senha incorretos")})
     }
 
-    setNome(evento){
+    close=()=>{
+      
+        this.setState({show:false});
+        browserHistory.push("/descricao/" + this.props.codProduto)
+    }
+
+    setNome = (evento) => {
         this.setState({nome:evento.target.value})
     }
 
-    setEmail(evento){
+    setEmail = (evento) => {
 
         this.setState({email:evento.target.value})
         if(email.validate(evento.target.value)){
@@ -48,26 +77,31 @@ export default class AvaliarProduto extends Component{
 
     }
 
-    setTexto(evento){
+    setTexto = (evento) => {
         this.setState({texto:evento.target.value})
     }
 
-    valur =(evento)=>{
-        this.login()
-        
+    setEmailVerificacao = (evento) =>{
+        this.setState({emailVerificacao:evento.target.value})
+    }
+
+    setSenhaVerificacao = (evento) =>{
+        this.setState({senhaVerificacao:evento.target.value})
     }
 
     login =(evento)=>{
+
         if(sessionStorage.getItem('authC') !== null){
-
             this.setState({rating:evento})
-            return true
+            
         }else{
-            alert('Não logado')
-            return false
+          
+            this.setState({show:true})
+            
         }
-
+        
     }
+
 
     render(){
         return(
@@ -76,24 +110,24 @@ export default class AvaliarProduto extends Component{
                     <h4 className="card-text">Avalie este produto:</h4>
                     <h6>Sua Avaliação:*</h6>
                     <div className="rate">
-                        <Estrelas starDimension="25px"  starHoverColor="#fcba03" starRatedColor="#fcba03" starEmptyColor="#dedede" starSpacing="1px" rating={this.state.rating} changeRating={this.valur} name="estrelas"></Estrelas>
+                        <Estrelas starDimension="25px" numberOfStars={5}  starHoverColor="#fcba03" starRatedColor="#fcba03" starEmptyColor="#dedede" starSpacing="1px" rating={this.state.rating} changeRating={this.login} name="estrelas"></Estrelas>
                     </div>
                 </div>
-                <div className="container col-md-8 mt-3 ">
-                    <TextAvaliar titulo="Escreva sua opinião:*" value={this.state.texto} onChange={this.setTexto} className="form-control txtArea" id="txt_opiniao" rows="5"/>
+                <form className="container col-md-8 mt-3">
+                    <TextAvaliar titulo="Escreva sua opinião:*" value={this.state.texto} onChange={this.setTexto} onFocus={() => this.onFocus("opiniao") } className="form-control txtArea foco" id="txt_opiniao" rows="5"/>
                     <div className="form-row mt-2">
-                        <InputAvaliar className="form-group col-md-6" value={this.state.nome} onChange={this.setNome} onFocus={ this.onFocus } onFocusOut={this.state.blur} label="Nome:*" type="text" id="txt_nome" classeIp="form-control"/>
-                        <InputAvaliar className="form-group col-md-6" value={this.state.email} onChange={this.setEmail} label="Email:*" type="email" id="txt_email" classeIp="form-control"/>
-                        <InputAvaliar className="form-group col-md-6" type="button" id="txt_email" classeIp="btn btn-primary" value="Enviar"/>
+                        <InputAvaliar className="form-group col-md-6" onFocus={() => this.onFocus("nome")} value={this.state.nome} onChange={this.setNome} label="Nome:*" type="text" id="txt_nome" classeIp="form-control"/>
+                        <InputAvaliar className="form-group col-md-6" value={this.state.email} onChange={this.setEmail} onFocus={() => this.onFocus("email")} label="Email:*" type="email" id="txt_email" classeIp="form-control"/>
+                        <InputAvaliar className="form-group col-md-6" type="submit" id="btn_enviar" classeIp="btn btn-primary" value="Enviar"/>
                     </div>
-                </div>
+                </form>
 
                 <Modal show={this.state.show} animation={true} onHide={this.close} id="my-modal" centered>
                     <Modal.Header closeButton>
-                    <Modal.Title>Verificação</Modal.Title>
+                    <Modal.Title>Login</Modal.Title>
 
                     </Modal.Header>
-                    <form>
+                    <form  onSubmit={this.autenticar}>
                         <Modal.Body>
                             <div className={this.state.classMessage} role="alert">
                                 <h6 className="text-center color-danger">{this.state.message}</h6>
@@ -104,7 +138,7 @@ export default class AvaliarProduto extends Component{
                             
                         </Modal.Body>
                         <Modal.Footer>
-                            <button type="button" onClick={this.editarEmail} className="btn btn-success">Salvar</button>
+                            <button type="submit" className="btn btn-success">Salvar</button>
                                
                         </Modal.Footer>
                         </form>  

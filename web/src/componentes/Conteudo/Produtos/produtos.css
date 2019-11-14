@@ -1,0 +1,37 @@
+
+.pesquisa{
+    width: 340px;
+    height: 40px;
+    float: left;
+    margin-top: 10px;
+    border-radius: 5px 5px 5px 5px;
+    border: 1px solid #880e4f;
+    
+}
+  
+.input-pesquisa{
+    width: 330px;
+    height: 38px;
+    outline: none;
+}
+
+
+.btn-pesquisa{
+    width: 30px;
+    height: inherit;
+    margin-top: 5px;
+    background-image: url("../../../img/pesquisa.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-left: 8px;
+}
+
+.menu-categorias{
+    width: 1000px;
+}
+  
+.nome-bolo-adm{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

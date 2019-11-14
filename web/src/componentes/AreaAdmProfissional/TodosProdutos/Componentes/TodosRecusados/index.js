@@ -8,7 +8,7 @@ export default class TodosRecusados extends Component{
     render(){
         return(
             <ContainerAdm className="container conteudo">
-                <Produtos/>
+                <Produtos codConfeiteiro={this.props.codConfeiteiro}/>
             </ContainerAdm>
         );
     }
@@ -25,7 +25,7 @@ export class BoxTodosRecusados extends Component{
         return(
             <div>
                 <Header titulo="Todos pedidos recusados"></Header>
-                <TodosRecusados></TodosRecusados>
+                <TodosRecusados codConfeiteiro={this.props.params.codConfeiteiro}></TodosRecusados>
             </div>
         );
     }

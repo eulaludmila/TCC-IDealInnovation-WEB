@@ -1,59 +1,168 @@
 import React, {Component} from 'react';
 import {BotaoTodosProdutos} from '../../../global/BotaoTodosProdutos'
-import { Link, browserHistory } from 'react-router';
-import {ButtonToolbar} from 'react-bootstrap';
-import {ModalDetalhesProdutos} from '../../Modal';
+import { Link } from 'react-router';
+import axios from 'axios';
+import { ipAPI } from '../../../../../link_config';
+import {Modal} from 'react-bootstrap';
+import SubTitulos from '../Modal/Componentes/SubTitulos'
+import Infos from '../Modal/Componentes/Infos';
+import '../Modal/Componentes/Css/modal.css';
 
 export default class AguardandoResposta extends Component{
 
     constructor(props){
         super(props);
 
-        this.state={showConfirm:false, show:'', onHide:''};
+        this.state={showConfirm:false, show:'', onHide:'', listaProdutos:[], listaItens:[], hora:'',data:'', valorTotal:'', pagamento:'', obs:''};
     }
 
     close=()=>{
         this.setState({showConfirm:false});
     }
 
-    open=()=>{
-        this.setState({showConfirm:true});
-        console.log({showConfirm:true})
+    
+
+    componentDidMount(){
+        axios.get(`${ipAPI}pedido/aguarde/limit/${this.props.codConfeiteiro}`, {headers:{'Authorization':sessionStorage.getItem('auth')}})
+        .then(resposta => {
+            const produtos = resposta.data;
+
+            this.setState({listaProdutos: produtos});
+        })
+        
+    }
+
+    detalhes = (codProduto) =>{
+        var config = {
+            headers: {'Authorization':sessionStorage.getItem('auth')}
+        };
+
+        axios.get(ipAPI + "pedido/" + codProduto, config)
+        .then(resposta => {
+            this.setState({listaItens: resposta.data});
+            this.setState({data:this.formataData(this.state.listaItens[0].pedido.dataEntrega)})
+            this.setState({hora:this.formataHora(this.state.listaItens[0].pedido.dataEntrega)})
+            this.setState({valorTotal:this.state.listaItens[0].pedido.valorTotal})
+            this.setState({pagamento:this.state.listaItens[0].pedido.tipoPagamento})
+            this.setState({obs:this.state.listaItens[0].pedido.obs})
+            this.setState({showConfirm:true});
+        }) 
+    }
+
+
+    formataHora =(horas)=>{
+         var horasEntrega = new Date(horas);
+
+        if(horasEntrega.getHours().toLocaleString() === '0' & horasEntrega.getMinutes().toLocaleString() === '0'){
+            return '00:00'
+
+        }else if(horasEntrega.getHours().toLocaleString() === '0' & horasEntrega.getMinutes().toLocaleString() !== '0'){
+            return '00:' + horasEntrega.getMinutes().toLocaleString()
+
+        }else if(horasEntrega.getHours().toLocaleString() !== '0' & horasEntrega.getMinutes().toLocaleString() === '0'){
+            return horasEntrega + ":00"
+
+        }else{
+
+            return horasEntrega.getHours().toLocaleString() + ":" + horasEntrega.getMinutes().toLocaleString()
+            
+        }
+
+    }
+
+    formataData = (data) => {
+
+        var dataEntrega = new Date(data);
+        var ano = dataEntrega.getFullYear().toLocaleString().split(".");
+        var dia = dataEntrega.getDate().toLocaleString();
+        var mes = dataEntrega.getMonth().toLocaleString();
+
+        return dia + "/" + mes + "/" + ano[0] + ano[1]
+        
+
     }
 
     render(){
         return(
             <div className="mb-5">
                 <div className="form-row">
+                    {this.state.listaProdutos.map(produto =>
                     <div className="form-group col-md-4">
                         <div className="card ml-3 caixa">
-                            <div class="card-header text-center text-uppercase font-weight-bold">
-                                    João da Silva
+                            <div className="card-header text-center text-uppercase font-weight-bold">
+                                    {produto.cliente.nome}
                             </div>
                             <div className="card-body">
-                                <p className="texto_produto text-center">Dada de entrega: 20/10/2200</p>
-                                <p className="texto_produto text-center">Hora da entrega: 20:25</p>
-                                <p className="texto_produto text-center">pagamento: Boleto</p>
-                                <p className="texto_produto text-center">Preço: R$30.00</p>
+                                <p className="texto_produto text-center">Data de entrega: {this.formataData(produto.dataEntrega)}</p>
+                                <p className="texto_produto text-center">Hora da entrega: {this.formataHora(produto.dataEntrega)}</p>
+                                <p className="texto_produto text-center">pagamento: {produto.tipoPagamento === 'B' ? 'Boleto' : 'Crédito'}</p>
+                                <p className="texto_produto text-center">Preço: R${produto.valorTotal}</p>
 
-                                <BotaoTodosProdutos id="Detalhes" tipo="button" classe="btn btn-primary m-1" onClick={this.open}></BotaoTodosProdutos>
-                                <BotaoTodosProdutos id="Aceitar" tipo="button" classe="btn btn-success m-1"></BotaoTodosProdutos>
-                                <BotaoTodosProdutos id="Recusar" tipo="button" classe="btn btn-danger m-1"></BotaoTodosProdutos>
+                                <BotaoTodosProdutos id="Detalhes" tipo="button" classe="btn btn-primary m-1" onClick={() => this.detalhes(produto.codPedido)}></BotaoTodosProdutos>
+                                <BotaoTodosProdutos id="Aceitar" tipo="button" classe="btn btn-success m-1" onClick={() => this.aceitarRecusar("Aceitar")}></BotaoTodosProdutos>
+                                <BotaoTodosProdutos id="Recusar" tipo="button" classe="btn btn-danger m-1" onClick={() => this.aceitarRecusar("Recusar")}></BotaoTodosProdutos>
                             </div>
                         </div>
                     </div>
+                    )}
                 </div>
             
                 <div>
-                    <Link to="/adm/profissional/todos_produtos/aguardando_resposta"><p className="link_vermais text-right">Ver mais</p></Link>
+                    <Link to={"/adm/profissional/todos_produtos/"+this.props.codConfeiteiro+"/aguardando_resposta"}><p className="link_vermais text-right">Ver mais</p></Link>
                 </div>
-                <ButtonToolbar>
-                    <ModalDetalhesProdutos
+                <Modal
                     show={this.state.showConfirm}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
                     onHide={this.close}
                     >
-                    </ModalDetalhesProdutos>
-                </ButtonToolbar>
+                    <div className="modal_detalhes">
+                        <Modal.Header className="header_modal" closeButton>
+                            <Modal.Title >
+                                <h2 className="titulo_modal text-uppercase">Detalhes</h2>
+                            </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <SubTitulos sub="Detalhes de entrega e pagamento"/>
+                            <Infos/>
+                            <div className="caixa_direita">
+                                <p className="font_modal">{this.state.data}</p>
+                                <p className="font_modal">Até as {this.state.hora}</p>
+                                <p className="font_modal">{this.state.pagamento === 'B' ? 'Boleto' : 'Crédito'}</p>
+                                <p className="font_modal">R${this.state.valorTotal}</p>
+                            </div>
+                            <SubTitulos sub="Detalhes dos produtos"/>
+                            
+                            <table className="table table_modal">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Produto</th>
+                                            <th scope="col">Quantidade</th>
+                                            <th scope="col">Preço</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {this.state.listaItens.map( item => 
+                                        <tr>
+                                            <td>{item.produto.nomeProduto}</td>
+                                            <td>{item.quantidade}</td>
+                                            <td>R${item.produto.preco}</td>
+                                        </tr>
+                                    )} 
+                                    </tbody>
+                            </table>
+
+                        <div className="caixa_obs">
+                                <h4>Observação</h4>
+                                    <textarea className="text_obs" disabled>{this.state.obs}</textarea>
+                            </div>
+                        </Modal.Body>   
+                        <Modal.Footer>
+                        
+                        </Modal.Footer> 
+                    </div>
+                </Modal>
             </div>
             
             

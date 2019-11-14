@@ -7,7 +7,6 @@ import AvaliarProduto from './Componentes/AvaliarProduto';
 import '../../../css/bootstrap.min.css';
 import '../DescricaoProduto/css/descricao_produto.css';
 import '../DescricaoProduto/css/rate.css';
-import {Footer} from '../Footer'
 
 
 export class DescricaoProduto extends Component{
@@ -19,16 +18,14 @@ export class DescricaoProduto extends Component{
     render(){
         return(
 
-        <div>
             <div className="container">
                 <Produto codigo={this.props.params.codProduto}/>
                 <LinkApp/>
                 <TotalAvaliacao/>
                 <Comentarios/>
-                <AvaliarProduto/>   
+                <AvaliarProduto codProduto={this.props.params.codProduto}/>   
             </div>
-            <Footer></Footer>
-        </div>
+      
 
         );
     }

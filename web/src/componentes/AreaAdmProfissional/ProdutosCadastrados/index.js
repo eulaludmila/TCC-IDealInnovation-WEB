@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import img from '../../../img/bolo.jpg'
 import lupa from '../../../img/lupa.png'
 import Header from '../Header'
 import {ContainerAdm} from '../../../styles'
@@ -25,6 +24,12 @@ export class ProdutosCadastrados extends Component{
 
     componentDidMount(){
         this.setState({loading:true})
+
+        this.trazerProdutos();
+        
+    }
+
+    trazerProdutos = () =>{
         $.ajax({
             url: ipAPI + "produto/confeiteiro/" + this.props.codConfeiteiro,
             dataType: "json",
@@ -107,6 +112,8 @@ export class ProdutosCadastrados extends Component{
                     $(dados).addClass("btn btn-success")
                     $(dados).val("Ativar")
                 }
+
+                this.trazerProdutos();
 
             }.bind(this)
         })

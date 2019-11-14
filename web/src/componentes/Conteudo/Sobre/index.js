@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import './sobre.css'
 import img from '../../../img/bolo.jpg'
-import {Footer} from '../Footer'
 export class Sobre extends Component{
     render(){
         return(
@@ -44,7 +43,6 @@ export class BoxSobre extends Component{
         return(
             <div>
                 <Sobre></Sobre>
-                <Footer></Footer>
             </div>
         )
     }

@@ -8,5 +8,5 @@
 
 5- Uso da Modal para cadastro finalizado
 
-6 - Bibliotecas: node-modules, jquery, jquery-mask-plugin, react-router@3.2.4, react-bootstrap, styled-components, axios, jwt-decode
+6 - Bibliotecas: node-modules, jquery, jquery-mask-plugin, react-router@3.2.4, react-bootstrap, styled-components, axios, jwt-, react-star-ratings, cpf,email-validator,react-loading
 
