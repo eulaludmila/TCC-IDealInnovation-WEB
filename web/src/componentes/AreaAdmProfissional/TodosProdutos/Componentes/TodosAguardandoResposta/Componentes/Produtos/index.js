@@ -43,6 +43,7 @@ export default class Produtos extends Component{
             this.setState({pagamento:this.state.listaItens[0].pedido.tipoPagamento})
             this.setState({obs:this.state.listaItens[0].pedido.obs})
             this.setState({showConfirm:true});
+            
         }) 
     }
 
@@ -83,9 +84,9 @@ export default class Produtos extends Component{
             <Link to={"/adm/profissional/todos_produtos/"+this.props.codConfeiteiro}><img src={Voltar} alt="Voltar" title="Voltar"/></Link>
             <div className="form-row">
             {this.state.listaProdutos.map(produto =>
-                <div className="form-group col-md-4 mt-3">
+                <div key={produto.codPedido} className="form-group col-md-4 mt-3">
                     <div className="card ml-3 caixa">
-                        <div class="card-header text-center text-uppercase font-weight-bold">
+                        <div className="card-header text-center text-uppercase font-weight-bold">
                                 {produto.cliente.nome}
                         </div>
                         <div className="card-body">

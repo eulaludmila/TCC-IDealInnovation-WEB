@@ -7,27 +7,9 @@
         padding-bottom: 50px;
         box-sizing: border-box;
 }
-.pedido{
-    width: 80%;
-    background-color: bisque;
-    border: solid 1px #c4c4c4;
-    border-radius: 5px;
-    margin-bottom: 15px;
 
-}
 
-.area-pedidos{
-    min-height: 200px;
-    height: auto;
-    
-}
 
-.caixa-perfil{
-    width: 100%;
-    /* background-color: blue; */
-    background-color: #ffffff;
-    border: solid 1px #c4c4c4;
-}
 
 .tamanho-editar{
     width: 28px;
@@ -35,6 +17,194 @@
     cursor: pointer;
 }
 
-.tab{
-
+.titulo-pedido{
+    height: 70px;;
+    /* background-color: aqua */
 }
+
+.btn-pedido{
+
+    background-color: #ffffff;
+    color: #880e4f;
+    border: solid 1px #880e4f;
+    
+}
+
+.tab{
+    
+}
+.show-grid{
+    margin-right: 0px!important;
+}
+
+.col{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+@media only screen and (min-width:1200px) {
+    .caixa-perfil{
+        width: 100%;
+        min-height: 350px;
+        height: auto;
+        overflow: hidden;
+        /* background-color: blue; */
+        background-color: #ffffff;
+        border: solid 1px #c4c4c4;
+        padding: 15px;
+    }
+
+    .pedido{
+        width: 45%;
+        /* background-color: bisque; */
+        border: solid 1px #c4c4c4;
+        border-radius: 2px;
+        margin-bottom: 15px; float: left;
+        margin-left: 35px;
+        margin-right: 35px;
+    
+    }
+    
+    .area-pedidos{
+        min-height: 200px;
+        height: auto;
+        
+    }
+    .btn-pedido{
+margin-left: auto;
+margin-right: auto;
+    }
+}
+
+
+@media only screen and (min-width:992px) and (max-width:1199px) {
+    .caixa-perfil{
+        width: 100%;
+        min-height: 350px;
+        height: auto;
+        overflow: hidden;
+        /* background-color: blue; */
+        background-color: #ffffff;
+        border: solid 1px #c4c4c4;
+        padding: 15px;
+    }
+
+    .pedido{
+        width: 49%;
+        /* background-color: bisque; */
+        border: solid 1px #c4c4c4;
+        border-radius: 2px;
+        margin-bottom: 15px; float: left;
+        margin-left: 4px;
+        margin-right: 4px;
+    
+    }
+    
+    .area-pedidos{
+        min-height: 200px;
+        height: auto;
+        
+    }
+    .btn-pedido{
+margin-left: auto;
+margin-right: auto;
+    }
+}
+
+@media only screen and (min-width:768px) and (max-width:991px) {
+    .caixa-perfil{
+        width: 100%;
+        min-height: 350px;
+        height: auto;
+        overflow: hidden;
+        /* background-color: blue; */
+        background-color: #ffffff;
+        border: solid 1px #c4c4c4;
+        padding: 15px;
+    }
+
+    .pedido{
+        width: 100%;
+        /* background-color: bisque; */
+        border: solid 1px #c4c4c4;
+        border-radius: 2px;
+        margin-bottom: 15px; float: left;
+    
+    }
+    
+    .area-pedidos{
+        min-height: 200px;
+        height: auto;
+        
+    }
+    .btn-pedido{
+margin-left: auto;
+margin-right: auto;
+    }
+}
+
+@media screen and (min-device-width:576px) and (max-device-width:767px){
+    .caixa-perfil{
+        width: 100%;
+        min-height: 350px;
+        height: auto;
+        overflow: hidden;
+        /* background-color: blue; */
+        background-color: #ffffff;
+        border: solid 1px #c4c4c4;
+        padding: 15px;
+    }
+
+    .pedido{
+        width: 100%;
+        /* background-color: bisque; */
+        border: solid 1px #c4c4c4;
+        border-radius: 2px;
+        margin-bottom: 15px; float: left;
+    
+    }
+    
+    .area-pedidos{
+        min-height: 200px;
+        height: auto;
+        
+    }
+    .btn-pedido{
+margin-left: auto;
+margin-right: auto;
+    }
+}
+
+@media screen and (max-device-width:575px){
+    .caixa-perfil{
+        width: 100%;
+        min-height: 350px;
+        height: auto;
+        overflow: hidden;
+        /* background-color: blue; */
+        background-color: #ffffff;
+        border: solid 1px #c4c4c4;
+        padding: 15px;
+    }
+
+    .pedido{
+        width: 100%;
+        /* background-color: bisque; */
+        border: solid 1px #c4c4c4;
+        border-radius: 2px;
+        margin-bottom: 15px; float: left;
+    
+    }
+    
+    .area-pedidos{
+        min-height: 200px;
+        height: auto;
+        
+    }
+    .btn-pedido{
+margin-left: auto;
+margin-right: auto;
+    }
+}
+

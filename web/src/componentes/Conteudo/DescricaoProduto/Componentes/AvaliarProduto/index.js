@@ -22,16 +22,19 @@ export default class AvaliarProduto extends Component{
         
         console.log(evento)
         if(sessionStorage.getItem('authC') === null){
-            // alert('ksfnsf')
+
             if(evento === "opiniao"){
                 $("#txt_opiniao").blur();
+                this.setState({show:true})
                 
             }else if(evento === "nome"){
                 $("#txt_nome").blur();
+                this.setState({show:true})
             }else if(evento === "email"){
                 $("#txt_email").blur();
+                this.setState({show:true})
             }
-            this.setState({show:true})
+            
                 
             return false
         }else{

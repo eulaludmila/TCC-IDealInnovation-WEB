@@ -18,8 +18,9 @@ export class SliderHome extends Component{
     };
     render(){
         return (
-                <Carousel activeIndex={this.state.index} direction={this.state.direction} onSelect={this.handleSelect}>
-                    <Carousel.Item style={{'height':'800px'}}>
+                
+                    <Carousel activeIndex={this.state.index} direction={this.state.direction} onSelect={this.handleSelect}>
+                    <Carousel.Item className="foto-carrossel">
                     <img
                         className="d-block w-100 h-100"
                         src={img}
@@ -30,7 +31,7 @@ export class SliderHome extends Component{
                         <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
                     </Carousel.Caption>
                     </Carousel.Item>
-                    <Carousel.Item style={{'height':'800px'}}>
+                    <Carousel.Item className="foto-carrossel">
                     <img
                         className="d-block w-100 h-100"
                         src={img2}
@@ -42,7 +43,7 @@ export class SliderHome extends Component{
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                     </Carousel.Caption>
                     </Carousel.Item>
-                    <Carousel.Item style={{'height':'800px'}}>
+                    <Carousel.Item className="foto-carrossel">
                     <img
                         className="d-block w-100 h-100"
                         src={img3}

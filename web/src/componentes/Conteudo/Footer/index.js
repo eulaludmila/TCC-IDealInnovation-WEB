@@ -18,25 +18,24 @@ export class Footer extends Component{
                             <div className="col-sm-2">
                                 <h5>Inicio</h5>
                                 <ul>
-                                    <li>Home</li>
-                                    <li>Cursos</li>
-                                    <li>Downloads</li>
+                                    <li>Produtos</li>
+                                    <li>Confeiteiros</li>
+                                    <Link to="/entrar"><li>Entrar</li></Link>
                                 </ul>
                             </div>
                             <div className="col-sm-2">
                                 <h5>Quem somos</h5>
                                 <ul>
-                                    <li>Informações da Empresa</li>
-                                    <Link to="/faleconosco"><li>Contato</li></Link>
-                                    <li>Blog</li>
+                                    <li>Empresa Responsável</li>
+                                    <Link to="/sobre"><li>Sobre</li></Link>
                                 </ul>
                             </div>
                             <div className="col-sm-2">
                                 <h5>Suporte</h5>
                                 <ul>
-                                    <li>FAQ</li>
-                                    <li>Telefones</li>
-                                    <li>Chat</li>
+                                <Link to="/faleconosco"><li>Contato</li></Link>
+                                    {/* <li>Telefones</li>
+                                    <li>Chat</li> */}
                                 </ul>
                             </div>
                             <div className="col-sm-3">
@@ -46,7 +45,7 @@ export class Footer extends Component{
                                         <span className="instagram"><i className="fab fa-instagram"></i></span>
                                     </div>
                                     
-                                        <button type="button" className="btn btn-default">Contato</button>
+                                    <Link to="/faleconosco"><button type="button" className="btn btn-default">Contato</button></Link>
                                 </div>
                             </div>
                         </div>

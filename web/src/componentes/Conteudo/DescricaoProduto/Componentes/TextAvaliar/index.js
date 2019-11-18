@@ -5,7 +5,7 @@ export default class TextAvaliar extends Component{
         return(
             <div>
                 <h4>{this.props.titulo}</h4>
-                <textarea className={this.props.className} id={this.props.id} rows={this.props.rows} disabled={this.props.disabled}></textarea>
+                <textarea className={this.props.className} onFocus={this.props.onFocus} id={this.props.id} rows={this.props.rows} disabled={this.props.disabled}></textarea>
             </div>
         );
     }

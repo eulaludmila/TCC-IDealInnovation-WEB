@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {BotaoTodosProdutos} from '../../../global/BotaoTodosProdutos';
-import { Link, browserHistory } from 'react-router';
+import { Link} from 'react-router';
 import axios from 'axios';
-import { ipAPI,ipFotos } from '../../../../../link_config';
+import { ipAPI} from '../../../../../link_config';
 import {Modal} from 'react-bootstrap';
 import SubTitulos from '../Modal/Componentes/SubTitulos'
 import Infos from '../Modal/Componentes/Infos';
@@ -85,7 +85,7 @@ export default class Aprovados extends Component{
             <div>
                 <div className="form-row mb-5">
                 {this.state.listaProdutos.map(produto =>
-                    <div className="form-group col-md-4">
+                    <div key={produto.codPedido} className="form-group col-md-4">
                         <div className="card ml-3 caixa">
                             <div className="card-header text-center text-uppercase font-weight-bold">
                                 {produto.cliente.nome}

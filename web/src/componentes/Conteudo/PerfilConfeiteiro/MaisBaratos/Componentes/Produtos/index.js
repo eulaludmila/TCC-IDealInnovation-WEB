@@ -26,10 +26,10 @@ export default class Produtos extends Component{
         return(
             <div className="container">
                 <hr className="mb-5"></hr>
-                <div className="form-row">
+                <div className="row">
                     {this.state.listaProdutos.map(produto =>
-                    <div key={produto.codProduto} className="form-group col-md-3 d-flex justify-content-around">
-                        <div className="card text-center prod mb-5" style={{'width': '14rem'}}>
+                    <div key={produto.codProduto} className="card_produto">
+                        <div className="card text-center mb-5" style={{'width': '14rem'}}>
                             <img className="card-img-top imagens-bolos" src={ipFotos+produto.foto} alt={produto.nomeProduto} title={produto.nomeProduto}/>
                             <div className="card-body">
                                 <h5 className="card-title nome_bolo">{produto.nomeProduto}</h5>

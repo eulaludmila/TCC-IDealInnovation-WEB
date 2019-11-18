@@ -28,7 +28,6 @@ export default class Perfil extends Component{
                     <TitulosPerfil titulo="Mais Baratos"/>
                     <ProdutosMaisBaratos codConfeiteiro={this.props.params.codConfeiteiro}/>
                 </div>
-                <Footer/>
             </div>
         );
     }

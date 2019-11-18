@@ -14,6 +14,7 @@ import '../../css/font/css/all.css'
 import '../../js/accordian'
 // import Header from '../AreaAdmProfissional/Header'
 import Menu from '../AreaAdmProfissional/Menu'
+import {browserHistory} from 'react-router'
 
 class AdmProfissional extends Component {
 
@@ -22,6 +23,13 @@ class AdmProfissional extends Component {
 
     this.state={status:''}
   }
+
+
+ componentDidMount(){
+   if(sessionStorage.getItem('auth') === null){
+    browserHistory.push('/login/profissional')
+   }
+ }
 
   render(){
     return (
