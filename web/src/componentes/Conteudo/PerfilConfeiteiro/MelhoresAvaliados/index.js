@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './Css/melhores_avaliados.css';
 import '../../../../css/bootstrap.min.css';
 import CapaPerfil from '../CapaPerfil';
 import Capa from '../CapaPerfil/ImgCapa/sobremesas.jpg';
@@ -25,7 +24,6 @@ export default class MelhoresAvaliados extends Component{
                 <TituloMelhoresAvaliados titulo="Melhores Avaliados"/>
                 <Produtos codConfeiteiro={this.props.params.codConfeiteiro}/>
             </div>
-            <Footer/>
         </div>
         );
     }

@@ -13,10 +13,15 @@ export class Perfil extends Component {
         super(props)
 
         this.state = {
-            editar_dados: 'disabled', imagem_dados: editar, alt_dados: "Editar",editar_endereco: 'disabled', imagem_endereco: editar, alt_endereco: "Editar", nome: '', sobrenome: '',
-            celular: '', dtnasc: '', cep: '', endereco: '',
-            bairro: '', numero: '', complemento: '', cidade: '', estado: '', sexo: '', imgFoto: ''
+            editar_dados: 'disabled', imagem_dados: editar, alt_dados: "Editar",editar_endereco: 'disabled', imagem_endereco: editar, alt_endereco: "Editar", nome:'', sobrenome:'',
+            celular:'', dtnasc:'', cep:'', endereco:'',
+            bairro:'', numero:'', complemento:'', cidade:'', estado:'', sexo:'', imgFoto:''
         }
+
+    }
+    setNome = (evento) =>{
+        console.log(evento.target.value)
+        this.setNome({nome:evento.target.value})
 
     }
 
@@ -25,6 +30,7 @@ export class Perfil extends Component {
 
         axios.get(`${ipAPI}cliente/` + this.props.codCliente, { headers: { 'Authorization': sessionStorage.getItem('authC') } })
             .then(resposta => {
+                console.log(resposta)
                 const dados = resposta.data;
                 this.setState({ nome: dados.nome })
                 this.setState({ sobrenome: dados.sobrenome })
@@ -40,30 +46,35 @@ export class Perfil extends Component {
     }
 
 
-    // verificaEndereco = () =>{
+    verificaEndereco = () =>{
 
-    //     axios.get(`${ipAPI}endereco/verifica/cliente/` + this.props.codCliente, { headers: { 'Authorization': sessionStorage.getItem('authC') } })
-    //         .then(resposta => {
-    //             const dados = resposta.data;
-    //            alert(dados)
+        axios.get(`${ipAPI}enderecocliente/endereco/verifica/cliente/` + this.props.codCliente, { headers: { 'Authorization': sessionStorage.getItem('authC') } })
+            .then(resposta => {
+                const dados = resposta.data;
+                
+               if(dados === 1){
+                    this.atualizaEndereco();
+               }else{
+                    this.cadastraEndereco();
+               }
 
+            }).catch((err) => { console.log("AXIOS ERROR: ", err); })
 
-    //         }).catch((err) => { console.log("AXIOS ERROR: ", err); })
-
-    // }
+    }
 
     endereco=()=>{
         axios.get(`${ipAPI}enderecocliente/endereco/cliente/` + this.props.codCliente, { headers: { 'Authorization': sessionStorage.getItem('authC') } })
             .then(resposta => {
                 const dados = resposta.data;
                console.log(dados)
-               this.setState({ endereco: dados.endereco })
-               this.setState({ cidade: dados.cidade.cidade })
-               this.setState({ estado: dados.cidade.estado.uf })
-               this.setState({ cep: dados.cep })
-               this.setState({ numero: dados.numero })
-               this.setState({ bairro: dados.bairro})
-               
+               if(dados !== ""){
+                    this.setState({ endereco: dados.endereco })
+                    this.setState({ cidade: dados.endereco.cidade.cidade })
+                    this.setState({ estado: dados.endereco.cidade.estado.uf })
+                    this.setState({ cep: dados.cep })
+                    this.setState({ numero: dados.numero })
+                    this.setState({ bairro: dados.bairro})
+               }
 
             }).catch((err) => { console.log("AXIOS ERROR: ", err); })
     }
@@ -71,8 +82,8 @@ export class Perfil extends Component {
     editar = (alt) => {
 
         if (alt === "Editar") {
-            // this.setState({ editar_dados: '' })
-            // this.setState({ imagem_dados: salvar })
+            this.setState({ editar_dados: '' })
+            this.setState({ imagem_dados: salvar })
             this.setState({ alt_dados: "Salvar" })
         } else {
             this.setState({ editar_dados: 'disabled' })
@@ -112,7 +123,7 @@ export class Perfil extends Component {
                         <Col xs={9} md={9}>
                             <Row className="show-grid">
                                 <Form.Group as={Col} md="6">
-                                    <InputLabel label="Nome:" value={this.state.nome} type="text" name="txt-nome" disabled={this.state.editar_dados}></InputLabel>
+                                    <InputLabel label="Nome:" onChange={this.setNome} type="text" name="txt-nome" disabled={this.state.editar_dados}></InputLabel>
 
                                 </Form.Group>
                                 <Form.Group as={Col} md="6">

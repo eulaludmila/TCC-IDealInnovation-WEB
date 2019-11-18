@@ -5,6 +5,7 @@ import axios from 'axios';
 import { ipAPI,ipFotos } from '../../../link_config';
 import {Link} from 'react-router'
 import Estrelas from 'react-star-ratings'
+import {CarregandoMaior} from '../../Carregamento'
 
 
 export class Confeiteiros extends Component{
@@ -12,36 +13,38 @@ export class Confeiteiros extends Component{
     constructor(props){
         super(props);
 
-        this.state = {listaConfeiteiros: [], itemClicado: "idTodos",todosConfeiteiros:`${ipAPI}confeiteiroDTO/ativo`, melhoresAvaliados:`${ipAPI}confeiteiroDTO/avaliacao/confeiteiros`}
+        this.state = {listaConfeiteiros: [], pesquisa:'',loading:false,itemClicado: "idTodos",todosConfeiteiros:`${ipAPI}confeiteiroDTO/ativo`, melhoresAvaliados:`${ipAPI}confeiteiroDTO/avaliacao/confeiteiros`,listaPesquisa: []}
     }
 
 
     componentDidMount(){
-
+        this.setState({loading:true})
         axios.get(ipAPI + "confeiteiroDTO/ativo")
         .then(resposta => {
              const confeiteiro = resposta.data;
-
+            this.setState({loading:false})   
              this.setState({listaConfeiteiros: confeiteiro})
         })
 
     }
 
     listarProdutos(idClicado){
-       
+        this.setState({listaConfeiteiros: []})
         if(idClicado ==="idTodos"){
+            this.setState({loading:true})
             axios.get(ipAPI+"confeiteiroDTO/ativo")
             .then(resposta => {
-
+                this.setState({loading:false}) 
                 const confeiteiros = resposta.data;
                 this.setState({listaConfeiteiros: confeiteiros})
                 
                 this.setState({itemClicado: idClicado});
             })
         }else if(idClicado ==="maisAvaliados"){
+            this.setState({loading:true})
             axios.get(ipAPI+"confeiteiroDTO/avaliacao/confeiteiros")
             .then(resposta => {
-
+                this.setState({loading:false}) 
                 const confeiteiros = resposta.data;
                 this.setState({listaConfeiteiros: confeiteiros})
                 
@@ -51,6 +54,30 @@ export class Confeiteiros extends Component{
         
 
     }
+
+    
+    setPesquisa = (evento) => {
+        this.setState({pesquisa: evento.target.value});
+
+        if(evento.target.value == ""){
+            this.listarProdutos(this.state.itemClicado)
+        }
+       
+    }
+
+    pesquisar = (pesquisa) => {
+
+        var c = this.state.listaConfeiteiros.filter( 
+            evento => pesquisa === evento.nome
+        )
+
+
+        this.setState({listaConfeiteiros: c})
+
+        console.log(this.state.listaConfeiteiros)
+
+    }
+
 
 
     render(){
@@ -62,7 +89,7 @@ export class Confeiteiros extends Component{
             <div className="container bolo" id={this.props.id}>
           
                 
-                <div className="titulo mx-auto">
+                <div className="container titulo mx-auto">
 
 
                     <div className="d-flex justify-content-center">
@@ -70,11 +97,11 @@ export class Confeiteiros extends Component{
                         <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
 
                              
-                                <li className="nav-item categoria">
-                                    <span className={"idTodos" === this.state.itemClicado ? "nav-link active" : "nav-link"}  id="idTodos" onClick={()=>this.listarProdutos("idTodos")}>Todos</span>
+                                <li className="nav-item categoria mb-3">
+                                    <span className={"idTodos" === this.state.itemClicado ? "nav-link ativo" : "nav-link"}  id="idTodos" onClick={()=>this.listarProdutos("idTodos")}>Todos</span>
                                 </li>
                                 <li className="nav-item categoria">
-                                    <span className={"maisAvaliados" === this.state.itemClicado ? "nav-link active" : "nav-link"}  id="maisAvaliados" onClick={()=>this.listarProdutos("maisAvaliados")}>Melhores Avaliados</span>
+                                    <span className={"maisAvaliados" === this.state.itemClicado ? "nav-link ativo" : "nav-link"}  id="maisAvaliados" onClick={()=>this.listarProdutos("maisAvaliados")}>Melhores Avaliados</span>
                                 </li>
 
                             
@@ -83,14 +110,26 @@ export class Confeiteiros extends Component{
 
                     </div>
                     <hr></hr>
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-sm"> </div>
+                            <div className="input-group pesquisa">
+                                <input type="text"  className="form-control border-0 flexdatalist-alias flex0 input-pesquisa" id="pesquisa" onChange={this.setPesquisa} placeholder="Pesquisa por um confeiteiro ..."/>
+                                <div className="input-group-append">
+                                    <button className="btn btn-pesquisa btn-sm px-3 border-0" type="submit" onClick={() => this.pesquisar(this.state.pesquisa)}></button>
+                                </div>
+                            </div>
+                            <div className="col-sm"> </div>
+                        </div>
+                    </div>
                 </div>
                 
 
-                <div className="container pt-5">
-
+                <div className="container produtos-todos">
+                <CarregandoMaior loading={this.state.loading} message='carregando ...'></CarregandoMaior>
                 {this.state.listaConfeiteiros.map(confeiteiro =>
                     <div key={confeiteiro.codConfeiteiro}>
-                        <Link to={"/confeiteiro/" + confeiteiro.codConfeiteiro}><div className="card text-center prod mb-5"  style={{'width': '14rem'}}>
+                        <Link to={"/confeiteiro/" + confeiteiro.codConfeiteiro}><div className="card text-center prod-conf mb-5"  style={{'width': '14rem'}}>
                             <img className="card-img-top imagens-bolos" src={ipFotos+confeiteiro.foto} alt={confeiteiro.nome}/>
                             <div className="card-body">
                                 <h5 className="card-title nome-bolo-adm">{confeiteiro.nome}</h5>

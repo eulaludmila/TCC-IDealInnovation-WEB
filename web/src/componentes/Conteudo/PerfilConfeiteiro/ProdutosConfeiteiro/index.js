@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './Css/produtos_confeiteiro.css';
 import '../../../../css/bootstrap.min.css';
 import CapaPerfil from '../CapaPerfil';
 import Capa from '../CapaPerfil/ImgCapa/sobremesas.jpg';

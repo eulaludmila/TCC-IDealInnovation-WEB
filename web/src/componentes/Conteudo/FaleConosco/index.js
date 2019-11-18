@@ -2,12 +2,14 @@ import React,{Component} from 'react'
 import './faleconosco.css'
 import {Form, Col, InputGroup,Button} from 'react-bootstrap'
 import axios from 'axios'
+import {ButtonToolbar} from 'react-bootstrap'
+import {ModalCadastro} from '../../Modal'
 import { ipAPI } from '../../../link_config';
 export class FaleConosco extends Component{
 
     constructor(props){
         super(props)
-        this.state = {nome:'', email:'',mensagem:'', assunto:''}
+        this.state = {nome:'', email:'',mensagem:'', assunto:'', show:false}
     }
 
 
@@ -36,10 +38,14 @@ export class FaleConosco extends Component{
         event.preventDefault();
     }
 
-    enviarForm = () => {
-        var dados = {nome: this.state.nome, email:this.state.email,assunto:this.state.assunto, mensagem:this.state.email}
-        axios.post(`${ipAPI}/faleconosco`, dados, {headers: {'Content-Type': 'application/json'}}).then((res) => {console.log("RESPONSE RECEIVED: ", res);}).catch((err) => {console.log("AXIOS ERROR: ", err);})
+    close=()=>{
+        this.setState({show:false});
+    }
 
+    enviarForm = (event) => {
+        event.preventDefault()
+        var dados = {nome: this.state.nome, email:this.state.email,assunto:this.state.assunto, mensagem:this.state.email}
+        axios.post(`${ipAPI}faleconosco`, dados, {headers: {'Content-Type': 'application/json'}}).then((res) => {this.setState({nome:''});this.setState({email:''});this.setState({assunto:''});this.setState({mensagem:''});this.setState({show:true}); }).catch((err) => {console.log("AXIOS ERROR: ", err);})
     }
 
     render(){
@@ -49,7 +55,7 @@ export class FaleConosco extends Component{
                 <div className='caixa-form-fale-conosco center'>
                 <h1 className='center titulo-fale-conosco'>Fale Conosco</h1>
                 <div className='texto-fale-conosco'><p>Bem-vindo a nossa área de fale conosco. Esse é uma espaço exclusivamente reservado para que você nos envie a sua crítica, sugestão ou agradecimento. Agradecemos a sua mensagem e em breve entraremos em contato.</p></div>
-                <Form onSubmit>
+                <Form onSubmit={this.enviarForm}>
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridEmail">
                         <Form.Label>*Nome:</Form.Label>
@@ -97,6 +103,13 @@ export class FaleConosco extends Component{
                     </Button>
                     </Form>
                 </div>
+
+                <ButtonToolbar>
+                    <ModalCadastro titulo="Enviado com sucesso! Obrigado pela sua mensagem <3"
+                        show={this.state.show}
+                        onHide={this.close}
+                    />
+                </ButtonToolbar>
             </div>
            
         )

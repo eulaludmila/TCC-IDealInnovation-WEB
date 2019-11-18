@@ -42,7 +42,7 @@ export class Confeiteiro extends Component{
             <div className="container bolo" id={this.props.id}>
                 <div className="titulo mx-auto">
                     <h1>{this.props.titulo}</h1>
-                    <hr></hr>
+                    <hr className="linha-separa"></hr>
                 </div>
             
                 {this.state.listaConfeiteiros.map(confeiteiros =>

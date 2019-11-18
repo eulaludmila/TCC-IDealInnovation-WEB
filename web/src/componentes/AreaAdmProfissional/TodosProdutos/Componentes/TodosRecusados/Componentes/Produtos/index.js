@@ -91,7 +91,7 @@ export default class Produtos extends Component{
             <div className="form-row">
                 <div className="form-group col-md-4 mt-3">
                 {this.state.listaProdutos.map(produto =>
-                    <div className="card ml-3 caixa">
+                    <div key={produto.codPedido} className="card ml-3 caixa">
                         <div className="card-header text-center text-uppercase font-weight-bold">
                                 {produto.cliente.nome}
                         </div>

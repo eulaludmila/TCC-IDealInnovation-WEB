@@ -7,13 +7,14 @@ import {Modal} from 'react-bootstrap';
 import SubTitulos from '../Modal/Componentes/SubTitulos'
 import Infos from '../Modal/Componentes/Infos';
 import '../Modal/Componentes/Css/modal.css';
+import {CarregandoMaior} from '../../../../Carregamento'
 
 export default class AguardandoResposta extends Component{
 
     constructor(props){
         super(props);
 
-        this.state={showConfirm:false, show:'', onHide:'', listaProdutos:[], listaItens:[], hora:'',data:'', valorTotal:'', pagamento:'', obs:''};
+        this.state={showConfirm:false, show:'',loading:false, onHide:'', listaProdutos:[], listaItens:[], hora:'',data:'', valorTotal:'', pagamento:'', obs:''};
     }
 
     close=()=>{
@@ -23,10 +24,12 @@ export default class AguardandoResposta extends Component{
     
 
     componentDidMount(){
+        this.setState({loading:true})
         axios.get(`${ipAPI}pedido/aguarde/limit/${this.props.codConfeiteiro}`, {headers:{'Authorization':sessionStorage.getItem('auth')}})
         .then(resposta => {
             const produtos = resposta.data;
-
+            console.log(produtos)
+            this.setState({loading:false})
             this.setState({listaProdutos: produtos});
         })
         
@@ -86,8 +89,9 @@ export default class AguardandoResposta extends Component{
         return(
             <div className="mb-5">
                 <div className="form-row">
+                <CarregandoMaior loading={this.state.loading} message='carregando ...'></CarregandoMaior>
                     {this.state.listaProdutos.map(produto =>
-                    <div className="form-group col-md-4">
+                    <div key={produto.codPedido} className="form-group col-md-4">
                         <div className="card ml-3 caixa">
                             <div className="card-header text-center text-uppercase font-weight-bold">
                                     {produto.cliente.nome}
