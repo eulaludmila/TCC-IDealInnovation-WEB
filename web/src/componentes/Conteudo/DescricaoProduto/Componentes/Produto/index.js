@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import Vendedor from '../Vendedor';
 import Descricao from '../Descricao';
 import SelectPesoQtd from '../SelectPesoQtd';
@@ -22,20 +22,18 @@ export default class Produto extends Component{
             url: `${ipAPI}produto/` + this.props.codigo,
             contentType: "application/json",
             dataType: "json",
-            type: "get",
             success: function(resposta){
-
-                console.log(resposta.confeiteiro.foto)
                 this.setState({codConfeiteiro:resposta.confeiteiro.codConfeiteiro})
                 this.setState({nomeProduto: resposta.nomeProduto});
                 this.setState({preco: resposta.preco});
-                this.setState({imgFoto: resposta.foto});
+                this.setState({imgFoto: ipFotos+resposta.foto});
                 this.setState({avaliacao:resposta.avaliacao})
                 this.setState({nomeConfeiteiro: resposta.confeiteiro.nome});
                 this.setState({fotoConfeiteiro: resposta.confeiteiro.foto});
                 this.setState({descricao: resposta.descricao});
                 this.setState({tipoUni: resposta.categoria.tipoUnidade});
 
+                
             }.bind(this)
         })
     }
@@ -43,11 +41,12 @@ export default class Produto extends Component{
     render(){
         return(
             <div className="form-row tt mb-5">
+                
                 <div className="col-md-12 mt-2">
                     <h1>{this.state.nomeProduto}</h1>
                 </div>
                 <div className="col-md-6 mt-3">
-                    <img src={ipFotos + this.state.imgFoto} className="img-fluid" alt={this.state.nomeProduto} title={this.state.nomeProduto}/>
+                <img src={this.state.imgFoto} className="img-fluid" alt={this.state.nomeProduto} title={this.state.nomeProduto}/>
                     <div className="avaliacao">
                         <Estrelas starDimension="25px" starRatedColor="#fcba03" starEmptyColor="#dedede" starSpacing="1px" rating={this.state.avaliacao} numberOfStars={5}></Estrelas>
                     </div>

@@ -7,7 +7,7 @@ import CardConfeiteiro from '../CardConfeiteiro';
 import TitulosPerfil from './Componentes/TitulosPerfil';
 import ProdutosMaisAvaliados from './Componentes/ProdutosMaisAvaliados';
 import ProdutosMaisBaratos from './Componentes/ProdutosMaisBaratos';
-import { Footer } from '../../Footer';
+
 
 export default class Perfil extends Component{
 

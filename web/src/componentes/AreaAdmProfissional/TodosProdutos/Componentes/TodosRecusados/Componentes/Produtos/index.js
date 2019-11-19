@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {BotaoTodosProdutos} from '../../../../../global/BotaoTodosProdutos'
 import axios from 'axios';
-import { ipAPI,ipFotos } from '../../../../../../../link_config';
+import { ipAPI } from '../../../../../../../link_config';
 import {Modal} from 'react-bootstrap';
 import SubTitulos from '../../../Modal/Componentes/SubTitulos'
 import Infos from '../../../Modal/Componentes/Infos';

@@ -4,9 +4,9 @@ import img from '../../../img/bolo.jpg'
 import { Link, browserHistory } from 'react-router';
 import { ipAPI, ipFotos } from '../../../link_config';
 import axios from 'axios';
-import { Card, Accordion, Button } from 'react-bootstrap'
+import { Accordion, Button } from 'react-bootstrap'
 import './menu_adm_profissional.css'
-import $ from 'jquery';
+// import $ from 'jquery';
 
 class Menu extends Component {
 

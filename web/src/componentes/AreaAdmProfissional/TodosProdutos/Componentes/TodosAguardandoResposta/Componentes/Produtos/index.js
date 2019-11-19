@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import {BotaoTodosProdutos} from '../../../../../global/BotaoTodosProdutos'
 import axios from 'axios';
-import { ipAPI,ipFotos } from '../../../../../../../link_config';
+import { ipAPI } from '../../../../../../../link_config';
 import {Modal} from 'react-bootstrap';
 import SubTitulos from '../../../Modal/Componentes/SubTitulos'
 import Infos from '../../../Modal/Componentes/Infos';
 import '../../../Modal/Componentes/Css/modal.css';
 import Voltar from '../../../Img/Voltar.png';
 import { Link } from 'react-router';
+import $ from 'jquery'
 
 export default class Produtos extends Component{
 
@@ -78,6 +79,24 @@ export default class Produtos extends Component{
        
    }
 
+   aceitarRecusar = (resposta, codPedido) =>{
+
+    $.ajax({
+        url: `${ipAPI}pedido/aprovacao/`+codPedido,
+        contentType: "application/json",
+        headers:{'Authorization':sessionStorage.getItem('auth')},
+        type: "put",
+        data: resposta,
+        success: function (resposta) {
+            console.log(resposta);
+            this.trazerPedidos();
+            
+       }.bind(this)
+
+    });
+
+}
+
     render(){
         return(
         <div className="mb-5 mt-3 mb-3">
@@ -96,8 +115,8 @@ export default class Produtos extends Component{
                             <p className="texto_produto text-center">Preço: R${produto.valorTotal}</p>
 
                             <BotaoTodosProdutos id="Detalhes" tipo="button" classe="btn btn-primary btn_detalhes" onClick={() => this.detalhes(produto.codPedido)}></BotaoTodosProdutos>
-                            <BotaoTodosProdutos id="Aceitar" tipo="button" classe="btn btn-success m-1" onClick={() => this.aceitarRecusar("Aceitar")}></BotaoTodosProdutos>
-                            <BotaoTodosProdutos id="Recusar" tipo="button" classe="btn btn-danger m-1" onClick={() => this.aceitarRecusar("Recusar")}></BotaoTodosProdutos>
+                            <BotaoTodosProdutos id="Aceitar" tipo="button" classe="btn btn-success m-1" onClick={() => this.aceitarRecusar("A", produto.codPedido)}></BotaoTodosProdutos>
+                            <BotaoTodosProdutos id="Recusar" tipo="button" classe="btn btn-danger m-1" onClick={() => this.aceitarRecusar("R", produto.codPedido)}></BotaoTodosProdutos>
                         </div>
                     </div>
                 </div>

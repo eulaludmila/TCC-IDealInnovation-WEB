@@ -8,6 +8,7 @@ import SubTitulos from '../Modal/Componentes/SubTitulos'
 import Infos from '../Modal/Componentes/Infos';
 import '../Modal/Componentes/Css/modal.css';
 import {CarregandoMaior} from '../../../../Carregamento'
+import $ from 'jquery';
 
 export default class AguardandoResposta extends Component{
 
@@ -22,8 +23,13 @@ export default class AguardandoResposta extends Component{
     }
 
     
-
     componentDidMount(){
+        this.trazerPedidos()
+        
+    }
+
+
+    trazerPedidos = ()=>{
         this.setState({loading:true})
         axios.get(`${ipAPI}pedido/aguarde/limit/${this.props.codConfeiteiro}`, {headers:{'Authorization':sessionStorage.getItem('auth')}})
         .then(resposta => {
@@ -32,7 +38,6 @@ export default class AguardandoResposta extends Component{
             this.setState({loading:false})
             this.setState({listaProdutos: produtos});
         })
-        
     }
 
     detalhes = (codProduto) =>{
@@ -85,6 +90,24 @@ export default class AguardandoResposta extends Component{
 
     }
 
+    aceitarRecusar = (resposta, codPedido) =>{
+
+        $.ajax({
+            url: `${ipAPI}pedido/aprovacao/`+codPedido,
+            contentType: "application/json",
+            headers:{'Authorization':sessionStorage.getItem('auth')},
+            type: "put",
+            data: resposta,
+            success: function (resposta) {
+                console.log(resposta);
+                this.trazerPedidos();
+                
+           }.bind(this)
+
+        });
+
+    }
+
     render(){
         return(
             <div className="mb-5">
@@ -103,8 +126,8 @@ export default class AguardandoResposta extends Component{
                                 <p className="texto_produto text-center">Preço: R${produto.valorTotal}</p>
 
                                 <BotaoTodosProdutos id="Detalhes" tipo="button" classe="btn btn-primary m-1" onClick={() => this.detalhes(produto.codPedido)}></BotaoTodosProdutos>
-                                <BotaoTodosProdutos id="Aceitar" tipo="button" classe="btn btn-success m-1" onClick={() => this.aceitarRecusar("Aceitar")}></BotaoTodosProdutos>
-                                <BotaoTodosProdutos id="Recusar" tipo="button" classe="btn btn-danger m-1" onClick={() => this.aceitarRecusar("Recusar")}></BotaoTodosProdutos>
+                                <BotaoTodosProdutos id="Aceitar" tipo="button" classe="btn btn-success m-1" onClick={() => this.aceitarRecusar("A", produto.codPedido)}></BotaoTodosProdutos>
+                                <BotaoTodosProdutos id="Recusar" tipo="button" classe="btn btn-danger m-1" onClick={() => this.aceitarRecusar("R",produto.codPedido)}></BotaoTodosProdutos>
                             </div>
                         </div>
                     </div>

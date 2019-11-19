@@ -5,7 +5,6 @@ import Capa from '../CapaPerfil/ImgCapa/sobremesas.jpg';
 import CardConfeiteiro from '../CardConfeiteiro';
 import TituloMelhoresAvaliados from './Componentes/TituloMelhoresAvaliados';
 import Produtos from './Componentes/Produtos';
-import { Footer } from '../../Footer';
 
 export default class MelhoresAvaliados extends Component{
 

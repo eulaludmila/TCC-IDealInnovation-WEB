@@ -40,7 +40,7 @@ export class Confeiteiro extends Component{
     render(){
         return(
             <div className="container bolo" id={this.props.id}>
-                <div className="titulo mx-auto">
+                <div className="titulo_home mx-auto">
                     <h1>{this.props.titulo}</h1>
                     <hr className="linha-separa"></hr>
                 </div>
