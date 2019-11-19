@@ -4,7 +4,7 @@ import editar from '../../../img/edit.png'
 import salvar from '../../../img/correct.png'
 import InputLabel from '../InputLabel'
 import axios from 'axios'
-import $ from 'jquery'
+// import $ from 'jquery'
 import { ipAPI, ipFotos } from '../../../link_config'
 import { CarregandoMaior } from '../../Carregamento'
 
@@ -20,24 +20,29 @@ export class Perfil extends Component {
 
     }
     setNome = (evento) =>{
-        console.log(evento.target.value)
+    
         this.setNome({nome:evento.target.value})
 
     }
 
     componentDidMount() {
-        console.log(this.props.codCliente)
+     
 
         axios.get(`${ipAPI}cliente/` + this.props.codCliente, { headers: { 'Authorization': sessionStorage.getItem('authC') } })
             .then(resposta => {
-                console.log(resposta)
+         
                 const dados = resposta.data;
                 this.setState({ nome: dados.nome })
                 this.setState({ sobrenome: dados.sobrenome })
                 this.setState({ celular: dados.celular.celular })
                 this.setState({ dtnasc: dados.dtNasc })
                 this.setState({ sexo: dados.sexo })
-                this.setState({ imgFoto: dados.foto })
+
+                if(dados.foto === null){
+                    this.setState({ imgFoto: editar })
+                }else{
+                    this.setState({ imgFoto: ipFotos + dados.foto })
+                }
 
                 // this.verificaEndereco()
                 this.endereco()
@@ -116,11 +121,11 @@ export class Perfil extends Component {
                         <Col xs={12} md={12} className="mb-4 text-right">
                             <span onClick={() => this.editar(this.state.alt_dados)}><img src={this.state.imagem_dados} className="tamanho-editar" alt={this.state.alt} title={this.state.alt}></img></span>
                         </Col>
-                        <Col xs={3} md={3}>
-                            <img src={ipFotos + this.state.imgFoto} alt="" title="" style={{ 'width': '100%', 'height': '180px' }} ></img>
+                        <Col xs={9} md={9} sm={9} xl={3} lg={3}>
+                            <img src={this.state.imgFoto} alt="" title="" style={{ 'width': '100%', 'height': '180px' }} ></img>
                             <input className="input-file" type="file" disabled={this.state.editar_dados} onChange={this.setFoto} name={this.props.name} />
                         </Col>
-                        <Col xs={9} md={9}>
+                        <Col xs={12} md={12} sm={12} xl={9} lg={9}>
                             <Row className="show-grid">
                                 <Form.Group as={Col} md="6">
                                     <InputLabel label="Nome:" onChange={this.setNome} type="text" name="txt-nome" disabled={this.state.editar_dados}></InputLabel>

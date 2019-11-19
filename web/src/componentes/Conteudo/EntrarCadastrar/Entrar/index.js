@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import '../css/entrarCadastrar.css';
 import { Link } from 'react-router';
-import {Footer} from '../../Footer'
 // import GridAreaClienteProfissional from '../GridAreaClienteProfissional';
 
 class Entrar extends Component{

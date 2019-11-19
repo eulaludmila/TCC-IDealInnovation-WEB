@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import '../../css/style.css';
 import './css/header.css';
 import './js/index';
-import abrirMenu from '../../img/menu_mobile.jpg';
-import fecharMenu from '../../img/fechar_menu.jpg';
+// import abrirMenu from '../../img/menu_mobile.jpg';
+// import fecharMenu from '../../img/fechar_menu.jpg';
 import { Link, browserHistory } from 'react-router';
-import $ from 'jquery';
-import { DropdownButton, Dropdown, Nav, NavDropdown, Form, Navbar, Button, FormControl } from 'react-bootstrap'
+// import $ from 'jquery';
+import { DropdownButton, Dropdown, Nav, Navbar } from 'react-bootstrap'
 import decode from 'jwt-decode'
 
 
@@ -52,7 +52,7 @@ export class Header extends Component {
         // </NavDropdown>
         dropdown =
             <DropdownButton variant='Primary' className="entrar_header btn_header" id="dropdown-basic-button" title="Eu">
-                <Dropdown.Item><Link to={"/cliente/" + cod.codUsuario}>Configurações</Link></Dropdown.Item>
+                {/* <Dropdown.Item><div><Link to={"/cliente/" + cod.codUsuario}>Configurações</Link></div></Dropdown.Item> */}
                 <Dropdown.Divider />
                 <Dropdown.Item onClick={this.logout}>Sair</Dropdown.Item>
             </DropdownButton>

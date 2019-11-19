@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { SliderHome } from './componentes/SliderHome';
 import { Produto } from './componentes/ConteudoProduto';
 import { ContainerImagem } from './componentes/ContainerImagem';
-import { Footer } from '../Footer';
 import '../../../css/bootstrap.min.css';
 import { Confeiteiro } from './componentes/Confeiteiros';
 

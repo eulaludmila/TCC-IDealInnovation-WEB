@@ -59,7 +59,7 @@ export class Confeiteiros extends Component{
     setPesquisa = (evento) => {
         this.setState({pesquisa: evento.target.value});
 
-        if(evento.target.value == ""){
+        if(evento.target.value === ""){
             this.listarProdutos(this.state.itemClicado)
         }
        
@@ -109,17 +109,16 @@ export class Confeiteiros extends Component{
                         </ul>
 
                     </div>
-                    <hr></hr>
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-sm"> </div>
-                            <div className="input-group pesquisa">
+                    <hr className="linha-separa"></hr>
+
+                    <div className="container caixa-pesquisa">
+                        <div className="row ">
+                            <div className="input-group pesquisa center">
                                 <input type="text"  className="form-control border-0 flexdatalist-alias flex0 input-pesquisa" id="pesquisa" onChange={this.setPesquisa} placeholder="Pesquisa por um confeiteiro ..."/>
                                 <div className="input-group-append">
                                     <button className="btn btn-pesquisa btn-sm px-3 border-0" type="submit" onClick={() => this.pesquisar(this.state.pesquisa)}></button>
                                 </div>
                             </div>
-                            <div className="col-sm"> </div>
                         </div>
                     </div>
                 </div>

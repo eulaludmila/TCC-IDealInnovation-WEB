@@ -49,7 +49,7 @@ class Produtos extends Component{
     setPesquisa = (evento) => {
         this.setState({pesquisa: evento.target.value});
 
-        if(evento.target.value == ""){
+        if(evento.target.value === ""){
             this.listarProdutos(this.state.itemClicado)
         }
        

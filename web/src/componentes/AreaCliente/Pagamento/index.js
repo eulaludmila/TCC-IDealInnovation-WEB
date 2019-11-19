@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import {Row, Col, Button} from 'react-bootstrap'
 import axios from 'axios'
-import { ipAPI, ipFotos } from '../../../link_config'
+import { ipAPI } from '../../../link_config'
 import {CarregandoMaior} from '../../Carregamento'
 
 export class PagamentoCliente extends Component{
 
     constructor(props){
         super(props)
-        this.state={listaPedidos:[],loading:false}
+        this.state={listaPedidos:[],loading:false, showConfirm:false, hora:'', data:'', valorTotal:'', pagamento:'', listaItens:[]}
     }
     componentDidMount(){
         this.setState({loading:true})
@@ -19,13 +19,63 @@ export class PagamentoCliente extends Component{
         axios.get(`${ipAPI}pedido/cliente/pagamento/` + this.props.codCliente, { headers: { 'Authorization': sessionStorage.getItem('authC') } })
             .then(resposta => {
                 const dados = resposta.data;
-                console.log(dados)
                this.setState({listaPedidos:dados})
-console.log("fgfgfgf")
     this.setState({loading:false})
 
             }).catch((err) => { console.log("AXIOS ERROR: ", err); })
     }
+
+    detalhes = (codProduto) =>{
+        var config = {
+            headers: {'Authorization':sessionStorage.getItem('authC')}
+        };
+
+        axios.get(ipAPI + "pedido/" + codProduto, config)
+        .then(resposta => {
+            this.setState({listaItens: resposta.data});
+            this.setState({data:this.formataData(this.state.listaItens[0].pedido.dataEntrega)})
+            this.setState({hora:this.formataHora(this.state.listaItens[0].pedido.dataEntrega)})
+            this.setState({valorTotal:this.state.listaItens[0].pedido.valorTotal})
+            this.setState({pagamento:this.state.listaItens[0].pedido.tipoPagamento})
+            this.setState({showConfirm:true});
+        }) 
+    }
+    close=()=>{
+        this.setState({showConfirm:false});
+    }
+
+    formataHora =(horas)=>{
+        var horasEntrega = new Date(horas);
+
+       if(horasEntrega.getHours().toLocaleString() === '0' & horasEntrega.getMinutes().toLocaleString() === '0'){
+           return '00:00'
+
+       }else if(horasEntrega.getHours().toLocaleString() === '0' & horasEntrega.getMinutes().toLocaleString() !== '0'){
+           return '00:' + horasEntrega.getMinutes().toLocaleString()
+
+       }else if(horasEntrega.getHours().toLocaleString() !== '0' & horasEntrega.getMinutes().toLocaleString() === '0'){
+           return horasEntrega + ":00"
+
+       }else{
+
+           return horasEntrega.getHours().toLocaleString() + ":" + horasEntrega.getMinutes().toLocaleString()
+           
+       }
+
+   }
+
+   formataData = (data) => {
+
+       var dataEntrega = new Date(data);
+       var ano = dataEntrega.getFullYear().toLocaleString().split(".");
+       var dia = dataEntrega.getDate().toLocaleString();
+       var mes = dataEntrega.getMonth().toLocaleString();
+
+       return dia + "/" + mes + "/" + ano[0] + ano[1]
+       
+
+   }
+
 
 
     render(){
@@ -74,7 +124,7 @@ console.log("fgfgfgf")
                                          <Row className="show-grid">
                                              
                                              <Col xs={12} md={12} sm={12} lg={2} className="center">
-                                             <Button className="btn btn-outline-entrar btn-pedido">Detalhes</Button>
+                                             <Button className="btn btn-outline-entrar btn-pedido" onClick={() => this.detalhes(pedidos[0].codPedido)}>Detalhes</Button>
                                              </Col>
                                              
                                          </Row>
