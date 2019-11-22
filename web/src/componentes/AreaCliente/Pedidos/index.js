@@ -104,11 +104,41 @@ export class PedidosCliente extends Component{
                             <Col xl={12} xs={12} md={12} sm={12} lg={12} className='text-center mb-2'>
                                 Tipo de pagamento: {pedidos[0].tipoPagamento === "B" ? "Boleto" : "Crédito"}
                             </Col>
-                            <Col xl={12} xs={12} md={12} sm={12} lg={10}>
+                            <Col xl={12} xs={12} md={12} sm={12} lg={12}>
+                                 <Row className="show-grid">
+                                     <Col xs={12} xl={12} md={10} sm={9} lg={9} className="mb-3">
+                                         <Row className="show-grid col">
+                                             <Col xl={12} xs={12} md={12} className="pedido_confeiteiro">
+                                                 Confeiteiro(a): {pedidos[1].confeiteiro.nome}HGHGHGHHHHHHHHHHHHHHHHHHHHHHHHHH
+                                             </Col>
+                                             <Col xl={12} xs={12} md={12}>
+                                                 Data do pedido: {pedidos[0].dataSolicitacao}
+                                             </Col>
+                                             <Col xl={12} xs={12} md={12}>
+                                                 {/* Obs.: pedidos[0].observacao */}
+                                                 Data da entrega: {pedidos[0].dataEntrega}
+                                             </Col>
+                                             <Col xl={12} xs={12} md={12}>
+                                                 R${pedidos[0].valorTotal}
+                                             </Col>
+                                         </Row>
+                                     </Col>
+                                     <Col xl={12} xs={12} md={2} sm={2} lg={2}>
+                                         <Row className="show-grid">
+                                             
+                                             <Col xs={12} md={12} sm={12} lg={2} className="center">
+                                             <Button className="btn btn-outline-entrar btn-pedido" onClick={() => this.detalhes(pedidos[0].codPedido)}>Detalhes</Button>
+                                             </Col>
+                                             
+                                         </Row>
+                                     </Col>
+                                 </Row>
+                             </Col>
+                            {/* <Col xl={12} xs={12} md={12} sm={12} lg={10}>
                                 <Row className="show-grid">
-                                    <Col xs={12} xl={12} md={10} sm={9} lg={9} className="mb-3">
+                                    <Col xs={12} xl={12} md={10} sm={9} lg={12} className="mb-3">
                                         <Row className="show-grid col">
-                                            <Col xl={12} xs={12} md={12}>
+                                            <Col xl={12} xs={12} md={12} lg={12} className="pedido_confeiteiro">
                                                 Confeiteiro(a): {pedidos[1].confeiteiro.nome}HGHGHGHHHHHHHHHHHHHHHHHHHHHHHHHH
                                             </Col>
                                             <Col xl={12} xs={12} md={12}>
@@ -116,7 +146,7 @@ export class PedidosCliente extends Component{
                                             </Col>
                                             <Col xl={12} xs={12} md={12}>
                                                 {/* Obs.: pedidos[0].observacao */}
-                                                Data da entrega: {pedidos[0].dataEntrega}
+                                                {/* Data da entrega: {pedidos[0].dataEntrega}
                                             </Col>
                                             <Col xl={12} xs={12} md={12}>
                                                 R${pedidos[0].valorTotal}
@@ -132,8 +162,8 @@ export class PedidosCliente extends Component{
                                             
                                         </Row>
                                     </Col>
-                                </Row>
-                            </Col>
+                                </Row> */}
+                            {/* </Col> */} 
                         </Row>
                     </Col>
                 </Row>

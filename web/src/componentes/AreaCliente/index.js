@@ -6,6 +6,7 @@ import {Perfil} from './Perfil'
 import {browserHistory} from 'react-router'
 import {PedidosAndamento} from './Andamento'
 import {PagamentoCliente} from './Pagamento'
+import {EnderecoCliente} from './Endereco'
 
 export class AreaCliente extends Component{
 
@@ -27,10 +28,13 @@ export class AreaCliente extends Component{
         return(
             <div className="container tab">
                 <div className="caixa-area-cliente">
-                    <Tabs defaultActiveKey="Meu Perfil" onSelect={this.selecionado}  transition={false} id="noanim-tab-example">
-                        <Tab eventKey="Meu Perfil" title="Meu Perfil" >
+                    <Tabs defaultActiveKey="Dados Pessoais" onSelect={this.selecionado}  transition={false} id="noanim-tab-example">
+                        <Tab eventKey="Dados Pessoais" title="Dados Pessoais" >
                             <Perfil codCliente={this.props.params.codCliente}></Perfil>
 
+                        </Tab>
+                        <Tab eventKey="Endereco" title="Endereco">
+                            <EnderecoCliente codCliente={this.props.params.codCliente}></EnderecoCliente>
                         </Tab>
                         <Tab eventKey="Pedidos Realizados" title="Pedidos Realizados">
                         <PedidosCliente codCliente={this.props.params.codCliente}></PedidosCliente>
@@ -42,6 +46,8 @@ export class AreaCliente extends Component{
                         <Tab eventKey="Pagamento" title="Pagamento">
                             <PagamentoCliente codCliente={this.props.params.codCliente}></PagamentoCliente>
                         </Tab>
+
+                        
                     </Tabs>
                 </div>
                 

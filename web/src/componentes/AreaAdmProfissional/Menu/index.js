@@ -143,7 +143,7 @@ class Menu extends Component {
                                 <div className="info">Todos os Pedidos</div>
                             </Accordion.Collapse></Link>
                             <Link to={"/adm/profissional/pedidos_aprovados/" + this.props.codConfeiteiro}><Accordion.Collapse eventKey="2" className="itens">
-                                <div className="info">Pedidos Aprovados</div>
+                                <div className="info">Pedidos em Produção</div>
                             </Accordion.Collapse></Link>
                         </div>
                         <div >

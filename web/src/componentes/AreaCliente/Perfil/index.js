@@ -7,35 +7,70 @@ import axios from 'axios'
 // import $ from 'jquery'
 import { ipAPI, ipFotos } from '../../../link_config'
 import { CarregandoMaior } from '../../Carregamento'
+import $ from 'jquery'
 
 export class Perfil extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            editar_dados: 'disabled', imagem_dados: editar, alt_dados: "Editar",editar_endereco: 'disabled', imagem_endereco: editar, alt_endereco: "Editar", nome:'', sobrenome:'',
-            celular:'', dtnasc:'', cep:'', endereco:'',
-            bairro:'', numero:'', complemento:'', cidade:'', estado:'', sexo:'', imgFoto:''
+            editar_dados: 'disabled', imagem_dados: editar, alt_dados: "Editar", nome:'', sobrenome:'',
+            celular:'', dtnasc:'',email:'',senha:'', sexo:'', imgFoto:''
         }
 
     }
     setNome = (evento) =>{
     
-        this.setNome({nome:evento.target.value})
+        this.setState({nome:evento.target.value})
+
+    }
+
+    setSobrenome = (evento) =>{
+    
+        this.setState({sobrenome:evento.target.value})
+
+    }
+
+    setCelular = (evento) =>{
+    
+        this.setState({celular:evento.target.value})
+        $("#celular").mask("(00) 00000-0000");
+    }
+
+    setDtNasc = (evento) =>{
+    
+        this.setState({dtnasc:evento.target.value})
+        $("#dtNasc").mask("00/00/0000");
+    }
+
+    setSexo = (evento) =>{
+    
+        this.setState({sexo:evento.target.value})
+
+    }
+
+    setEmail = (evento) =>{
+    
+        this.setState({email:evento.target.value})
+
+    }
+
+    setSenha = (evento) =>{
+    
+        this.setState({sexo:evento.target.value})
 
     }
 
     componentDidMount() {
-     
 
         axios.get(`${ipAPI}cliente/` + this.props.codCliente, { headers: { 'Authorization': sessionStorage.getItem('authC') } })
             .then(resposta => {
-         
                 const dados = resposta.data;
+                console.log(dados)
                 this.setState({ nome: dados.nome })
                 this.setState({ sobrenome: dados.sobrenome })
                 this.setState({ celular: dados.celular.celular })
-                this.setState({ dtnasc: dados.dtNasc })
+                this.setState({ dtnasc: this.formataData(dados.dtNasc)  })
                 this.setState({ sexo: dados.sexo })
 
                 if(dados.foto === null){
@@ -44,44 +79,31 @@ export class Perfil extends Component {
                     this.setState({ imgFoto: ipFotos + dados.foto })
                 }
 
-                // this.verificaEndereco()
-                this.endereco()
-
-            }).catch((err) => { console.log("AXIOS ERROR: ", err); })
-    }
-
-
-    verificaEndereco = () =>{
-
-        axios.get(`${ipAPI}enderecocliente/endereco/verifica/cliente/` + this.props.codCliente, { headers: { 'Authorization': sessionStorage.getItem('authC') } })
-            .then(resposta => {
-                const dados = resposta.data;
                 
-               if(dados === 1){
-                    this.atualizaEndereco();
-               }else{
-                    this.cadastraEndereco();
-               }
 
             }).catch((err) => { console.log("AXIOS ERROR: ", err); })
-
     }
 
-    endereco=()=>{
-        axios.get(`${ipAPI}enderecocliente/endereco/cliente/` + this.props.codCliente, { headers: { 'Authorization': sessionStorage.getItem('authC') } })
-            .then(resposta => {
-                const dados = resposta.data;
-               console.log(dados)
-               if(dados !== ""){
-                    this.setState({ endereco: dados.endereco })
-                    this.setState({ cidade: dados.endereco.cidade.cidade })
-                    this.setState({ estado: dados.endereco.cidade.estado.uf })
-                    this.setState({ cep: dados.cep })
-                    this.setState({ numero: dados.numero })
-                    this.setState({ bairro: dados.bairro})
-               }
+    atualizarDados = () =>{
 
-            }).catch((err) => { console.log("AXIOS ERROR: ", err); })
+        const resposta = JSON.stringify({codCliente:this.props.codCliente,nome:this.state.nome, sobrenome:this.state.sobrenome,
+                        celular:{celular:this.state.celular},dtNasc:this.state.dtnasc,
+                        sexo:this.state.sexo, email:this.state.email,
+                        senha:this.state.senha})
+
+
+        $.ajax({
+            url: `${ipAPI}clienteDTO/`+this.props.codCliente,
+            contentType: "application/json",
+            headers:{'Authorization':sessionStorage.getItem('authC')},
+            type: "put",
+            data: resposta,
+            success: function (resposta) {
+                console.log(resposta);
+                
+           }
+
+        });
     }
 
     editar = (alt) => {
@@ -90,7 +112,9 @@ export class Perfil extends Component {
             this.setState({ editar_dados: '' })
             this.setState({ imagem_dados: salvar })
             this.setState({ alt_dados: "Salvar" })
+            
         } else {
+            this.atualizarDados();
             this.setState({ editar_dados: 'disabled' })
             this.setState({ imagem_dados: editar })
             this.setState({ alt_dados: "Editar" })
@@ -98,19 +122,18 @@ export class Perfil extends Component {
 
     }
 
-    editarEndereco = (alt) => {
+    formataData = (data) => {
 
-        if (alt === "Editar") {
-            this.setState({ editar_endereco: '' })
-            this.setState({ imagem_endereco: salvar })
-            this.setState({ alt_endereco: "Salvar" })
-        } else {
-            this.setState({ editar_endereco: 'disabled' })
-            this.setState({ imagem_endereco: editar })
-            this.setState({ alt_endereco: "Editar" })
-        }
+        var dataEntrega = new Date(data);
+        var ano = dataEntrega.getFullYear().toLocaleString();
+        var dia = dataEntrega.getDate()+1
+        var mes = dataEntrega.getMonth()+1
+
+        return dia + "/" + mes + "/" + ano
 
     }
+
+    
     render() {
         return (
             <div>
@@ -121,37 +144,37 @@ export class Perfil extends Component {
                         <Col xs={12} md={12} className="mb-4 text-right">
                             <span onClick={() => this.editar(this.state.alt_dados)}><img src={this.state.imagem_dados} className="tamanho-editar" alt={this.state.alt} title={this.state.alt}></img></span>
                         </Col>
-                        <Col xs={9} md={9} sm={9} xl={3} lg={3}>
+                        <Col xs={9} md={9} sm={9} xl={3} lg={3} className="center mb-5">
                             <img src={this.state.imgFoto} alt="" title="" style={{ 'width': '100%', 'height': '180px' }} ></img>
                             <input className="input-file" type="file" disabled={this.state.editar_dados} onChange={this.setFoto} name={this.props.name} />
                         </Col>
-                        <Col xs={12} md={12} sm={12} xl={9} lg={9}>
+                        <Col xs={12} md={12} sm={12} xl={12} lg={12}>
                             <Row className="show-grid">
                                 <Form.Group as={Col} md="6">
-                                    <InputLabel label="Nome:" onChange={this.setNome} type="text" name="txt-nome" disabled={this.state.editar_dados}></InputLabel>
+                                    <InputLabel label="Nome:" onChange={this.setNome} value={this.state.nome} type="text" name="txt-nome" disabled={this.state.editar_dados}></InputLabel>
 
                                 </Form.Group>
                                 <Form.Group as={Col} md="6">
-                                    <InputLabel label="Sobrenome:" type="text" value={this.state.sobrenome} name="txt-sobrenome" disabled={this.state.editar_dados}></InputLabel>
-                                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                    <InputLabel label="Sobrenome:" type="text" onChange={this.setSobrenome} value={this.state.sobrenome} name="txt-sobrenome" disabled={this.state.editar_dados}></InputLabel>
+                                  
                                 </Form.Group>
 
                             </Row>
                             <Row className="show-grid">
                                 <Form.Group as={Col} md="4">
-                                    <InputLabel label="Celular:" type="text" value={this.state.celular} name="txt-celular" disabled={this.state.editar_dados}></InputLabel>
-                                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                    <InputLabel id="celular" label="Celular:" type="text" onChange={this.setCelular} value={this.state.celular} name="txt-celular" disabled={this.state.editar_dados}></InputLabel>
+                                    
                                 </Form.Group>
                                 <Form.Group as={Col} md="4">
 
-                                    <InputLabel label="Data de Nascimento:" value={this.state.dtnasc} type="text" name="txt-data-nasc" disabled={this.state.editar_dados}></InputLabel>
+                                    <InputLabel label="Data de Nascimento:" id="dtNasc" onChange={this.setDtNasc} value={this.state.dtnasc} type="text" name="txt-data-nasc" disabled={this.state.editar_dados}></InputLabel>
 
-                                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                               
                                 </Form.Group>
                                 <Form.Group as={Col} md="4">
                                     <Form.Label>Sexo:</Form.Label>
 
-                                    <Form.Control as="select" value={this.state.sexo} name="slt-sexo" disabled={this.state.editar_dados}>
+                                    <Form.Control as="select" value={this.state.sexo} onChange={this.setSexo} name="slt-sexo" disabled={this.state.editar_dados}>
                                         <option>Selecione...</option>
                                         <option value="F">Feminino</option>
                                         <option value="M">Masculino</option>
@@ -171,7 +194,7 @@ export class Perfil extends Component {
                             <Row className="show-grid">
                                 <Form.Group as={Col} md="6">
 
-                                    <InputLabel label="Email:" type="email" name="txt-email" value={this.state.email} disabled={this.state.editar_dados}></InputLabel>
+                                    <InputLabel label="Email:" type="email" name="txt-email" onChange={this.setEmail} value={this.state.email} disabled={this.state.editar_dados}></InputLabel>
 
                                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                 </Form.Group>
@@ -183,7 +206,7 @@ export class Perfil extends Component {
                             </Row>
                             <Row className="show-grid">
                                 <Form.Group as={Col} md="6">
-                                    <InputLabel label="Senha:" type="password" name="txt-senha" value={this.state.senha} disabled={this.state.editar_dados}></InputLabel>
+                                    <InputLabel label="Senha:" type="password" name="txt-senha" onChange={this.setSenha} value={this.state.senha} disabled={this.state.editar_dados}></InputLabel>
 
                                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                 </Form.Group>
@@ -197,61 +220,7 @@ export class Perfil extends Component {
                     </Row>
                 </Form>
             </div>
-            <div className="caixa-perfil p-3 mt-4 center">
-                <Form>
-                    <Row className="show-grid area-pedidos pb-3 pr-3 pl-3">
-                        <Col xs={12} md={12} className="mb-4 text-right">
-                            <span onClick={() => this.editarEndereco(this.state.alt_endereco)}><img src={this.state.imagem_endereco} className="tamanho-editar" alt={this.state.alt_endereco} title={this.state.alt}></img></span>
-                        </Col>
-                        <Col xs={12} md={12}>
-                            <Row className="show-grid">
-                                <Form.Group as={Col} md="2">
-
-                                    <InputLabel label="CEP:" type="text" name="txt-cep" value={this.state.cep} disabled={this.state.editar_endereco}></InputLabel>
-
-                                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                </Form.Group>
-                                <Form.Group as={Col} md="5" >
-
-                                    <InputLabel label="Endereço:" type="text" name="txt-endereco" value={this.state.endereco} disabled={this.state.editar_endereco}></InputLabel>
-
-                                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                </Form.Group>
-                                <Form.Group as={Col} md="2">
-
-                                    <InputLabel label="Número:" type="text" name="txt-numero" value={this.state.numero} disabled={this.state.editar_endereco}></InputLabel>
-
-                                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                </Form.Group>
-                                <Form.Group as={Col} md="3">
-
-                                    <InputLabel label="Complemento:" type="text" name="txt-complemento" value={this.state.complemento} disabled={this.state.editar_endereco}></InputLabel>
-
-                                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                </Form.Group>
-
-                            </Row>
-                            <Row className="show-grid">
-                                <Form.Group as={Col} md="5">
-                                    <InputLabel label="Bairro:" type="text" name="txt-bairro" value={this.state.bairro} disabled={this.state.editar_endereco}></InputLabel>
-
-                                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                </Form.Group>
-                                <Form.Group as={Col} md="5">
-                                    <InputLabel label="Cidade:" type="text" name="txt-cidade" value={this.state.cidade} disabled={this.state.editar_endereco}></InputLabel>
-
-                                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                </Form.Group>
-                                <Form.Group as={Col} md="2">
-                                    <InputLabel label="UF:" type="text" name="txt-uf" value={this.state.estado} disabled={this.state.editar_endereco}></InputLabel>
-
-                                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                </Form.Group>
-                            </Row>
-                        </Col>
-                    </Row>
-                </Form>
-            </div>
+            
             </div>
         )
     }

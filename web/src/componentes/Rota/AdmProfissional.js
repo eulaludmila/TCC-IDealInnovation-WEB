@@ -27,6 +27,7 @@ class AdmProfissional extends Component {
 
  componentDidMount(){
    if(sessionStorage.getItem('auth') === null){
+     alert("Você ainda não está logado")
     browserHistory.push('/login/profissional')
    }
  }
