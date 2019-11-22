@@ -40,3 +40,252 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+@media only screen and (min-width: 1200px) {
+
+  .prod-conf-pag{
+    float: left !important;
+    margin-left: 1.4em;
+    margin-right: 1.4em;
+    z-index: 5;
+    
+  }
+  
+  }
+  
+  
+  @media screen and (min-width: 1101px) and (max-width: 1199px){
+  
+
+    .prod-conf-pag{
+      float: left !important;
+      margin-left: 2.3em;
+      margin-right: 2.3em;
+      z-index: 5;
+      background-color: aquamarine
+      
+    }
+  
+  }
+  
+  @media only screen and (min-width:992px) and (max-width:1100px){
+
+    .prod-conf-pag{
+      float: left !important;
+      margin-left: 2em;
+      margin-right: 2em;
+      z-index: 5;
+      
+    }
+  
+  }
+  
+  @media only screen and (min-width:768px) and (max-width:991px){
+   
+    .prod-conf-pag{
+      float: left !important;
+      margin-left: 2.5em;
+      margin-right: 2.5em;
+      z-index: 5;
+      
+    }
+ 
+  }
+  
+  @media only screen and (min-width:600px) and (max-width:767px){
+
+    .prod-conf-pag{
+      float: left !important;
+      margin-left: 0.5em;
+      margin-right: 0.5em;
+      z-index: 5;
+      
+    }
+  
+  }
+
+  @media screen and (min-device-width:557px) and (max-device-width:599px){
+
+    .prod-conf-pag{
+      float: left !important;
+      margin-left: 0.5em;
+      margin-right: 0.5em;
+      z-index: 5;
+      
+    }
+  
+
+  }
+  
+  @media screen and (min-device-width:536px) and (max-device-width:556px){
+
+    .prod-conf-pag{
+      float: left !important;
+      margin-left: 0.2em;
+      margin-right: 0.2em;
+      z-index: 5;
+      
+    }
+  
+
+  }
+  
+  @media screen and (min-device-width:530px) and (max-device-width:535px){
+
+    .prod-conf-pag{
+      float: left !important;
+      margin-left: 0.2em;
+      margin-right: 0.2em;
+      z-index: 5;
+      
+    }
+
+  }
+  
+  @media screen and (min-device-width:523px) and (max-device-width:529px) {
+
+    .prod-conf-pag{
+      float: left !important;
+      margin-left: 7em;
+      margin-right: 7em;
+      z-index: 5;
+      
+    }
+  
+
+  }
+  
+  @media screen and (min-device-width:517px) and (max-device-width:522px) {
+
+    .prod-conf-pag{
+      float: left !important;
+      margin-left: 7em;
+      margin-right: 7em;
+      z-index: 5;
+      
+    }
+  
+  }
+  
+  @media screen and (min-device-width:510px) and (max-device-width:516px) {
+
+    .prod-conf-pag{
+      float: left !important;
+      margin-left: 7em;
+      margin-right: 7em;
+      z-index: 5;
+      
+    }
+  
+  }
+  
+  @media screen and (min-device-width:450px) and (max-device-width:509px) {
+
+    .prod-conf-pag{
+      float: left !important;
+      margin-left: 6em;
+      margin-right: 6em;
+      z-index: 5;
+      
+    }
+
+  }
+
+  @media screen and (min-device-width:430px) and (max-device-width:449px) {
+
+    .prod-conf-pag{
+      float: left !important;
+      margin-left: 5em;
+      margin-right: 5em;
+      z-index: 5;
+      
+    }
+
+  }
+
+  @media screen and (min-device-width:410px) and (max-device-width:429px) {
+
+    .prod-conf-pag{
+      float: left !important;
+      margin-left: 4em;
+      margin-right: 4em;
+      z-index: 5;
+      
+    }
+
+  }
+
+  @media screen and (min-device-width:400px) and (max-device-width:409px) {
+
+    .prod-conf-pag{
+      float: left !important;
+      margin-left: 3.7em;
+      margin-right: 3.7em;
+      z-index: 5;
+      
+    }
+
+  }
+  
+  @media screen and (min-device-width:380px) and  (max-device-width:399px) {
+
+    .prod-conf-pag{
+      float: left !important;
+      margin-left: 3em;
+      margin-right: 3em;
+      z-index: 5;
+      
+    }
+  
+  }
+
+  @media screen and (min-device-width:360px) and  (max-device-width:379px) {
+
+    .prod-conf-pag{
+      float: left !important;
+      margin-left: 4em;
+      margin-right: 4em;
+      z-index: 5;
+      
+    }
+  
+  }
+  
+  @media screen and (min-device-width:340px) and  (max-device-width:359px) {
+   
+    .prod-conf-pag{
+      float: left !important;
+      margin-left: 3em;
+      margin-right: 3em;
+      z-index: 5;
+      
+    }
+  
+  }
+  
+  @media screen and (min-device-width:320px) and  (max-device-width:339px) {
+   
+   
+    .prod-conf-pag{
+      float: left !important;
+      margin-left: 2em;
+      margin-right: 2em;
+      z-index: 5;
+      
+    }
+  
+  }
+  
+  @media screen and (min-device-width:300px) and  (max-device-width:319px) {
+   
+   
+    .prod-conf-pag{
+      float: left !important;
+      margin-left: 1em;
+      margin-right: 1em;
+      z-index: 5;
+      
+    }
+  
+  }
+  

@@ -24,6 +24,11 @@ class CadastroEndereco extends Component{
         
         this.enviaFormEnderecoProfissional = this.enviaFormEnderecoProfissional.bind(this);
     }
+    componentDidMount(){
+        if(sessionStorage.getItem('endereco') === null){
+            this.voltar();
+        }
+    }
 
     //PEGAR O ONCHANGE DA FOTO
     setFoto = (evento) => {

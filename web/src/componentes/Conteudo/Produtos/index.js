@@ -114,7 +114,7 @@ class Produtos extends Component{
                 <CarregandoMaior loading={this.state.loading} message='carregando ...'></CarregandoMaior>
                 {this.state.listaPesquisa.map(produtos =>
                     <div key={produtos.codProduto}>
-                    <Link to={"/descricao/" + produtos.codProduto}><div className="card text-center prod-conf mb-5"  style={{'width': '14rem'}}>
+                    <Link to={"/descricao/" + produtos.codProduto}><div className="card text-center prod-conf-pag mb-5"  style={{'width': '14rem'}}>
                         <img className="card-img-top imagens-bolos" src={ipFotos+produtos.foto} alt={produtos.nomeProduto}/>
                         <div className="card-body">
                         <h5 className="card-title nome-bolo-adm ">{produtos.nomeProduto}</h5>
@@ -130,7 +130,7 @@ class Produtos extends Component{
 
                 {this.state.listaProdutos.map(produtos =>
                     <div key={produtos.codProduto}>
-                    <Link to={"/descricao/" + produtos.codProduto}><div className="card text-center prod-conf mb-5"  style={{'width': '14rem'}}>
+                    <Link to={"/descricao/" + produtos.codProduto}><div className="card text-center prod-conf-pag mb-5"  style={{'width': '14rem'}}>
                         <img className="card-img-top imagens-bolos" src={ipFotos+produtos.foto} alt={produtos.nomeProduto}/>
                         <div className="card-body">
                         <h5 className="card-title nome-bolo-adm">{produtos.nomeProduto}</h5>
