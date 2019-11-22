@@ -31,6 +31,8 @@ class CadastroEndereco extends Component{
                 cep:dados.cep,
                 estado:dados.cidade.estado.uf,
                 cidade:dados.cidade.cidade});
+        }else if(sessionStorage.getItem('dados') == null){
+            this.voltar();
         }
 
         sessionStorage.removeItem('endereco')
