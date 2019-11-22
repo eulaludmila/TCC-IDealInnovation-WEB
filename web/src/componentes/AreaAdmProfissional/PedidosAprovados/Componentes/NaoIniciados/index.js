@@ -1,37 +1,41 @@
 import React, {Component} from 'react';
-import {BotaoTodosProdutos} from '../../../global/BotaoTodosProdutos';
-import { Link} from 'react-router';
+import {BotaoTodosProdutos} from '../../../global/BotaoTodosProdutos'
+import { Link, browserHistory } from 'react-router';
 import axios from 'axios';
-import { ipAPI} from '../../../../../link_config';
+import { ipAPI } from '../../../../../link_config';
 import {Modal} from 'react-bootstrap';
 import SubTitulos from '../Modal/Componentes/SubTitulos'
 import Infos from '../Modal/Componentes/Infos';
 import '../Modal/Componentes/Css/modal.css';
+import {CarregandoMaior} from '../../../../Carregamento'
+import $ from 'jquery';
 
-export default class Aprovados extends Component{
+export default class AguardandoResposta extends Component{
 
     constructor(props){
         super(props);
-        this.state={showConfirm:false, show:'', onHide:'', listaProdutos:[], listaItens:[]};
+
+        this.state={showConfirm:false, show:'',loading:false, onHide:'', listaProdutos:[], listaItens:[], hora:'',data:'', valorTotal:'', pagamento:'', obs:''};
     }
 
     close=()=>{
         this.setState({showConfirm:false});
     }
 
-    open=()=>{
-        this.setState({showConfirm:true});
-    }
-
+    
     componentDidMount(){
+        this.trazerPedidos()
         
-        this.trazerAprovados();
     }
 
-    trazerAprovados = () =>{
-        axios.get(`${ipAPI}pedido/aprovado/limit/${this.props.codConfeiteiro}`, {headers:{'Authorization':sessionStorage.getItem('auth')}})
+
+    trazerPedidos = ()=>{
+        this.setState({loading:true})
+        axios.get(`${ipAPI}pedido/aguarde/limit/${this.props.codConfeiteiro}`, {headers:{'Authorization':sessionStorage.getItem('auth')}})
         .then(resposta => {
             const produtos = resposta.data;
+            console.log(produtos)
+            this.setState({loading:false})
             this.setState({listaProdutos: produtos});
         })
     }
@@ -48,67 +52,88 @@ export default class Aprovados extends Component{
             this.setState({hora:this.formataHora(this.state.listaItens[0].pedido.dataEntrega)})
             this.setState({valorTotal:this.state.listaItens[0].pedido.valorTotal})
             this.setState({pagamento:this.state.listaItens[0].pedido.tipoPagamento})
+            this.setState({obs:this.state.listaItens[0].pedido.obs})
             this.setState({showConfirm:true});
         }) 
     }
 
+
     formataHora =(horas)=>{
-        var horasEntrega = new Date(horas);
+         var horasEntrega = new Date(horas);
 
-       if(horasEntrega.getHours().toLocaleString() === '0' & horasEntrega.getMinutes().toLocaleString() === '0'){
-           return '00:00'
+        if(horasEntrega.getHours().toLocaleString() === '0' & horasEntrega.getMinutes().toLocaleString() === '0'){
+            return '00:00'
 
-       }else if(horasEntrega.getHours().toLocaleString() === '0' & horasEntrega.getMinutes().toLocaleString() !== '0'){
-           return '00:' + horasEntrega.getMinutes().toLocaleString()
+        }else if(horasEntrega.getHours().toLocaleString() === '0' & horasEntrega.getMinutes().toLocaleString() !== '0'){
+            return '00:' + horasEntrega.getMinutes().toLocaleString()
 
-       }else if(horasEntrega.getHours().toLocaleString() !== '0' & horasEntrega.getMinutes().toLocaleString() === '0'){
-           return horasEntrega + ":00"
+        }else if(horasEntrega.getHours().toLocaleString() !== '0' & horasEntrega.getMinutes().toLocaleString() === '0'){
+            return horasEntrega + ":00"
 
-       }else{
+        }else{
 
-           return horasEntrega.getHours().toLocaleString() + ":" + horasEntrega.getMinutes().toLocaleString()
-           
-       }
+            return horasEntrega.getHours().toLocaleString() + ":" + horasEntrega.getMinutes().toLocaleString()
+            
+        }
 
-   }
+    }
 
-   formataData = (data) => {
+    formataData = (data) => {
 
-       var dataEntrega = new Date(data);
-       var ano = dataEntrega.getFullYear().toLocaleString().split(".");
-       var dia = dataEntrega.getDate().toLocaleString();
-       var mes = dataEntrega.getMonth().toLocaleString();
+        var dataEntrega = new Date(data);
+        var ano = dataEntrega.getFullYear().toLocaleString().split(".");
+        var dia = dataEntrega.getDate().toLocaleString();
+        var mes = dataEntrega.getMonth().toLocaleString();
 
-       return dia + "/" + mes + "/" + ano[0] + ano[1]
-       
+        return dia + "/" + mes + "/" + ano[0] + ano[1]
+        
 
-   }
+    }
+
+    aceitarRecusar = (resposta, codPedido) =>{
+
+        $.ajax({
+            url: `${ipAPI}pedido/aprovacao/`+codPedido,
+            contentType: "application/json",
+            headers:{'Authorization':sessionStorage.getItem('auth')},
+            type: "put",
+            data: resposta,
+            success: function (resposta) {
+                console.log(resposta);
+                this.setState({listaProdutos:[]})
+                browserHistory.push("/adm/profissional/todos_produtos/" + this.props.codConfeiteiro)
+                // return <Redirect to={"/adm/profissional/todos_produtos/" + this.props.codConfeiteiro}/>
+           }.bind(this)
+
+        });
+
+    }
 
     render(){
         return(
-            <div>
-                <div className="form-row mb-5">
-                {this.state.listaProdutos.map(produto =>
+            <div className="mb-5">
+                <div className="form-row">
+                <CarregandoMaior loading={this.state.loading} message='carregando ...'></CarregandoMaior>
+                    {this.state.listaProdutos.map(produto =>
                     <div key={produto.codPedido} className="form-group col-md-4">
                         <div className="card ml-3 caixa">
                             <div className="card-header text-center text-uppercase font-weight-bold">
-                                {produto.cliente.nome}
+                                    {produto.cliente.nome}
                             </div>
                             <div className="card-body">
-                                <p className="texto_produto text-center">Dada de entrega: {this.formataData(produto.dataEntrega)}</p>
+                                <p className="texto_produto text-center">Data de entrega: {this.formataData(produto.dataEntrega)}</p>
                                 <p className="texto_produto text-center">Hora da entrega: {this.formataHora(produto.dataEntrega)}</p>
                                 <p className="texto_produto text-center">pagamento: {produto.tipoPagamento === 'B' ? 'Boleto' : 'Crédito'}</p>
                                 <p className="texto_produto text-center">Preço: R${produto.valorTotal}</p>
-
-                                <BotaoTodosProdutos id="Detalhes" tipo="button" classe="btn btn-primary btn_detalhes_center" onClick={() => this.detalhes(produto.codPedido)}></BotaoTodosProdutos>
+                                <BotaoTodosProdutos id="Recusar" tipo="button" classe="btn btn-danger m-1" onClick={() => this.aceitarRecusar("R",produto.codPedido)}></BotaoTodosProdutos>
                             </div>
                         </div>
                     </div>
-                )}
+                    )}
                 </div>
             
                 <div>
-                    <Link to={"/adm/profissional/todos_produtos/"+this.props.codConfeiteiro+"/aprovados"}><p className="link_vermais text-right">Ver mais</p></Link>
+                    <Link to={"/adm/profissional/todos_produtos/"+this.props.codConfeiteiro+"/aguardando_resposta"}><p className="link_vermais text-right">Ver mais</p></Link>
                 </div>
                 <Modal
                     show={this.state.showConfirm}
@@ -135,7 +160,6 @@ export default class Aprovados extends Component{
                             <SubTitulos sub="Detalhes dos produtos"/>
                             
                             <table className="table table_modal">
-                                
                                     <thead>
                                         <tr>
                                             <th scope="col">Produto</th>
@@ -166,7 +190,7 @@ export default class Aprovados extends Component{
                 </Modal>
             </div>
             
-
+            
         );
     }
 }

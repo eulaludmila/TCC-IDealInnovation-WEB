@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {BotaoTodosProdutos} from '../../../global/BotaoTodosProdutos'
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import axios from 'axios';
 import { ipAPI } from '../../../../../link_config';
 import {Modal} from 'react-bootstrap';
@@ -10,7 +10,7 @@ import '../Modal/Componentes/Css/modal.css';
 import {CarregandoMaior} from '../../../../Carregamento'
 import $ from 'jquery';
 
-export default class AguardandoResposta extends Component{
+export default class NaoIniciados extends Component{
 
     constructor(props){
         super(props);
@@ -100,8 +100,9 @@ export default class AguardandoResposta extends Component{
             data: resposta,
             success: function (resposta) {
                 console.log(resposta);
-                this.trazerPedidos();
-                
+                this.setState({listaProdutos:[]})
+                browserHistory.push("/adm/profissional/todos_produtos/" + this.props.codConfeiteiro)
+                // return <Redirect to={"/adm/profissional/todos_produtos/" + this.props.codConfeiteiro}/>
            }.bind(this)
 
         });
@@ -171,7 +172,7 @@ export default class AguardandoResposta extends Component{
                                     </thead>
                                     <tbody>
                                     {this.state.listaItens.map( item => 
-                                        <tr>
+                                        <tr key={item.produto.codProduto}>
                                             <td>{item.produto.nomeProduto}</td>
                                             <td>{item.quantidade}</td>
                                             <td>R${item.produto.preco}</td>

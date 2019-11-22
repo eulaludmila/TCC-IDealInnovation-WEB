@@ -18,7 +18,7 @@ export class ProdutosCadastrados extends Component{
     constructor(props){
         super(props);
 
-        this.state = {confeiteiro: "", avaliacao: "", listaProdutos: [], ativoDesativo: "", classAtivo:"btn-success", classDesativo:"btn-danger", showConfirm:false, categoria: "", produto: [], loading:false};
+        this.state = {confeiteiro: "", avaliacao: "", listaProdutos: [], listaPesquisa:[] ,ativoDesativo: "", classAtivo:"btn-success", classDesativo:"btn-danger", showConfirm:false, categoria: "", produto: [], loading:false, pesquisa:''};
 
     }
 
@@ -27,6 +27,17 @@ export class ProdutosCadastrados extends Component{
 
         this.trazerProdutos();
         
+    }
+
+    setPesquisa = (evento) =>{
+
+        this.setState({pesquisa:evento.target.value})
+        if(evento.target.value === ""){
+            this.setState({loading:true})
+            this.trazerProdutos()
+            this.setState({listaProdutos:[]})
+        }
+
     }
 
     trazerProdutos = () =>{
@@ -119,6 +130,18 @@ export class ProdutosCadastrados extends Component{
         })
     }
 
+    pesquisar = (pesquisa) => {
+
+        var p = this.state.listaProdutos.filter( 
+            evento => pesquisa === evento.nomeProduto || pesquisa === evento.descricao
+        )
+
+
+        this.setState({listaProdutos: p})
+
+
+    }
+
   render(){
     return (
        
@@ -137,10 +160,10 @@ export class ProdutosCadastrados extends Component{
 
               <Form style={{'width':'27em','marginLeft':'auto'}}>
                 <div style={{'width':'70%','float':'left','marginRight':'17px'}}>
-                  <FormControl type="text" placeholder="Pesquisa" className="mr-sm-2" style={{}}/>
+                  <FormControl type="text" placeholder="Pesquisa" onChange={this.setPesquisa} className="mr-sm-2" style={{}}/>
                 </div>
                 <div >
-                  <Button variant="btn btn-cadastrar" >Pesquisa</Button>
+                  <Button variant="btn btn-cadastrar" onClick={() => this.pesquisar(this.state.pesquisa)}>Pesquisa</Button>
                 </div>
               </Form>
 

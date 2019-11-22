@@ -7,7 +7,7 @@ import './js/index';
 import { Link, browserHistory } from 'react-router';
 // import $ from 'jquery';
 import { DropdownButton, Dropdown, Nav, Navbar } from 'react-bootstrap'
-import decode from 'jwt-decode'
+// import decode from 'jwt-decode'
 
 
 export class Header extends Component {
@@ -40,7 +40,7 @@ export class Header extends Component {
 
         } else {
 
-            var cod = decode(sessionStorage.getItem('authC'))
+            // var cod = decode(sessionStorage.getItem('authC'))
 
         //     console.log("/cliente/" + cod.codUsuario)
         //     dropdown = <NavDropdown title="Dropdown" id="basic-nav-dropdown">

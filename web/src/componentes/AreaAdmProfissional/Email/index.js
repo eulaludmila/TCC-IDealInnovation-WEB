@@ -5,7 +5,7 @@ import { InputEmailSenha } from '../global/InputEmailSenha';
 import $ from 'jquery';
 import {Modal} from 'react-bootstrap';
 import {ipAPI} from '../../../link_config'
-import decode from 'jwt-decode'
+// import decode from 'jwt-decode'
 import email from 'email-validator'
 
 

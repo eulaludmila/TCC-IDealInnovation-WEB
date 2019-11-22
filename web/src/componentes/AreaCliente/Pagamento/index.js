@@ -3,6 +3,9 @@ import {Row, Col, Button} from 'react-bootstrap'
 import axios from 'axios'
 import { ipAPI } from '../../../link_config'
 import {CarregandoMaior} from '../../Carregamento'
+import {Modal} from 'react-bootstrap'
+import SubTitulos from '../../AreaAdmProfissional/TodosProdutos/Modal/Componentes/SubTitulos'
+import Infos from '../../AreaAdmProfissional/TodosProdutos/Modal/Componentes/Infos';
 
 export class PagamentoCliente extends Component{
 
@@ -137,6 +140,60 @@ export class PagamentoCliente extends Component{
              </div>
                 )}
             </div>
+            <Modal
+                    show={this.state.showConfirm}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                    onHide={this.close}
+                    >
+                    <div className="modal_detalhes">
+                        <Modal.Header className="header_modal" closeButton>
+                            <Modal.Title >
+                                <h2 className="titulo_modal text-uppercase">Detalhes</h2>
+                            </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <SubTitulos sub="Detalhes de entrega e pagamento"/>
+                            <Infos/>
+                            <div className="caixa_direita">
+                                <p className="font_modal">{this.state.data}</p>
+                                <p className="font_modal">Até as {this.state.hora}</p>
+                                <p className="font_modal">{this.state.pagamento === 'B' ? 'Boleto' : 'Crédito'}</p>
+                                <p className="font_modal">R${this.state.valorTotal}</p>
+                            </div>
+                            <SubTitulos sub="Detalhes dos produtos"/>
+                            
+                            <table className="table table_modal">
+                                
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Produto</th>
+                                            <th scope="col">Quantidade</th>
+                                            <th scope="col">Preço</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {this.state.listaItens.map( item => 
+                                        <tr key={item.codItemPedido}>
+                                            <td>{item.produto.nomeProduto}</td>
+                                            <td>{item.quantidade}</td>
+                                            <td>R${item.produto.preco}</td>
+                                        </tr>
+                                    )} 
+                                    </tbody>
+                            </table>
+
+                        <div className="caixa_obs">
+                                <h4>Observação</h4>
+                                    <textarea className="text_obs" disabled>{this.state.obs}</textarea>
+                            </div>
+                        </Modal.Body>   
+                        <Modal.Footer>
+                        
+                        </Modal.Footer> 
+                    </div>
+                </Modal>
             </div>
         )
     }
