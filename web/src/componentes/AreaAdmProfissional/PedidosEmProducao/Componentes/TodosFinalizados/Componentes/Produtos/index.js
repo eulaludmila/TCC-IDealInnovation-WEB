@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BotaoTodosProdutos} from '../../../../../global/BotaoTodosProdutos'
+import {BotaoTodosProdutos} from '../../../../../global/BotaoTodosProdutos';
 import axios from 'axios';
 import { ipAPI } from '../../../../../../../link_config';
 import {Modal} from 'react-bootstrap';
@@ -26,10 +26,9 @@ export default class Produtos extends Component{
     }
 
     componentDidMount(){
-        axios.get(`${ipAPI}pedido/recusado/${this.props.codConfeiteiro}`, {headers:{'Authorization':sessionStorage.getItem('auth')}})
+        axios.get(`${ipAPI}pedido/finalizado/pagamento/${this.props.codConfeiteiro}`, {headers:{'Authorization':sessionStorage.getItem('auth')}})
         .then(resposta => {
             const produtos = resposta.data;
-
             this.setState({listaProdutos: produtos});
         })
         
@@ -83,15 +82,14 @@ export default class Produtos extends Component{
        
    }
 
-
     render(){
         return(
         <div className="mb-5 mt-3 mb-3">
-            <Link to={"/adm/profissional/todos_produtos/"+this.props.codConfeiteiro}><img src={Voltar} alt="Voltar" title="Voltar"/></Link>
+            <Link to={"/adm/profissional/pedidos_em_producao/"+this.props.codConfeiteiro}><img src={Voltar} alt="Voltar" title="Voltar"/></Link>
             <div className="form-row">
-                <div className="form-group col-md-4 mt-3">
-                {this.state.listaProdutos.map(produto =>
-                    <div key={produto.codPedido} className="card ml-3 caixa">
+            {this.state.listaProdutos.map(produto =>
+                <div key={produto.codPedido} className="form-group col-md-4 mt-3">
+                    <div className="card ml-3 caixa">
                         <div className="card-header text-center text-uppercase font-weight-bold">
                                 {produto.cliente.nome}
                         </div>
@@ -104,8 +102,8 @@ export default class Produtos extends Component{
                             <BotaoTodosProdutos id="Detalhes" tipo="button" classe="btn btn-primary btn_detalhes_center" onClick={() => this.detalhes(produto.codPedido)}></BotaoTodosProdutos>
                         </div>
                     </div>
-                )}
                 </div>
+            )}
             </div>
             <Modal
                 show={this.state.showConfirm}
@@ -152,7 +150,7 @@ export default class Produtos extends Component{
 
                     <div className="caixa_obs">
                             <h4>Observação</h4>
-                            <textarea className="text_obs" defaultValue={this.state.obs} disabled></textarea>
+                                <textarea className="text_obs" disabled>{this.state.obs}</textarea>
                         </div>
                     </Modal.Body>   
                     <Modal.Footer>

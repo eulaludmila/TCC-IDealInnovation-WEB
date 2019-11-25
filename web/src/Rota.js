@@ -33,12 +33,16 @@ import { BoxEditarDadosPessoais } from './componentes/AreaAdmProfissional/DadosP
 import { BoxEditarEndereco } from './componentes/AreaAdmProfissional/EditarEndereco'
 import { BoxTelaEmail } from './componentes/AreaAdmProfissional/Email'
 import { BoxTelaSenha } from './componentes/AreaAdmProfissional/Senha'
-import { BoxPedidos } from './componentes/AreaAdmProfissional/PedidosAprovados'
+import { BoxPedidos } from './componentes/AreaAdmProfissional/PedidosEmProducao'
 import { BoxTodosAguardandoResposta } from './componentes/AreaAdmProfissional/TodosProdutos/Componentes/TodosAguardandoResposta';
 import { BoxTodosAprovados } from './componentes/AreaAdmProfissional/TodosProdutos/Componentes/TodosAprovados';
 import { BoxTodosRecusados } from './componentes/AreaAdmProfissional/TodosProdutos/Componentes/TodosRecusados';
 import { BoxTodosProdutos } from './componentes/AreaAdmProfissional/TodosProdutos';
-import { BoxCadastrarProdutos } from './componentes/AreaAdmProfissional/CadastroProduto'
+import { BoxCadastrarProdutos } from './componentes/AreaAdmProfissional/CadastroProduto';
+import { BoxTodosNaoIniciados } from './componentes/AreaAdmProfissional/PedidosEmProducao/Componentes/TodosNaoIniciados';
+import { BoxTodosEmAndamento } from './componentes/AreaAdmProfissional/PedidosEmProducao/Componentes/TodosEmAndamento';
+import { BoxTodosFinalizados } from './componentes/AreaAdmProfissional/PedidosEmProducao/Componentes/TodosFinalizados';
+
 
 
 export const Rota = () => (
@@ -83,14 +87,16 @@ export const Rota = () => (
             <Route path="/adm/profissional/editar_endereco/:codConfeiteiro" exact component={BoxEditarEndereco}></Route>
             <Route path="/adm/profissional/email/:codConfeiteiro" component={BoxTelaEmail}></Route>
             <Route path="/adm/profissional/senha/:codConfeiteiro" component={BoxTelaSenha}></Route>
-            <Route path="/adm/profissional/pedidos_aprovados/:codConfeiteiro" component={BoxPedidos}></Route>
+            <Route path="/adm/profissional/pedidos_em_producao/:codConfeiteiro" component={BoxPedidos}></Route>
             <Route path="/adm/profissional/cadastro_produtos/:codConfeiteiro" component={BoxCadastrarProdutos}></Route>
             <Route path="/adm/profissional/todos_produtos/:codConfeiteiro/aguardando_resposta" component={BoxTodosAguardandoResposta}></Route>
             <Route path="/adm/profissional/todos_produtos/:codConfeiteiro/aprovados" component={BoxTodosAprovados}></Route>
             <Route path="/adm/profissional/todos_produtos/:codConfeiteiro/recusados" component={BoxTodosRecusados}></Route>
             <Route exact path="/adm/profissional/cadastro_produtos/:codProduto?" component={BoxCadastrarProdutos}></Route>
             <Route path="/adm/profissional/todos_produtos/:codConfeiteiro" component={BoxTodosProdutos}></Route>
-
+            <Route path="/adm/profissional/pedidos_em_producao/:codConfeiteiro/nao_iniciados" component={BoxTodosNaoIniciados}></Route>
+            <Route path="/adm/profissional/pedidos_em_producao/:codConfeiteiro/em_andamento" component={BoxTodosEmAndamento}></Route>
+            <Route path="/adm/profissional/pedidos_em_producao/:codConfeiteiro/finalizados" component={BoxTodosFinalizados}></Route>
         </Route>
     </Router>
 )

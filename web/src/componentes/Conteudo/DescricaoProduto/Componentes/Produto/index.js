@@ -46,7 +46,7 @@ export default class Produto extends Component{
                     <h1>{this.state.nomeProduto}</h1>
                 </div>
                 <div className="col-md-6 mt-3">
-                <img src={this.state.imgFoto} className="img-fluid" alt={this.state.nomeProduto} title={this.state.nomeProduto}/>
+                <img src={this.state.imgFoto} className="img-fluid img_produto" alt={this.state.nomeProduto} title={this.state.nomeProduto}/>
                     <div className="avaliacao">
                         <Estrelas starDimension="25px" starRatedColor="#fcba03" starEmptyColor="#dedede" starSpacing="1px" rating={this.state.avaliacao} numberOfStars={5}></Estrelas>
                     </div>

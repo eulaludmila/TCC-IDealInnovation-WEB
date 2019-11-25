@@ -8,12 +8,12 @@ import Infos from '../../../Modal/Componentes/Infos';
 import '../../../Modal/Componentes/Css/modal.css';
 import Voltar from '../../../Img/Voltar.png';
 import { Link } from 'react-router';
-import $ from 'jquery'
 
 export default class Produtos extends Component{
 
     constructor(props){
         super(props);
+
         this.state={showConfirm:false, show:'', onHide:'', listaProdutos:[], listaItens:[], hora:'',data:'', valorTotal:'', pagamento:'', obs:''};
     }
 
@@ -21,10 +21,15 @@ export default class Produtos extends Component{
         this.setState({showConfirm:false});
     }
 
+    open=()=>{
+        this.setState({showConfirm:true});
+    }
+
     componentDidMount(){
-        axios.get(`${ipAPI}pedido/aguarde/${this.props.codConfeiteiro}`, {headers:{'Authorization':sessionStorage.getItem('auth')}})
+        axios.get(`${ipAPI}pedido/andamento/pagamento/${this.props.codConfeiteiro}`, {headers:{'Authorization':sessionStorage.getItem('auth')}})
         .then(resposta => {
             const produtos = resposta.data;
+            console.log(produtos)
             this.setState({listaProdutos: produtos});
         })
         
@@ -44,7 +49,6 @@ export default class Produtos extends Component{
             this.setState({pagamento:this.state.listaItens[0].pedido.tipoPagamento})
             this.setState({obs:this.state.listaItens[0].pedido.obs})
             this.setState({showConfirm:true});
-            
         }) 
     }
 
@@ -79,32 +83,15 @@ export default class Produtos extends Component{
        
    }
 
-   aceitarRecusar = (resposta, codPedido) =>{
-
-    $.ajax({
-        url: `${ipAPI}pedido/aprovacao/`+codPedido,
-        contentType: "application/json",
-        headers:{'Authorization':sessionStorage.getItem('auth')},
-        type: "put",
-        data: resposta,
-        success: function (resposta) {
-            console.log(resposta);
-            this.trazerPedidos();
-            
-       }.bind(this)
-
-    });
-
-}
 
     render(){
         return(
         <div className="mb-5 mt-3 mb-3">
-            <Link to={"/adm/profissional/todos_produtos/"+this.props.codConfeiteiro}><img src={Voltar} alt="Voltar" title="Voltar"/></Link>
+            <Link to={"/adm/profissional/pedidos_em_producao/"+this.props.codConfeiteiro}><img src={Voltar} alt="Voltar" title="Voltar"/></Link>
             <div className="form-row">
-            {this.state.listaProdutos.map(produto =>
-                <div key={produto.codPedido} className="form-group col-md-4 mt-3">
-                    <div className="card ml-3 caixa">
+                <div className="form-group col-md-4 mt-3">
+                {this.state.listaProdutos.map(produto =>
+                    <div key={produto.codPedido} className="card ml-3 caixa">
                         <div className="card-header text-center text-uppercase font-weight-bold">
                                 {produto.cliente.nome}
                         </div>
@@ -114,13 +101,11 @@ export default class Produtos extends Component{
                             <p className="texto_produto text-center">pagamento: {produto.tipoPagamento === 'B' ? 'Boleto' : 'Crédito'}</p>
                             <p className="texto_produto text-center">Preço: R${produto.valorTotal}</p>
 
-                            <BotaoTodosProdutos id="Detalhes" tipo="button" classe="btn btn-primary btn_detalhes" onClick={() => this.detalhes(produto.codPedido)}></BotaoTodosProdutos>
-                            <BotaoTodosProdutos id="Aceitar" tipo="button" classe="btn btn-success m-1" onClick={() => this.aceitarRecusar("A", produto.codPedido)}></BotaoTodosProdutos>
-                            <BotaoTodosProdutos id="Recusar" tipo="button" classe="btn btn-danger m-1" onClick={() => this.aceitarRecusar("R", produto.codPedido)}></BotaoTodosProdutos>
+                            <BotaoTodosProdutos id="Detalhes" tipo="button" classe="btn btn-primary btn_detalhes_center" onClick={() => this.detalhes(produto.codPedido)}></BotaoTodosProdutos>
                         </div>
                     </div>
-                </div>
                 )}
+                </div>
             </div>
             <Modal
                 show={this.state.showConfirm}
@@ -167,7 +152,7 @@ export default class Produtos extends Component{
 
                     <div className="caixa_obs">
                             <h4>Observação</h4>
-                                <textarea className="text_obs" disabled>{this.state.obs}</textarea>
+                            <textarea className="text_obs" defaultValue={this.state.obs} disabled></textarea>
                         </div>
                     </Modal.Body>   
                     <Modal.Footer>
