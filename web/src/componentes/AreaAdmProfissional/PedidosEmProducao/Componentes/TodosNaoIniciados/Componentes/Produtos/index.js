@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BotaoTodosProdutos} from '../../../../../global/BotaoTodosProdutos';
+import {BotaoTodosProdutos} from '../../../../../global/BotaoTodosProdutos'
 import axios from 'axios';
 import { ipAPI } from '../../../../../../../link_config';
 import {Modal} from 'react-bootstrap';
@@ -8,12 +8,12 @@ import Infos from '../../../Modal/Componentes/Infos';
 import '../../../Modal/Componentes/Css/modal.css';
 import Voltar from '../../../Img/Voltar.png';
 import { Link } from 'react-router';
+import $ from 'jquery'
 
 export default class Produtos extends Component{
 
     constructor(props){
         super(props);
-
         this.state={showConfirm:false, show:'', onHide:'', listaProdutos:[], listaItens:[], hora:'',data:'', valorTotal:'', pagamento:'', obs:''};
     }
 
@@ -21,12 +21,8 @@ export default class Produtos extends Component{
         this.setState({showConfirm:false});
     }
 
-    open=()=>{
-        this.setState({showConfirm:true});
-    }
-
     componentDidMount(){
-        axios.get(`${ipAPI}pedido/aprovado/${this.props.codConfeiteiro}`, {headers:{'Authorization':sessionStorage.getItem('auth')}})
+        axios.get(`${ipAPI}pedido/naoiniciado/pagamento/${this.props.codConfeiteiro}`, {headers:{'Authorization':sessionStorage.getItem('auth')}})
         .then(resposta => {
             const produtos = resposta.data;
             this.setState({listaProdutos: produtos});
@@ -48,6 +44,7 @@ export default class Produtos extends Component{
             this.setState({pagamento:this.state.listaItens[0].pedido.tipoPagamento})
             this.setState({obs:this.state.listaItens[0].pedido.obs})
             this.setState({showConfirm:true});
+            
         }) 
     }
 
@@ -82,10 +79,28 @@ export default class Produtos extends Component{
        
    }
 
+   aceitarRecusar = (resposta, codPedido) =>{
+
+    $.ajax({
+        url: `${ipAPI}pedido/aprovacao/`+codPedido,
+        contentType: "application/json",
+        headers:{'Authorization':sessionStorage.getItem('auth')},
+        type: "put",
+        data: resposta,
+        success: function (resposta) {
+            console.log(resposta);
+            this.trazerPedidos();
+            
+       }.bind(this)
+
+    });
+
+}
+
     render(){
         return(
         <div className="mb-5 mt-3 mb-3">
-            <Link to={"/adm/profissional/todos_produtos/"+this.props.codConfeiteiro}><img src={Voltar} alt="Voltar" title="Voltar"/></Link>
+            <Link to={"/adm/profissional/pedidos_em_producao/"+this.props.codConfeiteiro}><img src={Voltar} alt="Voltar" title="Voltar"/></Link>
             <div className="form-row">
             {this.state.listaProdutos.map(produto =>
                 <div key={produto.codPedido} className="form-group col-md-4 mt-3">
@@ -103,7 +118,7 @@ export default class Produtos extends Component{
                         </div>
                     </div>
                 </div>
-            )}
+                )}
             </div>
             <Modal
                 show={this.state.showConfirm}

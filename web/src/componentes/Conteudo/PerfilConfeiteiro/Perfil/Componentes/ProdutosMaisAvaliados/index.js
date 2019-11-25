@@ -31,6 +31,7 @@ export default class ProdutosMaisAvaliados extends Component{
                 <div className="row">  
                 {this.state.listaProdutos.map(produto =>     
                     <div key={produto.codProduto} className="card_produto">
+                        <Link to={"/descricao/" + produto.codProduto}>
                         <div className="card text-center mb-3" style={{'width': '14rem'}}>
                             <img className="card-img-top imagens-bolos" src={ipFotos+produto.foto} alt={produto.nomeProduto} title={produto.nomeProduto}/>
                             <div className="card-body">
@@ -41,6 +42,7 @@ export default class ProdutosMaisAvaliados extends Component{
                                 </div>
                             </div>
                         </div>
+                        </Link>
                     </div> 
                 )}
                 </div>

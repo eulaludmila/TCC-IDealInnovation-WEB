@@ -8,18 +8,20 @@ import SubTitulos from '../Modal/Componentes/SubTitulos'
 import Infos from '../Modal/Componentes/Infos';
 import '../Modal/Componentes/Css/modal.css';
 
-export default class Recusados extends Component{
+export default class Finalizado extends Component{
 
     constructor(props){
         super(props);
         this.state={showConfirm:false, show:'', onHide:'', listaProdutos:[], listaItens:[]};
+        
     }
 
     componentDidMount(){
-        axios.get(`${ipAPI}pedido/recusado/limit/${this.props.codConfeiteiro}`, {headers:{'Authorization':sessionStorage.getItem('auth')}})
+        axios.get(`${ipAPI}pedido/finalizado/limit/pagamento/${this.props.codConfeiteiro}`, {headers:{'Authorization':sessionStorage.getItem('auth')}})
         .then(resposta => {
             const produtos = resposta.data;
             this.setState({listaProdutos: produtos});
+            console.log(produtos);
         })
         
     }
@@ -45,7 +47,6 @@ export default class Recusados extends Component{
             this.setState({valorTotal:this.state.listaItens[0].pedido.valorTotal})
             this.setState({pagamento:this.state.listaItens[0].pedido.tipoPagamento})
             this.setState({showConfirm:true});
-            console.log(this.state.listaItens)
         }) 
     }
 
@@ -105,7 +106,7 @@ export default class Recusados extends Component{
                 </div>
             
                 <div>
-                    <Link to={"/adm/profissional/todos_produtos/"+this.props.codConfeiteiro+"/recusados"}><p className="link_vermais text-right">Ver mais</p></Link>
+                    <Link to={"/adm/profissional/pedidos_em_producao/"+this.props.codConfeiteiro+"/finalizados"}><p className="link_vermais text-right">Ver mais</p></Link>
                 </div>
                 <Modal
                     show={this.state.showConfirm}

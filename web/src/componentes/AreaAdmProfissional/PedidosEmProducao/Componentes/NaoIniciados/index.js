@@ -10,11 +10,10 @@ import '../Modal/Componentes/Css/modal.css';
 import {CarregandoMaior} from '../../../../Carregamento'
 import $ from 'jquery';
 
-export default class AguardandoResposta extends Component{
+export default class NaoIniciados extends Component{
 
     constructor(props){
         super(props);
-
         this.state={showConfirm:false, show:'',loading:false, onHide:'', listaProdutos:[], listaItens:[], hora:'',data:'', valorTotal:'', pagamento:'', obs:''};
     }
 
@@ -31,10 +30,9 @@ export default class AguardandoResposta extends Component{
 
     trazerPedidos = ()=>{
         this.setState({loading:true})
-        axios.get(`${ipAPI}pedido/aguarde/limit/${this.props.codConfeiteiro}`, {headers:{'Authorization':sessionStorage.getItem('auth')}})
+        axios.get(`${ipAPI}pedido/naoiniciado/limit/pagamento/${this.props.codConfeiteiro}`, {headers:{'Authorization':sessionStorage.getItem('auth')}})
         .then(resposta => {
             const produtos = resposta.data;
-            console.log(produtos)
             this.setState({loading:false})
             this.setState({listaProdutos: produtos});
         })
@@ -99,10 +97,8 @@ export default class AguardandoResposta extends Component{
             type: "put",
             data: resposta,
             success: function (resposta) {
-                console.log(resposta);
                 this.setState({listaProdutos:[]})
                 browserHistory.push("/adm/profissional/todos_produtos/" + this.props.codConfeiteiro)
-                // return <Redirect to={"/adm/profissional/todos_produtos/" + this.props.codConfeiteiro}/>
            }.bind(this)
 
         });
@@ -125,7 +121,7 @@ export default class AguardandoResposta extends Component{
                                 <p className="texto_produto text-center">Hora da entrega: {this.formataHora(produto.dataEntrega)}</p>
                                 <p className="texto_produto text-center">pagamento: {produto.tipoPagamento === 'B' ? 'Boleto' : 'Crédito'}</p>
                                 <p className="texto_produto text-center">Preço: R${produto.valorTotal}</p>
-                                <BotaoTodosProdutos id="Recusar" tipo="button" classe="btn btn-danger m-1" onClick={() => this.aceitarRecusar("R",produto.codPedido)}></BotaoTodosProdutos>
+                                <BotaoTodosProdutos id="Detalhes" tipo="button" classe="btn btn-primary btn_detalhes_center" onClick={() => this.detalhes(produto[0].codPedido)}></BotaoTodosProdutos>
                             </div>
                         </div>
                     </div>
@@ -133,7 +129,7 @@ export default class AguardandoResposta extends Component{
                 </div>
             
                 <div>
-                    <Link to={"/adm/profissional/todos_produtos/"+this.props.codConfeiteiro+"/aguardando_resposta"}><p className="link_vermais text-right">Ver mais</p></Link>
+                    <Link to={"/adm/profissional/pedidos_em_producao/"+this.props.codConfeiteiro+"/nao_iniciados"}><p className="link_vermais text-right">Ver mais</p></Link>
                 </div>
                 <Modal
                     show={this.state.showConfirm}

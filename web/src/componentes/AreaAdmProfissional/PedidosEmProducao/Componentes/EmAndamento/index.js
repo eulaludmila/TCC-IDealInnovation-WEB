@@ -8,7 +8,7 @@ import SubTitulos from '../Modal/Componentes/SubTitulos'
 import Infos from '../Modal/Componentes/Infos';
 import '../Modal/Componentes/Css/modal.css';
 
-export default class Aprovados extends Component{
+export default class EmAndamento extends Component{
 
     constructor(props){
         super(props);
@@ -29,9 +29,10 @@ export default class Aprovados extends Component{
     }
 
     trazerAprovados = () =>{
-        axios.get(`${ipAPI}pedido/aprovado/limit/${this.props.codConfeiteiro}`, {headers:{'Authorization':sessionStorage.getItem('auth')}})
+        axios.get(`${ipAPI}pedido/andamento/limit/pagamento/${this.props.codConfeiteiro}`, {headers:{'Authorization':sessionStorage.getItem('auth')}})
         .then(resposta => {
             const produtos = resposta.data;
+            console.log(produtos)
             this.setState({listaProdutos: produtos});
         })
     }
@@ -108,7 +109,7 @@ export default class Aprovados extends Component{
                 </div>
             
                 <div>
-                    <Link to={"/adm/profissional/todos_produtos/"+this.props.codConfeiteiro+"/aprovados"}><p className="link_vermais text-right">Ver mais</p></Link>
+                    <Link to={"/adm/profissional/pedidos_em_producao/"+this.props.codConfeiteiro+"/em_andamento"}><p className="link_vermais text-right">Ver mais</p></Link>
                 </div>
                 <Modal
                     show={this.state.showConfirm}

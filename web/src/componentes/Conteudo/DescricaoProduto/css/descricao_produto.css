@@ -5,6 +5,12 @@
     float: left;
 }
 
+.img_produto{
+    width: 200px;
+    height: 200px;
+    margin-bottom: 10px;
+}
+
 p{
     font-size: 18px;
 }

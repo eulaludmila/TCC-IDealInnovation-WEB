@@ -4,7 +4,7 @@ import Produtos from './Componentes/Produtos';
 import {ContainerAdm} from '../../../../../styles'
 
 
-export default class TodosAguardandoResposta extends Component{
+export default class TodosFinalizados extends Component{
     render(){
         return(
             <ContainerAdm className="container conteudo">
@@ -14,7 +14,7 @@ export default class TodosAguardandoResposta extends Component{
     }
 }
 
-export class BoxTodosAguardandoResposta extends Component{
+export class BoxTodosFinalizados extends Component{
 
     constructor(props){
         super(props)
@@ -24,8 +24,8 @@ export class BoxTodosAguardandoResposta extends Component{
     render(){
         return(
             <div>
-                <Header titulo="Pedidos aguardando resposta"></Header>
-                <TodosAguardandoResposta codConfeiteiro={this.props.params.codConfeiteiro}></TodosAguardandoResposta>
+                <Header titulo="Pedidos finalizados"></Header>
+                <TodosFinalizados codConfeiteiro={this.props.params.codConfeiteiro}></TodosFinalizados>
             </div>
         );
     }

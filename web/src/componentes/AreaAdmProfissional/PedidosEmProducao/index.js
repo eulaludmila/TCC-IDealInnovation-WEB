@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import Header from '../Header';
 import {ContainerAdm} from '../../../styles'
 import NaoIniciados from './Componentes/NaoIniciados';
-import Andamento from './Componentes/Andamento';
-import Finalizados from './Componentes/Finalizados';
+import EmAndamento from './Componentes/EmAndamento';
+import Finalizado from './Componentes/Finalizado';
 import Titulos from './Componentes/Titulos';
 
 export class AreaPedidos extends Component{
@@ -12,10 +12,10 @@ export class AreaPedidos extends Component{
             <ContainerAdm className="container conteudo">
                 <Titulos titulo="Não iniciados"/>
                 <NaoIniciados codConfeiteiro={this.props.codConfeiteiro}/>
-                <Titulos titulo="Em produção"/>
-                <Andamento codConfeiteiro={this.props.codConfeiteiro}/>
-                <Titulos titulo="Concluídos"/>
-                <Finalizados codConfeiteiro={this.props.codConfeiteiro}/>
+                <Titulos titulo="Em andamento"/>
+                <EmAndamento codConfeiteiro={this.props.codConfeiteiro}/>
+                <Titulos titulo="Finalizados"/>
+                <Finalizado codConfeiteiro={this.props.codConfeiteiro}/>
             </ContainerAdm>
         );
     }
