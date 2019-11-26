@@ -56,10 +56,9 @@ export default class Produto extends Component{
                     <div className="form-row">
                         {(() => {
                             if(this.state.tipoUni === "uni."){
-                                // useState()
-                                this.state.labelProdutoSelect = "Quantidade:";
+                                this.setState.labelProdutoSelect = "Quantidade:";
                             }else{
-                                this.state.labelProdutoSelect = "Kg:";
+                                this.setState.labelProdutoSelect = "Kg:";
                             }
                         })()}
                             

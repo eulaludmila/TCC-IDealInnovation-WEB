@@ -30,7 +30,6 @@ class LoginProfissional extends Component{
         axios.post(
              ipAPI +  "login/confeiteiro", login)
         .then(resposta => {
-            // console.log(resposta.data.token)
             sessionStorage.setItem("auth", resposta.data.token)
 
             Promise.resolve(resposta.data.token)
@@ -45,12 +44,10 @@ class LoginProfissional extends Component{
     }
 
     setEmail = (evento) => {
-        console.log(evento.target.value)
         this.setState({email: evento.target.value});
     }
 
     setSenha = (evento) => {
-        console.log(evento.target.value)
         this.setState({senha: evento.target.value});
     }
 

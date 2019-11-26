@@ -10,7 +10,6 @@ export default class CardConfeiteiro extends Component{
         super(props);
 
         this.state = {perfilConfeiteiro: [], confeiteiro:'', enderecoConfeiteiro:'', estadoConfeiteiro:'',avaliacao:0};
-        console.log(this.props.codConfeiteiro);
     }
 
     componentDidMount(){

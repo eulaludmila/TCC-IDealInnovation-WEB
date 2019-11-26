@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import $ from 'jquery';
 import { ipAPI } from '../../../../link_config';
-import {Carregando} from '../../../Carregamento'
+// import {Carregando} from '../../../Carregamento'
 
 //CLASSE SELECT FEMININO OU MASCULINO
 class SelectCategorias extends Component{
@@ -37,7 +37,7 @@ class SelectCategorias extends Component{
                 <label htmlFor="categoria">Categoria</label>
                 <select id={this.props.id}  onChange={this.props.onChange} className="form-control">
                     <option value=""> Selecione uma categoria...</option>
-                    <Carregando loading={this.state.loading} message='carregando ...'></Carregando>
+                    {/* <Carregando loading={this.state.loading} message='carregando ...'></Carregando> */}
                     {this.state.listaCategorias.map(categorias =>
                         <option key={categorias.codCategoria} value={categorias.codCategoria}>{categorias.categoria}   ({categorias.tipoUnidade})</option>
                         

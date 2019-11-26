@@ -1,6 +1,6 @@
 import React,{Component} from 'react'
 import './faleconosco.css'
-import {Form, Col, InputGroup,Button} from 'react-bootstrap'
+import {Form, InputGroup,Button} from 'react-bootstrap'
 import axios from 'axios'
 import {ButtonToolbar} from 'react-bootstrap'
 import {ModalCadastro} from '../../Modal'
@@ -56,13 +56,13 @@ export class FaleConosco extends Component{
                 <h1 className='center titulo-fale-conosco'>Fale Conosco</h1>
                 <div className='texto-fale-conosco'><p>Bem-vindo a nossa área de fale conosco. Esse é uma espaço exclusivamente reservado para que você nos envie a sua crítica, sugestão ou agradecimento. Agradecemos a sua mensagem e em breve entraremos em contato.</p></div>
                 <Form onSubmit={this.enviarForm}>
-                    <Form.Row>
-                        <Form.Group as={Col} controlId="formGridEmail">
-                        <Form.Label>*Nome:</Form.Label>
-                        <Form.Control type="text" placeholder="Digite seu nome" value = {this.state.nome}
-                                    onChange={this.setNome}/>
+                    
+                        <Form.Group  controlId="formGridEmail">
+                            <Form.Label>*Nome:</Form.Label>
+                            <Form.Control type="text" placeholder="Digite seu nome" value = {this.state.nome}
+                                        onChange={this.setNome}/>
                         </Form.Group>
-                        <Form.Group as={Col}>
+                        <Form.Group >
                             <Form.Label>*Email:</Form.Label>
                             <InputGroup>
                                 <InputGroup.Prepend>
@@ -80,7 +80,7 @@ export class FaleConosco extends Component{
                         </Form.Group>
 
                         
-                    </Form.Row>
+                    
 
                     <Form.Group controlId="formGridAddress1">
                         <Form.Label>*Assunto: </Form.Label>
