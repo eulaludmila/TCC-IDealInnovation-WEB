@@ -16,7 +16,6 @@ export class TelaEmail extends Component {
         super(props);
         this.state = { emailNovo: '', confirmEmail: '', message: "", classMessage: "", show:false, emailAtual:'' };
         this.atualizarListagem = this.atualizarListagem.bind(this);
-        console.log(this.props.codConfeiteiro)
 
     }
 
@@ -35,7 +34,6 @@ export class TelaEmail extends Component {
     }
 
     setEmailNovo = (evento) => {
-        console.log(evento.target.value)
         this.setState({ emailNovo: evento.target.value });
         if(email.validate(evento.target.value) === false){
             var mensagem = "Email é inválido";
@@ -57,8 +55,6 @@ export class TelaEmail extends Component {
         var mensagem = "";
         var id = "";
 
-        console.log(this.state.emailNovo.length);
-
         if (this.state.emailNovo.length < 13) {
             mensagem = "O campo e-mail deve ter no mínimo 13 caracteres";
             id = "#txt_novo_email";
@@ -66,8 +62,6 @@ export class TelaEmail extends Component {
             this.erroCaixaVazia(mensagem, id);
 
         } else if (this.state.emailNovo !== this.state.confirmEmail) {
-            // console.log("senha: " + this.state.senha)
-            // console.log("confirsenha: " + this.state.confirmSenha)
             mensagem = "O campo confirmação da senha está errada";
             id = "#txt_confirmar_email";
 
@@ -110,10 +104,6 @@ export class TelaEmail extends Component {
     }
 
     editarEmail = () => {
-        // let dados = decode(sessionStorage.getItem('auth'))
-
-        console.log(`${ipAPI}confeiteiro/email/`+this.props.codConfeiteiro)
-
         $.ajax({
             url: `${ipAPI}confeiteiro/email/`+this.props.codConfeiteiro,
             contentType: "application/json",

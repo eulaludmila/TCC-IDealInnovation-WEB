@@ -23,7 +23,6 @@ export class AreaEditarDadosPessoais extends Component{
     }
 
     componentDidMount(){
-        console.log(this.props.codConfeiteiro)
 
         axios.get(`${ipAPI}confeiteiro/`+this.props.codConfeiteiro,{headers: {'Authorization': sessionStorage.getItem('auth')}})
         .then(resposta => {
@@ -52,7 +51,6 @@ export class AreaEditarDadosPessoais extends Component{
 
         //PEGANDO O ARQUIVO DA FOTO
         let file = evento.target.files[0];
-        console.log("foto:" + file )
         if(evento.target.files[0].size !== null){
             var tamanho = evento.target.files[0].size
         }
@@ -64,7 +62,6 @@ export class AreaEditarDadosPessoais extends Component{
             this.setState({foto:file});
             let reader = new FileReader();
 
-            console.log("foto2:" + this.state.foto )
 
             //PREVIEW DA FOTO
             reader.onloadend = function(){
@@ -83,7 +80,6 @@ export class AreaEditarDadosPessoais extends Component{
 
     /*eventos do input do formulario*/
     setNome = (evento) => {
-        console.log(evento.target.value);
         this.setState({nome:evento.target.value});
         this.onFocusInput("#nome");
     }
@@ -173,13 +169,12 @@ export class AreaEditarDadosPessoais extends Component{
             sexo: this.state.sexo,
             dtNasc: this.state.dtNasc};
 
-        console.log(json)
 
         // axios.put(`${ipAPI}confeiteiroDTO/${this.props.codConfeiteiro}`, JSON.stringify(json), 
         // {headers: {'Authorization': sessionStorage.getItem('auth')}})
         // .then((res) => {
         //     let dados = res.dados
-        //     console.log(dados)
+
         //     this.setState({nomeProduto:""});
         //     this.setState({descricaoProduto:""});
         //     this.setState({qtdeMin:""});
@@ -214,7 +209,6 @@ export class AreaEditarDadosPessoais extends Component{
 
 
             }.bind(this),error:function(resposta){
-                console.log(resposta.responseText);
             }
 
 
@@ -225,13 +219,11 @@ export class AreaEditarDadosPessoais extends Component{
     enviarFormFoto=(codigo)=>{
 
         //PEGA O ARQUIVO DA FOTO E SALVA JUNTO COM O CODIGO DO CONFEITEIRO
-        console.log(codigo);
-        console.log(this.state.foto);
+
         var formDados= new FormData();
         formDados.append('foto', this.state.foto);
         formDados.append('codConfeiteiro', codigo);
 
-        console.log(formDados);
 
 
         $.ajax({

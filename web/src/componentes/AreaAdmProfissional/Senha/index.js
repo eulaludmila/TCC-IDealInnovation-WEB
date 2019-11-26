@@ -13,26 +13,22 @@ export class TelaSenha extends Component{
     constructor(props){
         super(props);
         this.state={ senhaAtual:'',senhaNova:'',confirmSenha:'',message:"", classMessage:"", codConfeiteiro:sessionStorage.getItem("key"), showConfirm:false};
-        console.log(this.props.codConfeiteiro)
     }
 
     
 
     setSenhaAtual=(evento)=>{
-        console.log(evento.target.value)
         this.setState({senhaAtual:evento.target.value});
         this.onFocusInput("#txt_senha");
     }
 
     setSenhaNova=(evento)=>{
-        console.log(evento.target.value)
         this.setState({senhaNova:evento.target.value});
         this.onFocusInput("#txt_nova_senha");
     }
 
 
     setConfirmSenha=(evento)=>{
-        console.log(evento.target.value)
         this.setState({confirmSenha:evento.target.value});
         this.onFocusInput("#txt_confirmar_senha");
     }
@@ -42,8 +38,6 @@ export class TelaSenha extends Component{
         evento.preventDefault();
         var mensagem = "";
         var id = "";
-
-        console.log(this.state.senha);
         
         if(this.state.senhaAtual.length < 8){
             mensagem = "O campo senha atual deve conter no mínimo 8 caracteres";
@@ -58,8 +52,6 @@ export class TelaSenha extends Component{
             this.erroCaixaVazia(mensagem, id);
         
         }else if(this.state.senhaNova !== this.state.confirmSenha){
-            console.log("senha: " + this.state.senha)
-            console.log("confirsenha: " + this.state.confirmSenha)
             mensagem = "O campo confirmação da senha está errada";
             id = "#txt_confirmar_senha";
 
@@ -108,7 +100,6 @@ export class TelaSenha extends Component{
 
                     this.atualizaSenha();
                 }
-                console.log("email:"+resposta);
 
             }.bind(this)
         })
@@ -124,7 +115,6 @@ export class TelaSenha extends Component{
             data:this.state.senhaNova,
             success: function(resposta)
             {
-                console.log(resposta);
                 this.setState({showConfirm:true});
                 this.setState({senhaAtual:""});
                 this.setState({senhaNova:""});

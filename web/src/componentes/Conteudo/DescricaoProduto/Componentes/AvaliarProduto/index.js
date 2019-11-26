@@ -15,7 +15,6 @@ export default class AvaliarProduto extends Component{
     constructor(props){
         super(props)
         this.state = {rating:0, nome:'',email:'', teaxo:'',show:false,emailVerificacao:'',senhaVerificacao:''}
-        console.log("/descricao/" + this.props.codProduto)
     }
 
     onFocus = (evento) => {

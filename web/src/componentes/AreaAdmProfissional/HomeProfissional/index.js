@@ -49,7 +49,7 @@ export class HomeProfissional extends Component{
             
           <Carregando loading={this.state.loading} message='carregando ...'></Carregando>
           {this.state.listaProdutos.map(produtos =>
-              <div className="card text-center float-left mb-5 mr-3 ml-3" style={{width: '15rem'}}>
+              <div key={produtos.codProduto} className="card text-center float-left mb-5 mr-3 ml-3" style={{width: '15rem'}}>
               <img className="card-img-top imagens-bolos" src={ipFotos + produtos.foto} alt={produtos.nomeProduto} title={produtos.nomeProduto}/>
               <div className="card-body">
                 <h5 className="card-title nome-bolo-adm">{produtos.nomeProduto}</h5>

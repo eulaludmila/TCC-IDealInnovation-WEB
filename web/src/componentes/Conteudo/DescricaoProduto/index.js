@@ -11,10 +11,6 @@ import '../DescricaoProduto/css/rate.css';
 
 export class DescricaoProduto extends Component{
 
-    componentDidMount(){
-        console.log(this.props.params.codProduto)
-    }
-
     render(){
         return(
 

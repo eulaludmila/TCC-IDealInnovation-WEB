@@ -18,8 +18,7 @@ export default class ProdutosMaisAvaliados extends Component{
         .then(resposta => {
             const produtos = resposta.data;
             
-            this.setState({listaProdutos: produtos})
-            console.log(resposta.data);
+            this.setState({listaProdutos: produtos});
         })
     }
 
