@@ -21,7 +21,8 @@ export class EnderecoCliente extends Component {
     setCep = (evento) =>{
     
         this.setState({cep:evento.target.value})
-
+        this.verificaCep(this.state.cep);
+        $("#cep").mask("00000-000");
     }
 
     setEndereco = (evento) =>{
@@ -64,6 +65,41 @@ export class EnderecoCliente extends Component {
         this.endereco();
     }
 
+    verificaCep = () => {
+        
+        //VÁRIAVEL PARA PEGAR O VALOR DO CEP
+        var cep = $("#cep").val();
+
+        //VERIFICANDO SE O CEP É VÁLIDO, SENDO COM 9 NÚMEROS
+        if(cep.length === 9){
+
+            // REQUISIÇÃO
+            $.ajax({
+            
+                url:`http://viacep.com.br/ws/${cep}/json/?callback=?`,
+                dataType:"json",
+                
+                success: function(resposta){
+
+                    //SE NÃO DE ERROR IRÁ MUDAR O ESTADO DOS COMPONENTES
+                    if(!resposta.erro){
+                        
+                        this.setState({estado:resposta.uf})
+                        this.setState({cidade:resposta.localidade})
+                        this.setState({bairro:resposta.bairro})
+                        this.setState({endereco:resposta.logradouro})
+
+                    }else{
+                        alert("CEP não encontrado");
+                    }
+                          
+                }.bind(this)
+
+            });
+        }
+
+    }
+
 
     verificaEndereco = () =>{
 
@@ -88,8 +124,9 @@ export class EnderecoCliente extends Component {
                console.log(dados)
                if(dados !== ""){
                     this.setState({ endereco: dados.endereco })
-                    this.setState({ cidade: dados.endereco.cidade.cidade })
-                    this.setState({ estado: dados.endereco.cidade.estado.uf })
+
+                    this.setState({ cidade: dados.cidade.cidade })
+                    this.setState({ estado: dados.cidade.estado.uf })
                     this.setState({ cep: dados.cep })
                     this.setState({ numero: dados.numero })
                     this.setState({ bairro: dados.bairro})
@@ -117,19 +154,21 @@ export class EnderecoCliente extends Component {
 
     cadastraEndereco = () =>{
 
-        const resposta = JSON.stringify({codCliente:this.props.codCliente,endereco:this.state.endereco, cep:this.state.cep,
-                        complemento:this.state.complemento,cidade:{cidade:this.state.cidade, estado:{uf:this.state.estado}},
-                        bairro:this.state.bairro,numero:this.state.numero})
+        const resposta = JSON.stringify(
+                        {cliente:{codCliente:this.props.codCliente},
 
+                        endereco:{endereco:this.state.endereco, cep:this.state.cep,
+                        complemento:this.state.complemento,cidade:{cidade:this.state.cidade, 
+                        estado:{uf:this.state.estado}},bairro:this.state.bairro,numero:this.state.numero}})
 
         $.ajax({
-            url: `${ipAPI}clienteDTO/`+this.props.codCliente,
+            url: `${ipAPI}enderecocliente/web/`+this.props.codCliente,
             contentType: "application/json",
             headers:{'Authorization':sessionStorage.getItem('authC')},
             type: "post",
             data: resposta,
             success: function (resposta) {
-                console.log(resposta);
+                console.log("cadastrou");
                 
            }
 
@@ -142,7 +181,6 @@ export class EnderecoCliente extends Component {
                         complemento:this.state.complemento,cidade:{cidade:this.state.cidade, estado:{uf:this.state.estado}},
                         bairro:this.state.bairro,numero:this.state.numero})
 
-
         $.ajax({
             url: `${ipAPI}clienteDTO/`+this.props.codCliente,
             contentType: "application/json",
@@ -150,7 +188,7 @@ export class EnderecoCliente extends Component {
             type: "put",
             data: resposta,
             success: function (resposta) {
-                console.log(resposta);
+                // console.log(resposta);
                 
            }
 
@@ -171,7 +209,7 @@ export class EnderecoCliente extends Component {
                             <Row className="show-grid">
                                 <Form.Group as={Col} md="2">
 
-                                    <InputLabel label="CEP:" type="text" name="txt-cep" onChange={this.setCep} value={this.state.cep} disabled={this.state.editar_endereco}></InputLabel>
+                                    <InputLabel label="CEP:" id="cep" type="text" name="txt-cep" onChange={this.setCep} value={this.state.cep} disabled={this.state.editar_endereco}></InputLabel>
 
                                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                 </Form.Group>

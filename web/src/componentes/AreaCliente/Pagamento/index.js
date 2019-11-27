@@ -104,11 +104,11 @@ export class PagamentoCliente extends Component{
                              <Col xl={12} xs={12} md={12} sm={12} lg={12} className='text-center mb-2'>
                                  Tipo de pagamento: {pedidos[0].tipoPagamento === "B" ? "Boleto" : "Crédito"}
                              </Col>
-                             <Col xl={12} xs={12} md={12} sm={12} lg={10}>
+                             <Col xl={12} xs={12} md={12} sm={12} lg={12}>
                                  <Row className="show-grid">
                                      <Col xs={12} xl={12} md={10} sm={9} lg={9} className="mb-3">
                                          <Row className="show-grid col">
-                                             <Col xl={12} xs={12} md={12}>
+                                             <Col xl={12} xs={12} md={12} className="pedido_confeiteiro">
                                                  Confeiteiro(a): {pedidos[1].confeiteiro.nome}HGHGHGHHHHHHHHHHHHHHHHHHHHHHHHHH
                                              </Col>
                                              <Col xl={12} xs={12} md={12}>

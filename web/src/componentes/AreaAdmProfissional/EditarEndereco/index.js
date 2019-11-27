@@ -69,7 +69,7 @@ export class AreaEditarCadastro extends Component{
     enviarForm(json){
         // evento.preventDefault();
 
-        console.log(json)
+        // console.log(json)
         $.ajax({
             url: `${ipAPI}endereco/${this.props.codConfeiteiro}`,
             contentType: 'application/json',

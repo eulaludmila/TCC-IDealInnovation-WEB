@@ -66,7 +66,7 @@ export class Perfil extends Component {
         axios.get(`${ipAPI}cliente/` + this.props.codCliente, { headers: { 'Authorization': sessionStorage.getItem('authC') } })
             .then(resposta => {
                 const dados = resposta.data;
-                console.log(dados)
+                // console.log(dados)
                 this.setState({ nome: dados.nome })
                 this.setState({ sobrenome: dados.sobrenome })
                 this.setState({ celular: dados.celular.celular })
@@ -206,12 +206,12 @@ export class Perfil extends Component {
                             </Row>
                             <Row className="show-grid">
                                 <Form.Group as={Col} md="6">
-                                    <InputLabel label="Senha:" type="password" name="txt-senha" onChange={this.setSenha} value={this.state.senha} disabled={this.state.editar_dados}></InputLabel>
+                                    <InputLabel label="Senha:" type="password" autocomplete='off' name="txt-senha" onChange={this.setSenha} value={this.state.senha} disabled={this.state.editar_dados}></InputLabel>
 
                                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                 </Form.Group>
                                 <Form.Group as={Col} md="6">
-                                    <InputLabel label="Confirmar Senha:" type="password" name="txt-confirm-senha" value={this.state.confirmsenha} disabled={this.state.editar_dados}></InputLabel>
+                                    <InputLabel label="Confirmar Senha:" autocomplete='off' type="password" name="txt-confirm-senha" value={this.state.confirmsenha} disabled={this.state.editar_dados}></InputLabel>
 
                                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                 </Form.Group>
