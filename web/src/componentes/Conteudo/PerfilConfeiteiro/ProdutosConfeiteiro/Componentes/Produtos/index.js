@@ -9,7 +9,6 @@ export default class Produtos extends Component{
         super(props);
 
         this.state = {listaProdutos: []};
-        console.log(this.props.codConfeiteiro)
     }
 
     componentDidMount(){
@@ -19,8 +18,6 @@ export default class Produtos extends Component{
             const produtos = resposta.data;
 
             this.setState({listaProdutos: produtos})
-
-            console.log(resposta.data);
         }).catch((err) => {console.log("Axioos:" + err)})
         
     }
@@ -29,7 +26,7 @@ export default class Produtos extends Component{
         return(
             <div className="container">
                 <hr className="mb-5"></hr>
-                <div className="row">  
+                <div className="row d-flex justify-content-center">  
                 {this.state.listaProdutos.map(produto =>                                                         
                     <div className="card_produto">
                         <div className="card text-center mb-5" style={{'width': '14rem'}}>

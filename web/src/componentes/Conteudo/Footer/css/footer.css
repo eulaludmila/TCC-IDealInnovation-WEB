@@ -1,5 +1,10 @@
 @font-face{font-family:fonte; src:url("../../Home/fonte/Pacifico.ttf")}
 
+.logo{
+    font-family: fonte;
+    color: #fff;
+}
+
 #myFooter {
     background-color: #3c3d41;
     color: white;
@@ -79,14 +84,17 @@
 
 #myFooter .facebook:hover {
     color: #0077e2;
+    cursor: pointer;
 }
 
 #myFooter .instagram:hover {
     color: purple;
+    cursor: pointer;
 }
 
 #myFooter .twitter:hover {
     color: #00aced;
+    cursor: pointer;
 }
 
 #myFooter .btn {

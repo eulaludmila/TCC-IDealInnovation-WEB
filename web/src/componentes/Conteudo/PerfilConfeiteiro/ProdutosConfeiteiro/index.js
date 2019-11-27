@@ -5,7 +5,6 @@ import Capa from '../CapaPerfil/ImgCapa/sobremesas.jpg';
 import CardConfeiteiro from '../CardConfeiteiro';
 import TituloProdutos from './Componentes/TituloProdutos';
 import Produtos from './Componentes/Produtos';
-import { Footer } from '../../Footer';
 
 export default class ProdutosConfeiteiro extends Component{
 
@@ -13,8 +12,6 @@ export default class ProdutosConfeiteiro extends Component{
         super(props);
 
         this.state = {codConfeiteiro:''};
-
-        console.log(this.props.params.codConfeiteiro);
     }
 
     render(){
@@ -27,7 +24,6 @@ export default class ProdutosConfeiteiro extends Component{
                     <Produtos codConfeiteiro={this.props.params.codConfeiteiro}/>
 
                 </div>
-                <Footer/>
             </div>
         );
     }

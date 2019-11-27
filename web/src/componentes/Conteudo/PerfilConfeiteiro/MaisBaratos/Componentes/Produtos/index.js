@@ -19,7 +19,6 @@ export default class Produtos extends Component{
             const produtos = resposta.data;
             
             this.setState({listaProdutos: produtos})
-            console.log(resposta.data);
         })
     }
 
@@ -27,7 +26,7 @@ export default class Produtos extends Component{
         return(
             <div className="container">
                 <hr className="mb-5"></hr>
-                <div className="row">
+                <div className="row d-flex justify-content-center">
                     {this.state.listaProdutos.map(produto =>
                     <div key={produto.codProduto} className="card_produto">
                         <Link to={"/descricao/" + produto.codProduto}>

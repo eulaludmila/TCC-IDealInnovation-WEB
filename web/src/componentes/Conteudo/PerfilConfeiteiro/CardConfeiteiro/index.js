@@ -34,7 +34,7 @@ export default class CardConfeiteiro extends Component{
                 <div className="row justify-content-center">
                     <div key={this.state.perfilConfeiteiro.codConfeiteiro} className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-10">
                         <div className="row img_perfil_confeiteiro center d-flex justify-content-center">
-                            <img  src={ipFotos + this.state.perfilConfeiteiro.foto} alt={this.state.perfilConfeiteiro.nome} title={this.state.perfilConfeiteiro.nome} className="img-fluid img-thumbnail img_confeiteiro col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6"/>
+                            <img  src={ipFotos + this.state.perfilConfeiteiro.foto} alt={this.state.perfilConfeiteiro.nome} title={this.state.perfilConfeiteiro.nome} className="img-fluid img_confeiteiro col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6"/>
                           
                         </div>
                         <div className="caixa_confeiteiro2 ">

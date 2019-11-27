@@ -27,7 +27,7 @@ export default class ProdutosMaisAvaliados extends Component{
         return(
             <div className="container">
                 <hr className="mb-5"></hr>
-                <div className="row">  
+                <div className="row d-flex justify-content-center">  
                 {this.state.listaProdutos.map(produto =>     
                     <div key={produto.codProduto} className="card_produto">
                         <Link to={"/descricao/" + produto.codProduto}>

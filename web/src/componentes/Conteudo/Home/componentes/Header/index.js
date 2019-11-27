@@ -7,7 +7,7 @@ import './js/index';
 import { Link, browserHistory } from 'react-router';
 // import $ from 'jquery';
 import { DropdownButton, Dropdown, Nav, Navbar } from 'react-bootstrap'
-// import decode from 'jwt-decode'
+import decode from 'jwt-decode'
 
 
 export class Header extends Component {
@@ -40,7 +40,7 @@ export class Header extends Component {
 
         } else {
 
-            // var cod = decode(sessionStorage.getItem('authC'))
+            var cod = decode(sessionStorage.getItem('authC'))
 
         //     console.log("/cliente/" + cod.codUsuario)
         //     dropdown = <NavDropdown title="Dropdown" id="basic-nav-dropdown">
@@ -52,7 +52,7 @@ export class Header extends Component {
         // </NavDropdown>
         dropdown =
             <DropdownButton variant='Primary' className="entrar_header btn_header" id="dropdown-basic-button" title="Eu">
-                {/* <Dropdown.Item><div><Link to={"/cliente/" + cod.codUsuario}>Configurações</Link></div></Dropdown.Item> */}
+                <Link to={"/cliente/" + cod.codUsuario}><div>Configurações</div></Link>
                 <Dropdown.Divider />
                 <Dropdown.Item onClick={this.logout}>Sair</Dropdown.Item>
             </DropdownButton>
@@ -66,11 +66,11 @@ export class Header extends Component {
                     <div className="center menu_pc">
 
                         <Navbar bg="#880e4f" expand="lg">
-                        
-                            <Link to='/'><div id="texto_header text-ce"> Show de Bolos</div></Link>
+                    
                             <Link to='/'><div className="logo_header"></div></Link>
                             <div className="logo_aux"></div>
                             <Navbar.Brand ><div className="menu_aux"></div></Navbar.Brand>
+                            <Link to='/'><div className="texto_header d-flex justify-content-center mr-5" id="texto_header"> Show de Bolos</div></Link>
                             <Navbar.Toggle aria-controls="basic-navbar-nav" />
                             
                             <Navbar.Collapse id="basic-navbar-nav">
