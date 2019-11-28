@@ -22,6 +22,7 @@ export class PagamentoCliente extends Component{
         axios.get(`${ipAPI}pedido/cliente/pagamento/` + this.props.codCliente, { headers: { 'Authorization': sessionStorage.getItem('authC') } })
             .then(resposta => {
                 const dados = resposta.data;
+                console.log(dados)
                this.setState({listaPedidos:dados})
     this.setState({loading:false})
 

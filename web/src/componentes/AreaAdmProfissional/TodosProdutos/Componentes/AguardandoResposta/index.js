@@ -101,6 +101,7 @@ export default class NaoIniciados extends Component{
             success: function (resposta) {
                 console.log(resposta);
                 this.setState({listaProdutos:[]})
+                this.trazerPedidos();
                 browserHistory.push("/adm/profissional/todos_produtos/" + this.props.codConfeiteiro)
                 // return <Redirect to={"/adm/profissional/todos_produtos/" + this.props.codConfeiteiro}/>
            }.bind(this)
