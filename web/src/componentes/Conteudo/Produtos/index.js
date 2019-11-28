@@ -64,7 +64,7 @@ class Produtos extends Component{
 
         this.setState({listaProdutos: p})
 
-        console.log(this.state.listaPesquisa)
+        // console.log(this.state.listaPesquisa)
 
     }
 
@@ -110,7 +110,7 @@ class Produtos extends Component{
                     
                 </div>
 
-                <div className="container produtos-todos">
+                <div className="container produtos-todos d-flex justify-content-center">
                 <CarregandoMaior loading={this.state.loading} message='carregando ...'></CarregandoMaior>
                 {this.state.listaPesquisa.map(produtos =>
                     <div key={produtos.codProduto}>

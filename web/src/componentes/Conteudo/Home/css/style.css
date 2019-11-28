@@ -648,7 +648,7 @@
 
   .propaganda{
     width: 100%;  
-    height: 100px;
+    height: 250px;
     margin-top: 80px;
     background-size: cover;
     padding: 0!important;
@@ -748,7 +748,7 @@
 
   .propaganda{
     width: 100%;  
-    height: 100px;
+    height: 250px;
     margin-top: 80px;
     background-size: cover;
     padding: 0!important;
@@ -848,7 +848,7 @@
 
   .propaganda{
     width: 100%;  
-    height: 100px;
+    height: 250px;
     margin-top: 80px;
     background-size: cover;
     padding: 0!important;
@@ -948,7 +948,7 @@
 
   .propaganda{
     width: 100%;  
-    height: 100px;
+    height: 250px;
     margin-top: 80px;
     background-size: cover;
     padding: 0!important;
@@ -1049,7 +1049,7 @@
 
   .propaganda{
     width: 100%;  
-    height: 100px;
+    height: 250px;
     margin-top: 80px;
     background-size: cover;
     padding: 0!important;
@@ -1149,7 +1149,7 @@
 
   .propaganda{
     width: 100%;  
-    height: 100px;
+    height: 250px;
     margin-top: 80px;
     background-size: cover;
     padding: 0!important;
@@ -1249,7 +1249,7 @@
 
   .propaganda{
     width: 100%;  
-    height: 100px;
+    height: 290px;
     margin-top: 80px;
     background-size: cover;
     padding: 0!important;
@@ -1349,7 +1349,7 @@
 
   .propaganda{
     width: 100%;  
-    height: 100px;
+    height: 290px;
     margin-top: 80px;
     background-size: cover;
     padding: 0!important;
@@ -1449,7 +1449,7 @@
 
   .propaganda{
     width: 100%;  
-    height: 100px;
+    height: 280px;
     margin-top: 80px;
     background-size: cover;
     padding: 0!important;
@@ -1549,7 +1549,7 @@
 
   .propaganda{
     width: 100%;  
-    height: 100px;
+    height: 300px;
     margin-top: 80px;
     background-size: cover;
     padding: 0!important;
@@ -1612,7 +1612,7 @@
 }
 }
 
-@media screen and (min-device-width:300px) and  (max-device-width:319px) {
+@media screen and (max-device-width:319px) {
  
   .foto-carrossel{
     height: 300px;
@@ -1649,7 +1649,7 @@
 
   .propaganda{
     width: 100%;  
-    height: 100px;
+    height: 350px;
     margin-top: 80px;
     background-size: cover;
     padding: 0!important;

@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import './sobre.css'
 import img from '../../../img/bolo_frutas.jpg'
+import confeiteiro from '../../../img/confeiteiro.jpg'
 import TituloSobre from './Componentes/TituloSobre';
 import TextoSobre from './Componentes/TextoSobre';
 
@@ -11,21 +12,24 @@ export default class Sobre extends Component{
             <div className="container">
                 <TituloSobre titulo="Sobre a Show de Bolos"/>
                 <div className="form-row mt-5">
-                    <TextoSobre texto="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.
-                            Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.
-                            Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.">
+                    <TextoSobre texto="A show de bolos surgiu em Agosto de 2019, com os principais objetivos em expandir o comércio 
+                    de confeitaria com a idéia de aproximar o cliente do confeiteiro 
+                    sem a necessidade de sair de casa. Assim gerando uma aproximação entre as duas partes 
+                    e aumentando o comércio dos confeiteiros caseiros que tem o sonho de vender seus bolos doces e/ou salgados.">
                     </TextoSobre>
                     <div className="form-group col-md-6">
-                        <img className='img1-sobre' alt="la" style={{'width':'100%','height':'300px'}} src={img}></img>
+                        <img className='img1-sobre' alt="la" style={{'width':'100%','height':'300px'}} src={confeiteiro}></img>
                     </div>
                 </div>
                 <div className="form-row mt-5 mb-5">
                     <div className="form-group col-md-6 d-flex justify-content-center">
                         <img className='img-fluid' alt="la" style={{'width':'100%','height':'300px'}} src={img}></img>
                     </div>
-                    <TextoSobre texto="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.
-                            Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.
-                            Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.">
+                    <TextoSobre texto="Os princípios da empresa se resumem em aproximar os confeiteiros e clientes, 
+                    deixando assim uma relação mais próxima entre eles, 
+                    vizando facilitar as vendas e as procuras por produtos de alta qualidade e doces para encomenda, 
+                    e assim criando mais visibilidades aos confeiteiros para comercializar seus produtos, 
+                    gerando um novo formato para trabalhar e aproximar os clientes e admiradores da confeitaria.">
                     </TextoSobre>
                 </div>
             </div>

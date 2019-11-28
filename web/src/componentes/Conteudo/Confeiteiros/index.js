@@ -128,7 +128,8 @@ export class Confeiteiros extends Component{
                 <CarregandoMaior loading={this.state.loading} message='carregando ...'></CarregandoMaior>
                 {this.state.listaConfeiteiros.map(confeiteiro =>
                     <div key={confeiteiro.codConfeiteiro}>
-                        <Link to={"/confeiteiro/" + confeiteiro.codConfeiteiro}><div className="card text-center prod-conf-pag  mb-5"  style={{'width': '14rem'}}>
+                        <Link to={"/confeiteiro/" + confeiteiro.codConfeiteiro}>
+                        <div className="card text-center prod-conf-pag mb-5"  style={{'width': '14rem'}}>
                             <img className="card-img-top imagens-bolos" src={ipFotos+confeiteiro.foto} alt={confeiteiro.nome}/>
                             <div className="card-body">
                                 <h5 className="card-title nome-bolo-adm">{confeiteiro.nome}</h5>
@@ -137,7 +138,8 @@ export class Confeiteiros extends Component{
                                     <Estrelas starDimension="25px" starRatedColor="#fcba03" starEmptyColor="#dedede" starSpacing="1px" rating={confeiteiro.avaliacao} numberOfStars={5}></Estrelas>
                                 </div>
                             </div>
-                        </div></Link>
+                        </div>
+                        </Link>
                     </div>
                 )}
                 </div>

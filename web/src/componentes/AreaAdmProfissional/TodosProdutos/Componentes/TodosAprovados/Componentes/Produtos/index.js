@@ -26,7 +26,7 @@ export default class Produtos extends Component{
     }
 
     componentDidMount(){
-        axios.get(`${ipAPI}pedido/aprovado/${this.props.codConfeiteiro}`, {headers:{'Authorization':sessionStorage.getItem('auth')}})
+        axios.get(`${ipAPI}pedido/aprovado/web/${this.props.codConfeiteiro}`, {headers:{'Authorization':sessionStorage.getItem('auth')}})
         .then(resposta => {
             const produtos = resposta.data;
             this.setState({listaProdutos: produtos});
