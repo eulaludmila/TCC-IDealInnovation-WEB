@@ -1,6 +1,8 @@
 .produtos-todos{
     min-height: 500px;
     height: auto;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 
@@ -83,8 +85,8 @@
    
     .prod-conf-pag{
       float: left !important;
-      margin-left: 2.5em;
-      margin-right: 2.5em;
+      margin-left: 3em;
+      margin-right: 3.5em;
       z-index: 5;
       
     }
@@ -107,7 +109,7 @@
 
     .prod-conf-pag{
       float: left !important;
-      margin-left: 0.5em;
+      margin-left: 1em;
       margin-right: 0.5em;
       z-index: 5;
       
@@ -120,7 +122,7 @@
 
     .prod-conf-pag{
       float: left !important;
-      margin-left: 0.2em;
+      margin-left: 10px;
       margin-right: 0.2em;
       z-index: 5;
       
@@ -238,12 +240,24 @@
   
   }
 
-  @media screen and (min-device-width:360px) and  (max-device-width:379px) {
+  @media screen and (min-device-width:375px) and  (max-device-width:379px) {
 
     .prod-conf-pag{
       float: left !important;
-      margin-left: 4em;
-      margin-right: 4em;
+      margin-left: 45px;
+      margin-right: 45px;
+      z-index: 5;
+      
+    }
+  
+  }
+
+  @media screen and (min-device-width:360px) and  (max-device-width:374px) {
+
+    .prod-conf-pag{
+      float: left !important;
+      margin-left: 36px;
+      margin-right: 36px;
       z-index: 5;
       
     }
@@ -254,8 +268,8 @@
    
     .prod-conf-pag{
       float: left !important;
-      margin-left: 3em;
-      margin-right: 3em;
+      margin-left: 28px;
+      margin-right: 28px;
       z-index: 5;
       
     }
@@ -267,8 +281,8 @@
    
     .prod-conf-pag{
       float: left !important;
-      margin-left: 2em;
-      margin-right: 2em;
+      margin-left: 18px;
+      margin-right: 18px;
       z-index: 5;
       
     }
@@ -280,8 +294,8 @@
    
     .prod-conf-pag{
       float: left !important;
-      margin-left: 1em;
-      margin-right: 1em;
+      margin-left: 10px;
+      margin-right: 10px;
       z-index: 5;
       
     }
