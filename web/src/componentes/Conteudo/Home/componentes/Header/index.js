@@ -42,15 +42,7 @@ export class Header extends Component {
         } else {
             
             var cod = decode(sessionStorage.getItem('authC'))
-console.log(cod)
-        //     console.log("/cliente/" + cod.codUsuario)
-        //     dropdown = <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-        //     <NavDropdown.Item>Action</NavDropdown.Item>
-        //     <NavDropdown.Item>Another action</NavDropdown.Item>
-        //     <NavDropdown.Item>Something</NavDropdown.Item>
-        //     <NavDropdown.Divider />
-        //     <NavDropdown.Item>Separated link</NavDropdown.Item>
-        // </NavDropdown>
+
         dropdown =
         <div className="d-flex justify-content-center mr-5 mb-2">
             <DropdownButton variant='Primary' style={{'width':'100px'}}className="drop_header btn_header" id="dropdown-basic-button" title='Dados'>

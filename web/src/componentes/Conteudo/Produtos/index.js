@@ -110,7 +110,7 @@ class Produtos extends Component{
                     
                 </div>
 
-                <div className="container produtos-todos d-flex justify-content-center">
+                <div className="container produtos-todosjustify-content-center">
                 <CarregandoMaior loading={this.state.loading} message='carregando ...'></CarregandoMaior>
                 {this.state.listaPesquisa.map(produtos =>
                     <div key={produtos.codProduto}>
