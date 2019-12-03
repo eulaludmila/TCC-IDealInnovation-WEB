@@ -27,8 +27,8 @@ export class SliderHome extends Component{
                         alt="First slide"
                     />
                     <Carousel.Caption>
-                        <h3>First slide label</h3>
-                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        <h3>Show de Bolos</h3>
+                        <p>Venham fazer parte dessa doçura</p>
                     </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item className="foto-carrossel">
@@ -39,8 +39,8 @@ export class SliderHome extends Component{
                     />
             
                     <Carousel.Caption>
-                        <h3>Second slide label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <h3>Clientes</h3>
+                        <p>Encontre tudo o que você precisa para sua festa de aniversário.</p>
                     </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item className="foto-carrossel">
@@ -51,9 +51,9 @@ export class SliderHome extends Component{
                     />
             
                     <Carousel.Caption>
-                        <h3>Third slide label</h3>
+                        <h3>Confeiteiros </h3>
                         <p>
-                        Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+                        Gerencie seus produtos, veja seu histórico de atendimento e muito mais.
                         </p>
                     </Carousel.Caption>
                     </Carousel.Item>

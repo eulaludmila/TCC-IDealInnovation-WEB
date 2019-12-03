@@ -70,9 +70,10 @@ export class Header extends Component {
                             <Navbar.Collapse id="basic-navbar-nav">
                             
                                 <Nav className="mr-auto">
+                                <Link to='/'><div className="item_menu">Home</div></Link>
                                     <Link to="/produtos"><div className="item_menu">Produtos</div></Link>
                                     <Link to="/confeiteiros"><div className="item_menu">Confeiteiros</div></Link>
-                                    <Link to='/sobre'><div className="item_menu">Categoria</div></Link>
+                                    
                                     <Link to='/faleconosco'><div className="item_menu">Contato</div></Link>
                                     <Link to='/sobre'><div className="item_menu">Sobre</div></Link>
                                     {loginCliente}

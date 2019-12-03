@@ -74,7 +74,7 @@ export default class Recusados extends Component{
        var dataEntrega = new Date(data);
        var ano = dataEntrega.getFullYear().toLocaleString().split(".");
        var dia = dataEntrega.getDate().toLocaleString();
-       var mes = dataEntrega.getMonth().toLocaleString();
+       var mes = dataEntrega.getMonth()+1;
 
        return dia + "/" + mes + "/" + ano[0] + ano[1]
        

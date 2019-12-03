@@ -77,7 +77,7 @@ export default class Produtos extends Component{
        var dataEntrega = new Date(data);
        var ano = dataEntrega.getFullYear().toLocaleString().split(".");
        var dia = dataEntrega.getDate().toLocaleString();
-       var mes = dataEntrega.getMonth().toLocaleString();
+       var mes = dataEntrega.getMonth()+1;
 
        return dia + "/" + mes + "/" + ano[0] + ano[1]
        
@@ -89,8 +89,9 @@ export default class Produtos extends Component{
         <div className="mb-5 mt-3 mb-3">
             <Link to={"/adm/profissional/todos_produtos/"+this.props.codConfeiteiro}><img src={Voltar} alt="Voltar" title="Voltar"/></Link>
             <div className="form-row">
-                <div className="form-group col-md-4 mt-3">
                 {this.state.listaProdutos.map(produto =>
+                <div className="form-group col-md-4 mt-3">
+               
                     <div key={produto.codPedido} className="card ml-3 caixa">
                         <div className="card-header text-center text-uppercase font-weight-bold">
                                 {produto.cliente.nome}
@@ -104,8 +105,9 @@ export default class Produtos extends Component{
                             <BotaoTodosProdutos id="Detalhes" tipo="button" classe="btn btn-primary btn_detalhes_center" onClick={() => this.detalhes(produto.codPedido)}></BotaoTodosProdutos>
                         </div>
                     </div>
-                )}
+               
                 </div>
+                 )}
             </div>
             <Modal
                 show={this.state.showConfirm}

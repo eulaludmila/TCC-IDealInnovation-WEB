@@ -81,7 +81,8 @@ export default class NaoIniciados extends Component{
         var dataEntrega = new Date(data);
         var ano = dataEntrega.getFullYear().toLocaleString().split(".");
         var dia = dataEntrega.getDate().toLocaleString();
-        var mes = dataEntrega.getMonth().toLocaleString();
+        var mes = dataEntrega.getMonth()+1;
+        // console.log('mes:' + mes.toLocaleString())
 
         return dia + "/" + mes + "/" + ano[0] + ano[1]
         
@@ -91,14 +92,15 @@ export default class NaoIniciados extends Component{
     aceitarRecusar = (resposta, codPedido) =>{
 
         $.ajax({
-            url: `${ipAPI}pedido/aprovacao/`+codPedido,
+            url: `${ipAPI}pedido/producao/`+codPedido,
             contentType: "application/json",
             headers:{'Authorization':sessionStorage.getItem('auth')},
             type: "put",
             data: resposta,
             success: function (resposta) {
                 this.setState({listaProdutos:[]})
-                browserHistory.push("/adm/profissional/todos_produtos/" + this.props.codConfeiteiro)
+                browserHistory.push("/adm/profissional/pedidos_em_producao/" + this.props.codConfeiteiro)
+                this.trazerPedidos();
            }.bind(this)
 
         });
@@ -112,7 +114,7 @@ export default class NaoIniciados extends Component{
                 <CarregandoMaior loading={this.state.loading} message='carregando ...'></CarregandoMaior>
                     {this.state.listaProdutos.map(produto =>
                     <div key={produto.codPedido} className="form-group col-md-4">
-                        <div className="card ml-3 caixa">
+                        <div className="card ml-3">
                             <div className="card-header text-center text-uppercase font-weight-bold">
                                     {produto.cliente.nome}
                             </div>
@@ -121,7 +123,9 @@ export default class NaoIniciados extends Component{
                                 <p className="texto_produto text-center">Hora da entrega: {this.formataHora(produto.dataEntrega)}</p>
                                 <p className="texto_produto text-center">pagamento: {produto.tipoPagamento === 'B' ? 'Boleto' : 'Crédito'}</p>
                                 <p className="texto_produto text-center">Preço: R${produto.valorTotal}</p>
-                                <BotaoTodosProdutos id="Detalhes" tipo="button" classe="btn btn-primary btn_detalhes_center" onClick={() => this.detalhes(produto[0].codPedido)}></BotaoTodosProdutos>
+                                <BotaoTodosProdutos id="Detalhes" tipo="button" classe="btn btn-primary ml-2 mr-1" onClick={() => this.detalhes(produto[0].codPedido)}></BotaoTodosProdutos>
+                                <BotaoTodosProdutos id="Andamento" tipo="button" classe="btn btn-success mr-1" onClick={() => this.aceitarRecusar("E", produto.codPedido)}></BotaoTodosProdutos>
+                                <BotaoTodosProdutos id="Finalizar" tipo="button" classe="btn btn-danger mr-1" onClick={() => this.aceitarRecusar("F",produto.codPedido)}></BotaoTodosProdutos>
                             </div>
                         </div>
                     </div>
