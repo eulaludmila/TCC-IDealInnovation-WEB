@@ -13,6 +13,8 @@ import {ipAPI} from '../../../link_config';
 import {ButtonToolbar} from 'react-bootstrap';
 // import axios from 'axios';
 import {Carregando} from '../../Carregamento'
+import imagem from './img/cake.png'
+
 
 
 export class CadastrarProdutos extends Component{
@@ -21,7 +23,7 @@ export class CadastrarProdutos extends Component{
     constructor(props){
         super(props);
 
-        this.state={foto: "", tamanhoFoto: "", nomeProduto: '', categoriaProduto:'', qtdeMin: '', qtdeMax: '', precoProduto: '' ,descricaoProduto: '',codCategoria: "", categoria:"", tipo:"", message:"", classMessage:"",showConfirm:false, loading:false, botao_invisivel:''}
+        this.state={foto: imagem, tamanhoFoto: "", nomeProduto: '', categoriaProduto:'', qtdeMin: '', qtdeMax: '', precoProduto: '' ,descricaoProduto: '',codCategoria: "", categoria:"", tipo:"", message:"", classMessage:"",showConfirm:false, loading:false, botao_invisivel:''}
         this.onFocusInput = this.onFocusInput.bind(this);
 
         this.enviaFormProduto = this.enviaFormProduto.bind(this);
@@ -73,22 +75,28 @@ export class CadastrarProdutos extends Component{
     setQtdMin = (evento) => {
         this.setState({qtdeMin: evento.target.value});
 
-        this.onFocusInput("#nome");
+        this.onFocusInput("#qtde-min");
     }
 
     setQtdMax = (evento) => {
         this.setState({qtdeMax: evento.target.value});
-        this.onFocusInput("#nome");
+        this.onFocusInput("#qtde-max");
     }
 
     setPreco = (evento) => {
-        this.setState({precoProduto: evento.target.value});
-        this.onFocusInput("#nome");
+        
+
+        this.onFocusInput("#preco"); 
+        $("#preco").mask("R$ 00,00");
+        
+        var preco = evento.target.value.substring(2).replace(",", ".")
+       
+        this.setState({precoProduto: preco});
     }
 
     setDescricao = (evento) => {
         this.setState({descricaoProduto: evento.target.value});
-        this.onFocusInput("#nome");
+        this.onFocusInput("#descricao");
     }
 
     //ERROS NOS INPUTS
@@ -266,7 +274,7 @@ export class CadastrarProdutos extends Component{
                             <div className="form-row">
                                 <InputCadastro className="form-group col-md-4" id="qtde-min" type="number" placeholder="1" label="Qtd. Mínima" onChange={this.setQtdMin}></InputCadastro>
                                 <InputCadastro className="form-group col-md-4" id="qtde-max" type="number" placeholder="10" label="Qtd. Máxima" onChange={this.setQtdMax}></InputCadastro>
-                                <InputCadastro className="form-group col-md-4" id="preco" type="text" placeholder="Ex.: R$0,00" label="Preço" onChange={this.setPreco}></InputCadastro>
+                                <InputCadastro className="form-group col-md-4" id="preco" type="text" placeholder="R$ 00,00" label="Preço" onChange={this.setPreco}></InputCadastro>
                             </div>
 
                             <DescricaoProduto className="form-group" id="descricao" label="Descrição" onChange={this.setDescricao}></DescricaoProduto>
@@ -289,7 +297,7 @@ export class CadastrarProdutos extends Component{
                 </form>
 
                 <ButtonToolbar>
-                    <ModalCadastro titulo="Atualização Realizada com sucesso"
+                    <ModalCadastro titulo="Sucesso!"
                         show={this.state.showConfirm}
                         onHide={this.close}
                     />

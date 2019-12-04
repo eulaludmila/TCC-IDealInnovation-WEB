@@ -12,6 +12,9 @@ import '../../componentes/AreaAdmProfissional/ProdutosCadastrados/produtos_cadas
 
 import '../../css/font/css/all.css'
 import '../../js/accordian'
+
+import {movePage} from '../../link_config'
+
 // import Header from '../AreaAdmProfissional/Header'
 import Menu from '../AreaAdmProfissional/Menu'
 import {browserHistory} from 'react-router'
@@ -24,6 +27,9 @@ class AdmProfissional extends Component {
     this.state={status:''}
   }
 
+  componentDidUpdate(){
+    movePage(0)
+  }
 
  componentDidMount(){
    if(sessionStorage.getItem('auth') === null){

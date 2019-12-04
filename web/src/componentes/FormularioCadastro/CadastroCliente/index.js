@@ -21,7 +21,7 @@ class CadastroCliente extends Component{
 
     cancelar = () => {
        
-        browserHistory.push("/cadastrar");
+        browserHistory.push("/");
     }
     //construtor para a realização do post
     constructor(props){

@@ -96,7 +96,7 @@ export default class Produtos extends Component{
                         <div className="card-body">
                             <p className="texto_produto text-center">Dada de entrega: {this.formataData(produto.dataEntrega)}</p>
                             <p className="texto_produto text-center">Hora da entrega: {this.formataHora(produto.dataEntrega)}</p>
-                            <p className="texto_produto text-center">pagamento: {produto.tipoPagamento === 'B' ? 'Boleto' : 'Crédito'}</p>
+                            <p className="texto_produto text-center">Pagamento: {produto.tipoPagamento === 'B' ? 'Boleto' : 'Crédito'}</p>
                             <p className="texto_produto text-center">Preço: R${produto.valorTotal}</p>
 
                             <BotaoTodosProdutos id="Detalhes" tipo="button" classe="btn btn-primary btn_detalhes_center" onClick={() => this.detalhes(produto.codPedido)}></BotaoTodosProdutos>

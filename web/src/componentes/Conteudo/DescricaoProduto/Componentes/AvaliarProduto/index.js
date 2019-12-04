@@ -85,6 +85,11 @@ export default class AvaliarProduto extends Component{
 
     setEmailVerificacao = (evento) =>{
         this.setState({emailVerificacao:evento.target.value})
+        if(email.validate(evento.target.value)){
+
+        }else{
+            console.log('inválido')
+        }
     }
 
     setSenhaVerificacao = (evento) =>{
@@ -105,6 +110,18 @@ export default class AvaliarProduto extends Component{
     }
 
 
+    cadastrarAvaliacao = (evento) =>{
+        evento.preventDefault()
+        
+        if(sessionStorage.getItem('authC') === null){
+            this.setState({show:true})
+            
+        }
+
+        axios.post();
+    }
+
+
     render(){
         return(
             <div className="form-row mt-3 mb-4">
@@ -115,7 +132,7 @@ export default class AvaliarProduto extends Component{
                         <Estrelas starDimension="25px" numberOfStars={5}  starHoverColor="#fcba03" starRatedColor="#fcba03" starEmptyColor="#dedede" starSpacing="1px" rating={this.state.rating} changeRating={this.login} name="estrelas"></Estrelas>
                     </div>
                 </div>
-                <form className="container col-md-8 mt-3">
+                <form className="container col-md-8 mt-3" onSubmit={this.cadastrarAvaliacao}>
                     <TextAvaliar titulo="Escreva sua opinião:*" value={this.state.texto} onChange={this.setTexto} onFocus={() => this.onFocus("opiniao") } className="form-control txtArea foco" id="txt_opiniao" rows="5"/>
                     <div className="form-row mt-2">
                         <InputAvaliar className="form-group col-md-6" onFocus={() => this.onFocus("nome")} value={this.state.nome} onChange={this.setNome} label="Nome:*" type="text" id="txt_nome" classeIp="form-control"/>

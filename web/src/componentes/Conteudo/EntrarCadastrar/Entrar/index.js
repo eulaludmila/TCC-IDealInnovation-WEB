@@ -48,7 +48,7 @@ class Entrar extends Component{
                             guloseimas para a sua festa de aniversário."></GridAreaClienteProfissional> */}
                         
                             {/* // <!-- ÁREA DE ENTRAR PARA O PROFISSIONAL --> */}
-                            <div className="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12 entrar-cliente mb-4">
+                            <div className="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12 entrar-cliente entrar-prof mb-4">
                                 <div className="row">
                                 
                                     {/* // <!-- ICONE PROFISSIONAL --> */}

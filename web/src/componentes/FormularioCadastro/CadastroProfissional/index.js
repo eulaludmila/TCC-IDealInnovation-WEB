@@ -19,7 +19,7 @@ class CadastroProfissional extends Component{
     cancelar = () => {
         sessionStorage.removeItem('dados');
         sessionStorage.removeItem('endereco');
-        browserHistory.push("/cadastrar");
+        browserHistory.push("/");
     }
 
     //CONSTRUTOR DECLARANDO OS ESTADOS

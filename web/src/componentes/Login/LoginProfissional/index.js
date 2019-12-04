@@ -64,7 +64,7 @@ class LoginProfissional extends Component{
                     
                 <div className="col-xl-5 col-lg-7 col-md-7 col-sm-12 col-12 login">
 
-                    <Link to="/entrar"><div className="btn btn-outline-entrar rounded-circle voltar"> </div></Link>
+                    <Link to="/"><div className="btn btn-outline-entrar rounded-circle voltar"> </div></Link>
 
                     <form className="pure-form pure-form-stacked mb-5" onSubmit={this.autenticar}>
                         <fieldset>

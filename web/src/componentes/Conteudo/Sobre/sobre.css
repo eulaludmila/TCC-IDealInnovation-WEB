@@ -53,4 +53,21 @@
 
 .img1{width: 500px;
     float: left;
+    align-items: center;
 }
+
+.texto-sobre{
+    padding: 20px;
+}
+.titulo-sobre{
+    font-family: fonte;
+    color: #880e4f;
+    border-bottom: solid 2px #c4c4c4;
+    margin-top: 30px;
+}
+
+.caixa-titulo-sobre{
+    margin-top: 80px;
+}
+
+

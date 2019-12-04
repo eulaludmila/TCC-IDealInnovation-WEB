@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import {BotaoTodosProdutos} from '../../../global/BotaoTodosProdutos';
-import { Link} from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import axios from 'axios';
 import { ipAPI} from '../../../../../link_config';
 import {Modal} from 'react-bootstrap';
 import SubTitulos from '../Modal/Componentes/SubTitulos'
 import Infos from '../Modal/Componentes/Infos';
 import '../Modal/Componentes/Css/modal.css';
+import $ from 'jquery';
 
 export default class EmAndamento extends Component{
 
@@ -82,8 +83,25 @@ export default class EmAndamento extends Component{
 
        return dia + "/" + mes + "/" + ano[0] + ano[1]
        
-
    }
+
+   aceitarRecusar = (resposta, codPedido) =>{
+
+        $.ajax({
+            url: `${ipAPI}pedido/producao/`+codPedido,
+            contentType: "application/json",
+            headers:{'Authorization':sessionStorage.getItem('auth')},
+            type: "put",
+            data: resposta,
+            success: function (resposta) {
+                this.setState({listaProdutos:[]})
+                browserHistory.push("/adm/profissional/pedidos_em_producao/" + this.props.codConfeiteiro)
+                this.trazerAprovados();
+        }.bind(this)
+
+        });
+
+    }
 
     render(){
         return(
@@ -98,10 +116,10 @@ export default class EmAndamento extends Component{
                             <div className="card-body">
                                 <p className="texto_produto text-center">Dada de entrega: {this.formataData(produto.dataEntrega)}</p>
                                 <p className="texto_produto text-center">Hora da entrega: {this.formataHora(produto.dataEntrega)}</p>
-                                <p className="texto_produto text-center">pagamento: {produto.tipoPagamento === 'B' ? 'Boleto' : 'Crédito'}</p>
+                                <p className="texto_produto text-center">Pagamento: {produto.tipoPagamento === 'B' ? 'Boleto' : 'Crédito'}</p>
                                 <p className="texto_produto text-center">Preço: R${produto.valorTotal}</p>
-
-                                <BotaoTodosProdutos id="Detalhes" tipo="button" classe="btn btn-primary btn_detalhes_center" onClick={() => this.detalhes(produto.codPedido)}></BotaoTodosProdutos>
+                                <BotaoTodosProdutos id="Detalhes" tipo="button" classe="btn btn-primary ml-4" onClick={() => this.detalhes(produto.codPedido)}></BotaoTodosProdutos>
+                                <BotaoTodosProdutos id="Finalizar" tipo="button" classe="btn btn-danger ml-5" onClick={() => this.aceitarRecusar("F",produto.codPedido)}></BotaoTodosProdutos>
                             </div>
                         </div>
                     </div>
