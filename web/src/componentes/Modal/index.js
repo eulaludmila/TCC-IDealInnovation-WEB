@@ -45,8 +45,8 @@ export function ModalCadastro(props){
         </Modal.Header>
      
             <Modal.Body>
-                <p className="text-center">ParabĂ©ns!! Foi Realizado com sucesso</p>
-              
+                <p className="text-center"> Seu produto foi cadastrado com sucesso!</p>
+                <p className="text-center"> Agora ele pode ser visualizado em nosso site</p>
             </Modal.Body>
             <Modal.Footer>
                 <button type="button" onClick={props.onHide} className="btn btn-success">OK</button>

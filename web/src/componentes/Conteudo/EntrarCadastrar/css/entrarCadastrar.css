@@ -114,5 +114,9 @@ text-align: justify;
   background-size: contain;
 }
 
-
+@media only screen and (max-width: 991px){
+  .entrar-prof{
+    display: none;
+  }
+}
 

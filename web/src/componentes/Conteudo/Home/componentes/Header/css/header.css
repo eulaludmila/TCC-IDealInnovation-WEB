@@ -14,6 +14,18 @@
   display: inline!important;
 }
 
+.show{
+  transition: 2s;
+}
+
+button:focus{
+  outline: thin dotted;
+    outline: 0px auto -webkit-focus-ring-color;
+    outline-offset: 0px;
+  
+}
+
+
 .menu{
   height: 60px;
   background-color: #b41167;

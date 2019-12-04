@@ -24,9 +24,9 @@ export function ModalDetalhesProduto(props){
                 </div>
 
                 <ul className="list-group list-group-flush">
-                    <li className="list-group-item">R${props.preco},00</li>
+                    <li className="list-group-item">R${props.preco}</li>
                     <li className="list-group-item">{props.categoria}</li>
-                    <li className="list-group-item">Avaliação {props.avaliacao}</li>
+                    <li className="list-group-item">{props.avaliacao}</li>
                 </ul>
             </div>
         </Modal.Body>

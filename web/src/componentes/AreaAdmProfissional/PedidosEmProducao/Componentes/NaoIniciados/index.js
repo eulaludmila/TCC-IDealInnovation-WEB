@@ -121,11 +121,10 @@ export default class NaoIniciados extends Component{
                             <div className="card-body">
                                 <p className="texto_produto text-center">Data de entrega: {this.formataData(produto.dataEntrega)}</p>
                                 <p className="texto_produto text-center">Hora da entrega: {this.formataHora(produto.dataEntrega)}</p>
-                                <p className="texto_produto text-center">pagamento: {produto.tipoPagamento === 'B' ? 'Boleto' : 'Crédito'}</p>
+                                <p className="texto_produto text-center">Pagamento: {produto.tipoPagamento === 'B' ? 'Boleto' : 'Crédito'}</p>
                                 <p className="texto_produto text-center">Preço: R${produto.valorTotal}</p>
-                                <BotaoTodosProdutos id="Detalhes" tipo="button" classe="btn btn-primary ml-2 mr-1" onClick={() => this.detalhes(produto[0].codPedido)}></BotaoTodosProdutos>
-                                <BotaoTodosProdutos id="Andamento" tipo="button" classe="btn btn-success mr-1" onClick={() => this.aceitarRecusar("E", produto.codPedido)}></BotaoTodosProdutos>
-                                <BotaoTodosProdutos id="Finalizar" tipo="button" classe="btn btn-danger mr-1" onClick={() => this.aceitarRecusar("F",produto.codPedido)}></BotaoTodosProdutos>
+                                <BotaoTodosProdutos id="Detalhes" tipo="button" classe="btn btn-primary ml-4" onClick={() => this.detalhes(produto[0].codPedido)}></BotaoTodosProdutos>
+                                <BotaoTodosProdutos id="Em Andamento" tipo="button" classe="btn btn-success ml-5" onClick={() => this.aceitarRecusar("E", produto.codPedido)}></BotaoTodosProdutos>
                             </div>
                         </div>
                     </div>

@@ -89,7 +89,15 @@ export class ProdutosCadastrados extends Component{
 
             this.setState({produto: resposta.data})
             this.setState({categoria: this.state.produto.categoria.categoria})
-            this.setState({avaliacao: resposta.data.avaliacao})
+
+            var avaliacao = resposta.data.avaliacao;
+
+            if(avaliacao === 0){
+                this.setState({avaliacao: "Seu produto ainda não foi avaliado"})
+            } else {
+                this.setState({avaliacao: avaliacao + " avaliações"})
+            }
+           
             
 
             this.open()
@@ -187,7 +195,7 @@ export class ProdutosCadastrados extends Component{
                                 <p className="card-text mb-5 descricao">{produtos.descricao}</p>
                                 <div className="botao-centro">
                                     <Link to={"/adm/profissional/cadastro_produtos/" + produtos.codProduto}><button className="btn btn-warning mr-2">Editar</button></Link>
-                                    <button className="btn btn-dark  mr-2 "><img src={lupa} alt="..." onClick={() => this.detalhes(produtos.codProduto)}></img></button>
+                                    <button className="btn btn-dark  mr-2 " onClick={() => this.detalhes(produtos.codProduto)}><img src={lupa} alt="..." ></img></button>
                                     <input type="button" className={produtos.status === true ? "btn " + this.state.classDesativo :"btn " + this.state.classAtivo} id={produtos.codProduto} onClick={() => this.ativarDesativarProduto(produtos.codProduto)} value={produtos.status === true ? "Desativar" : "Ativar"}/>
                                 </div>
                             </div>
