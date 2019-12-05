@@ -14,9 +14,9 @@
   display: inline!important;
 }
 
-.show{
+/* .show{
   transition: 2s;
-}
+} */
 
 button:focus{
   outline: thin dotted;
