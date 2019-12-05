@@ -59,7 +59,7 @@ export class Header extends Component {
         dropdown =
         <div className="d-flex justify-content-center mr-5 mb-2">
             <DropdownButton variant='Primary' style={{'width':'100px'}}className="drop_header btn_header" id="dropdown-basic-button" title='Dados'>
-                <Link to={"/cliente/" + cod.codUsuario}><div>Configurações</div></Link>
+                <Link to={"/cliente/" + cod.codUsuario}><div onClick={this.fecharMenu}>Configurações</div></Link>
                 <Dropdown.Divider />
                 <Dropdown.Item onClick={this.logout}>Sair</Dropdown.Item>
             </DropdownButton>
